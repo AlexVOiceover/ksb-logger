@@ -79,17 +79,27 @@ class GitHubClient:
         url = f"https://api.github.com/search/issues?q=type:pr+author:{username}+created:>={since_str}&per_page=100"
         
         all_pull_requests = []
+        page_num = 1
+        
+        logging.info(f"Starting search for PRs authored by {username} since {since_str}")
         
         while url:
             try:
+                logging.info(f"Fetching page {page_num} of search results...")
                 search_data = self._make_request(url)
                 items = search_data.get('items', [])
+                total_count = search_data.get('total_count', 0)
                 
-                for pr_item in items:
+                logging.info(f"Found {len(items)} PRs on page {page_num} (total available: {total_count})")
+                
+                for i, pr_item in enumerate(items, 1):
                     # Extract PR details from search result
                     pr_number = pr_item["number"]
                     pr_url = pr_item["pull_request"]["url"]  # API URL
                     html_url = pr_item["pull_request"]["html_url"]  # Web URL
+                    repo_name = pr_item.get("repository_url", "").split("/")[-1] if pr_item.get("repository_url") else "unknown"
+                    
+                    logging.info(f"Processing PR {i}/{len(items)}: #{pr_number} in {repo_name}")
                     
                     # Get full PR details
                     pr_details = self._make_request(pr_url)
@@ -117,6 +127,7 @@ class GitHubClient:
                 # Check for next page in search results
                 response = requests.get(url, headers=self.headers)
                 url = response.links.get('next', {}).get('url')
+                page_num += 1
                 
             except GitHubAPIError as e:
                 logging.error(f"Failed to search for pull requests: {e}")

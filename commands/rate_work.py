@@ -46,3 +46,13 @@ def rate_work():
     rated_work = assess_prs_against_ksbs(prs, ksbs, llm_client)
     save_rated_work(rated_work_csv, rated_work)
     logging.info(f"Saved {len(rated_work)} rated work entries to {rated_work_csv}.")
+    
+    # Display session statistics
+    stats = llm_client.get_session_stats()
+    if "error" not in stats:
+        duration = stats["session_duration_minutes"]
+        tokens = stats["total_tokens"]
+        estimated_cost = stats["estimated_cost"]
+        logging.info(f"Session completed in {duration:.1f} minutes. Tokens used: {tokens:,} (~${estimated_cost:.4f})")
+    else:
+        logging.warning(f"Could not retrieve session statistics: {stats['error']}")

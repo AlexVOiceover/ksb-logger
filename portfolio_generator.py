@@ -92,6 +92,35 @@ def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksb
     """Generates the portfolio markdown file."""
     portfolio_content = []
     ksb_descriptions = {ksb.id: ksb.description for ksb in ksbs}
+    
+    # Generate KSB matching table at the beginning
+    table_lines = [
+        "# Portfolio",
+        "",
+        "## KSB Evidence Summary",
+        "",
+        "| KSB ID | Description | Evidence |",
+        "|--------|-------------|----------|"
+    ]
+    
+    # Sort KSBs for consistent ordering
+    sorted_ksbs = sorted(ksbs, key=lambda k: k.id)
+    
+    for ksb in sorted_ksbs:
+        ksb_id = ksb.id
+        description = ksb.description[:60] + "..." if len(ksb.description) > 60 else ksb.description
+        
+        if ksb_id in best_prs_per_ksb:
+            # Create anchor link to section (convert to lowercase, replace spaces with hyphens)
+            anchor = f"ksb-{ksb_id.lower()}"
+            evidence_link = f"[View Evidence](#{anchor})"
+        else:
+            evidence_link = "❌ No evidence yet"
+        
+        table_lines.append(f"| {ksb_id} | {description} | {evidence_link} |")
+    
+    table_lines.extend(["", "---", ""])
+    portfolio_content.extend(table_lines)
 
     # Load the variety kit
     try:
@@ -154,8 +183,9 @@ def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksb
             # Generate the chapter title
             chapter_title = llm_client.generate_chapter_title(response.content)
 
-            # Add the KSB heading, PR link, and the refined chapter to the portfolio
-            ksb_heading = f"## {chapter_title} [==KSB {ksb_id}==]"
+            # Add the KSB heading with anchor, PR link, and the refined chapter to the portfolio
+            anchor_id = f"ksb-{ksb_id.lower()}"
+            ksb_heading = f"## {chapter_title} {{#{anchor_id}}} [==KSB {ksb_id}==]"
             pr_link_tag = f"[==PR Link {pr.url} ==]"
             portfolio_content.append(ksb_heading)
             portfolio_content.append(pr_link_tag)
@@ -173,7 +203,7 @@ def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksb
 
     try:
         with open(output_file, 'w', encoding='utf-8') as f:
-            f.write("\n\n".join(portfolio_content))
+            f.write("\n".join(portfolio_content))
         logging.info(f"Portfolio markdown generated successfully at {output_file}")
     except IOError as e:
         logging.error(f"Error writing portfolio markdown to {output_file}: {e}")

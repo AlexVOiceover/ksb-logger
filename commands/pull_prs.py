@@ -17,9 +17,9 @@ def pull_prs(username, days_back):
     github_client = GitHubClient(token=github_token)
     pull_requests_csv = "output/pull_requests.csv"
 
-    logging.info(f"Fetching new PRs for {username} from the last {days_back} days...")
+    logging.info(f"Searching for PRs authored by {username} from the last {days_back} days...")
     try:
-        prs = github_client.get_pull_requests(username, days_back)
+        prs = github_client.search_pull_requests_by_author(username, days_back)
         save_pull_requests(pull_requests_csv, prs)
         logging.info(f"Fetched and saved {len(prs)} PRs.")
     except GitHubAPIError as e:

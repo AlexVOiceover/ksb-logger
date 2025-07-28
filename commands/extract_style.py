@@ -33,6 +33,17 @@ def extract_style():
         # The style guide is returned as a dictionary, so we'll print it for now
         # In a real application, you might want to save this to a file
         click.echo(style_guide)
+        
+        # Display session statistics
+        stats = llm_client.get_session_stats()
+        if "error" not in stats:
+            duration = stats["session_duration_minutes"]
+            tokens = stats["total_tokens"]
+            estimated_cost = stats["estimated_cost"]
+            logging.info(f"Session completed in {duration:.1f} minutes. Tokens used: {tokens:,} (~${estimated_cost:.4f})")
+        else:
+            logging.warning(f"Could not retrieve session statistics: {stats['error']}")
+            
     except (LLMAPIError, LLMResponseError) as e:
         logging.error(f"Error analyzing writing style with LLM: {e}")
     except Exception as e:

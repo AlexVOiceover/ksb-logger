@@ -1,6 +1,8 @@
 import os
 import json
 import logging
+import time
+import requests
 from typing import List, Dict, Any, Optional
 # from langchain_groq import ChatGroq  # Commented out - replaced with OpenAI
 from langchain_openai import ChatOpenAI
@@ -24,11 +26,103 @@ class LLMClient:
         # def __init__(self, api_key: str = None, model_name: str = "llama3-70b-8192", llm_instance: Optional[ChatGroq] = None):  # Groq version
         if llm_instance:
             self.llm = llm_instance
+            self.api_key = None  # Can't track costs without API key
         else:
             if not api_key:
                 raise ValueError("API key must be provided if llm_instance is not given.")
             # self.llm = ChatGroq(api_key=api_key, model_name=model_name)  # Groq version
             self.llm = ChatOpenAI(api_key=api_key, model=model_name)
+            self.api_key = api_key
+        
+        # Track session statistics
+        self.session_start_time = int(time.time())
+        self.total_tokens = 0
+        self.prompt_tokens = 0
+        self.completion_tokens = 0
+
+    def _track_token_usage(self, response) -> None:
+        """Track token usage from LLM response."""
+        try:
+            if hasattr(response, 'usage_metadata') and response.usage_metadata:
+                usage = response.usage_metadata
+                self.prompt_tokens += usage.get('input_tokens', 0)
+                self.completion_tokens += usage.get('output_tokens', 0)
+                self.total_tokens += usage.get('total_tokens', 0)
+            elif hasattr(response, 'response_metadata') and 'token_usage' in response.response_metadata:
+                usage = response.response_metadata['token_usage']
+                self.prompt_tokens += usage.get('prompt_tokens', 0)
+                self.completion_tokens += usage.get('completion_tokens', 0) 
+                self.total_tokens += usage.get('total_tokens', 0)
+        except Exception as e:
+            logging.debug(f"Could not track token usage: {e}")
+
+    def get_session_stats(self) -> Dict[str, Any]:
+        """Get session statistics including token usage and estimated cost."""
+        try:
+            end_time = int(time.time())
+            duration = (end_time - self.session_start_time) / 60
+            
+            # Estimate cost based on GPT-4o pricing (approximate)
+            # Input: ~$0.005/1K tokens, Output: ~$0.015/1K tokens
+            estimated_cost = (self.prompt_tokens * 0.005 / 1000) + (self.completion_tokens * 0.015 / 1000)
+            
+            return {
+                "total_tokens": self.total_tokens,
+                "prompt_tokens": self.prompt_tokens,
+                "completion_tokens": self.completion_tokens,
+                "estimated_cost": estimated_cost,
+                "session_duration_minutes": duration,
+                "start_time": self.session_start_time,
+                "end_time": end_time
+            }
+        except Exception as e:
+            return {"error": f"Error calculating session stats: {e}"}
+
+    def get_session_costs(self) -> Dict[str, Any]:
+        """Get current session costs from OpenAI API."""
+        if not self.api_key:
+            return {"error": "API key not available for cost tracking", "cost": 0.0}
+        
+        try:
+            # Current time as end point
+            end_time = int(time.time())
+            
+            # Query OpenAI costs API
+            url = "https://api.openai.com/v1/organization/costs"
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json"
+            }
+            params = {
+                "start_time": self.session_start_time,
+                "end_time": end_time,
+                "bucket_width": "1d"  # Daily buckets
+            }
+            
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            # Sum up costs from all buckets in the session timeframe
+            total_cost = 0.0
+            if "data" in data:
+                for bucket in data["data"]:
+                    total_cost += bucket.get("cost", 0.0)
+            
+            return {
+                "session_cost": total_cost,
+                "session_duration_minutes": (end_time - self.session_start_time) / 60,
+                "start_time": self.session_start_time,
+                "end_time": end_time
+            }
+            
+        except requests.exceptions.RequestException as e:
+            logging.warning(f"Could not fetch cost data from OpenAI: {e}")
+            return {"error": f"API request failed: {e}", "cost": 0.0}
+        except Exception as e:
+            logging.warning(f"Error getting session costs: {e}")
+            return {"error": f"Unexpected error: {e}", "cost": 0.0}
 
     def _load_prompt_from_file(self, file_name: str) -> str:
         file_path = os.path.join("prompts", file_name)
@@ -46,6 +140,9 @@ class LLMClient:
             
             chain = prompt | self.llm
             response = chain.invoke({"text": text})
+            
+            # Track token usage
+            self._track_token_usage(response)
             
             # The response may contain markdown ```json ... ``` or other text, so we need to handle that
             response_content = response.content
@@ -85,6 +182,13 @@ class LLMClient:
             chain = prompt | self.llm.with_structured_output(KSBMatchList)
             response = chain.invoke({"ksb_list": ksb_formatted_list, **pr_details})
             
+            # Track token usage (structured output doesn't have usage_metadata, estimate from content)
+            # This is a workaround - structured output doesn't expose token usage directly
+            estimated_tokens = len(str(response)) // 4  # Rough estimate: 4 chars per token
+            self.total_tokens += estimated_tokens
+            self.completion_tokens += estimated_tokens // 2
+            self.prompt_tokens += estimated_tokens // 2
+            
             # Explicitly validate the response to catch issues with structured output
             validated_response = KSBMatchList.model_validate(response.model_dump())
             return [match.model_dump() for match in validated_response.matches]
@@ -114,6 +218,10 @@ class LLMClient:
                 "draft_chapter": portfolio_text
             })
             response = self.llm.invoke(formatted_prompt)
+            
+            # Track token usage
+            self._track_token_usage(response)
+            
             return response.content
         except FileNotFoundError:
             raise
@@ -132,6 +240,10 @@ class LLMClient:
 
             chain = prompt | self.llm
             response = chain.invoke({"chapter_text": chapter_text})
+            
+            # Track token usage
+            self._track_token_usage(response)
+            
             return response.content
         except FileNotFoundError:
             raise
