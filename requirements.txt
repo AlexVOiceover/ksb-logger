@@ -1,0 +1,6 @@
+langchain
+# langchain-groq  # Commented out - replaced with OpenAI
+langchain-openai
+python-dotenv
+requests
+click
