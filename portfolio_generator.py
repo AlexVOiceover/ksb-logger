@@ -149,7 +149,11 @@ def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksb
 
     logging.info(f"Generating portfolio chapters for {len(best_prs_per_ksb)} KSBs...")
     previous_chapter_context = "" # Initialize previous_chapter_context
-    for ksb_id, data in best_prs_per_ksb.items():
+    
+    # Sort sections by KSB ID to match table order
+    sorted_ksb_items = sorted(best_prs_per_ksb.items(), key=lambda x: x[0])
+    
+    for ksb_id, data in sorted_ksb_items:
         pr = data["pr"]
         ksb_description = ksb_descriptions.get(ksb_id, "N/A")
 
@@ -185,7 +189,7 @@ def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksb
 
             # Add the KSB heading with anchor, PR link, and the refined chapter to the portfolio
             anchor_id = f"ksb-{ksb_id.lower()}"
-            ksb_heading = f"## {chapter_title} {{#{anchor_id}}} [==KSB {ksb_id}==]"
+            ksb_heading = f"## <a id=\"{anchor_id}\"></a>{chapter_title} [==KSB {ksb_id}==]"
             pr_link_tag = f"[==PR Link {pr.url} ==]"
             portfolio_content.append(ksb_heading)
             portfolio_content.append(pr_link_tag)

@@ -1,434 +1,341 @@
 # Portfolio
 
-
-
 ## KSB Evidence Summary
 
-
-
 | KSB ID | Description | Evidence |
-
 |--------|-------------|----------|
-
 | B1 | Works independently and takes responsibility. For example | [View Evidence](#ksb-b1) |
-
 | B4 | Works collaboratively with a wide range of people in differe... | [View Evidence](#ksb-b4) |
-
 | B5 | Acts with integrity with respect to ethical | ❌ No evidence yet |
-
 | B6 | Shows initiative and takes responsibility for solving proble... | [View Evidence](#ksb-b6) |
-
 | B7 | Communicates effectively in a variety of situations to both ... | [View Evidence](#ksb-b7) |
-
 | B8 | Shows curiosity to the business context in which the solutio... | [View Evidence](#ksb-b8) |
-
 | B9 | Committed to continued professional development | [View Evidence](#ksb-b9) |
-
 | K1 | All stages of the software development life-cycle | [View Evidence](#ksb-k1) |
-
 | K10 | Principles and uses of relational and non-relational databas... | [View Evidence](#ksb-k10) |
-
 | K12 | Software testing frameworks and methodologies | [View Evidence](#ksb-k12) |
-
 | K3 | The roles and responsibilities of the project life-cycle wit... | [View Evidence](#ksb-k3) |
-
 | K4 | How best to communicate using the different communication me... | [View Evidence](#ksb-k4) |
-
 | K5 | The similarities and differences between different software ... | [View Evidence](#ksb-k5) |
-
 | K7 | Software design approaches and patterns | [View Evidence](#ksb-k7) |
-
 | K8 | Organisational policies and procedures relating to the tasks... | [View Evidence](#ksb-k8) |
-
 | S13 | Follow testing frameworks and methodologies | [View Evidence](#ksb-s13) |
-
 | S14 | Follow company | [View Evidence](#ksb-s14) |
-
 | S15 | Communicate software solutions and ideas to technical and no... | [View Evidence](#ksb-s15) |
-
 | S17 | Interpret and implement a given design whist remaining compl... | [View Evidence](#ksb-s17) |
-
 | S2 | Develop effective user interfaces | [View Evidence](#ksb-s2) |
-
 | S3 | Link code to data sets | [View Evidence](#ksb-s3) |
-
 | S5 | Conduct a range of test types | [View Evidence](#ksb-s5) |
-
 | S8 | Create simple software designs to effectively communicate un... | [View Evidence](#ksb-s8) |
-
 | S9 | Create analysis artefacts | ❌ No evidence yet |
-
-
 
 ---
 
-
-
-## "Diagnosing and Optimising CORS Configuration for Enhanced Employer Dashboard Functionality" {#ksb-k14} [==KSB K14==]
-
-[==PR Link https://github.com/foundersandcoders/LIFT-frontend/pull/4 ==]
-
-### Diagnosing the Bug in CORS Configuration
-
-This pull request was initiated following a post-mortem analysis of a recent outage that identified issues in the CORS (Cross-Origin Resource Sharing) configuration as a potential root cause. The objective was to diagnose and resolve a subtle and intermittent problem that affected the Employer Dashboard. Initially, the issue was traced back to ambiguity in the original specification concerning how CORS policies were implemented. As a diagnostic measure, a basic fetch operation was introduced to test the deployed version of the dashboard. This fetch aimed to assess whether the CORS settings were correctly allowing requests from the expected origins.
-
-[==insert code snippet of: basic fetch operation for testing CORS configuration==]
-
-### Implementing and Testing Adjustments
-
-The most challenging aspect of this task was navigating through vague initial requirements, which offered little guidance on handling cross-origin requests appropriately. The updates included adding separate locations for Deno in both development and production environments. These adjustments were critically assessed by implementing a test function designed to fetch employer data. Additionally, a further test was conducted to ensure that data could be posted to the employer’s section without triggering CORS-related errors. These trials were essential in optimising the CORS configuration and validating its functionality across various environments.
-
-[==insert code snippet of: Deno location adjustments for development and production==]
-
-## Implementing Polyfill for useLayoutEffect to Prevent Deployment Errors and Enhance User Experience {#ksb-b7} [==KSB B7==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/21 ==]
-
-### Enhancing User Experience through Error Prevention
-
-The discussion in the original issue ticket highlighted a clear need for addressing deployment errors encountered by users, particularly those related to the `useLayoutEffect` hook. This pull request directly addresses these concerns by introducing a polyfill solution, effectively enhancing the reliability and functionality of the application in production environments. I added a `radix-utils` polyfill to ensure `React.useLayoutEffect` is consistently available across all browsers, which prevents the recurring error: 'Cannot read properties of undefined (reading useLayoutEffect)'. This change was crucial for optimising the user experience by providing a seamless interaction with the application, devoid of abrupt disruptions caused by this particular error.  
-
-[==insert code snippet of: adding radix-utils polyfill to prevent useLayoutEffect related errors==]
-
-### Comprehensive Component Update for Better Stability
-
-In an effort to preclude the error from surfacing across various parts of the application, I incorporated the polyfill import into all Radix UI components. This intervention was meticulously implemented to satisfy user feedback and ensure a smooth user experience. By being more deliberate in my approach to error handling, this project not only resolves the immediate issue but also fortifies the application against similar issues in the future, thus contributing to a more robust and user-friendly interface.  
-
-[==insert code snippet of: polyfill imports in Radix UI components==]
-
-## "Optimising Mobile User Experience with Advanced UI Styling and Enhanced Data Contextualisation" {#ksb-k1} [==KSB K1==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/40 ==]
-
-### Integration of Advanced UI Styling and Functional Enhancements
-
-The initial implementation, while functional, lacked a layer of intuitiveness and user engagement. To address this, I introduced a series of visual and functional updates aimed at optimising the mobile user experience. One significant change was the introduction of a driver tour, designed to guide new users seamlessly through the application. This involved modifying the z-index to ensure the tour popover was prominently displayed above other elements. Additionally, various styling adjustments were made to align mobile elements properly, such as resizing for smaller screens and utilising brand colours to enhance visual appeal. The implementation of tailwind's new `xs` screen size helped in gracefully adjusting interface elements across devices. [==insert code snippet of: modifications to z-index and styling for mobile==] [==insert image of: the updated driver tour interface==] 
-
-### Enhancing Data Model and Contextual Functionality
-
-In an effort to streamline data handling and improve code maintainability, I modified the `gratitudeApi` to incorporate a new Action interface. This change not only fixed existing TypeScript errors related to the `useTour` functionality but also improved the overall robustness of context handling by adding userEmail to the context for use in API fetches. These updates reduced redundancy in data processing, reinforcing the principle that the cleanest code is often the code that was never written. Furthermore, I enhanced user interactivity with the addition of dynamic transitions for editing user and manager information, and a new welcome panel that sources its content dynamically from a JSON file. [==insert code snippet of: the new Action interface integration==] [==insert image of: the dynamically styled welcome panel==]
-
-## "Optimising React Component Integration by Replacing Radix UI Elements and Implementing Robust Polyfills" {#ksb-s15} [==KSB S15==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/29 ==]
-
-### Enhancing Component Compatibility and Protecting Code Integrity
-
-A pivotal architectural decision in this pull request was addressing the asynchronous challenge of `useLayoutEffect` errors that arose in the deployed environment. This initiative involved the removal of dependencies on Radix UI components due to errors stemming from these asynchronous operations. In their place, simple React components such as `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel` were introduced. These replacements were implemented using a compatibility layer to ensure minimal disruption to existing codebases, easing the transition away from Radix UI. By prioritising React-based alternatives, I aimed to maintain component functionality and user experience without reliance on the problematic library.
-
-[==insert code snippet of: React-based SimpleDialog component definition==]
-
-### Implementing Robust React Polyfills for Error Resolution
-
-The pull request also introduced comprehensive React polyfills to resolve critical errors related to `useLayoutEffect` and `createContext`. These measures involved adding a more robust React shim, encapsulated in `react-shim.ts`, to handle global methods effectively. Import statements for these polyfills were strategically placed in all Radix UI component files and the `index.html` to ensure they were executed prior to any React code. This setup was vital in eliminating the 'Cannot assign to read only property' errors by safely setting properties while incorporating improved error handling. This holistic approach provided a durable solution to deployment issues, reinforcing the codebase and safeguarding against potential pitfalls.
-
-[==insert code snippet of: React shim polyfill implementation==]
-
-Reflecting on this process has given me a deeper empathy for junior developers, highlighting the importance of good mentorship in understanding and resolving complex architectural challenges.
-
-## "Standardising File Naming and Optimising Folder Structure for Enhanced Codebase Organisation" {#ksb-b1} [==KSB B1==]
-
+## <a id="ksb-b1"></a>"Optimising Project File Structure and Naming Conventions for Enhanced Developer Experience and Codebase Scalability" [==KSB B1==]
 [==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/43 ==]
+### Optimising File Structure for Performance Improvements
 
-### Streamlining Folder and File Architecture
+To improve the developer experience and streamline our workflow, I focused on optimising the folder structure and standardising file naming conventions in the project. Initially, I identified that inconsistencies in naming and file organisation were causing build failures and ESLint issues. By renaming UI component files to PascalCase and utility files to camelCase, the code now adheres to React conventions, which ensures consistency across the project. The changes also included updating import paths and modifying the `tsconfig.app.json` to resolve case sensitivity issues. These actions have significantly reduced the cognitive load for developers, allowing for easier navigation and understanding of the codebase.
 
-We aimed to process a large volume of data without compromising user-facing performance by organising and simplifying the folder structure. Initially, an inconsistent file naming convention in the repository caused confusion and build errors. I focused on renaming UI component files to use PascalCase as per React standards and adjusted import statements accordingly. Additionally, utility files were renamed to camelCase to maintain consistency. This standardisation prevented case sensitivity issues and promoted best practices in file naming conventions, contributing to a more efficient and maintainable codebase.
+[==insert code snippet of: PascalCase and camelCase renaming for UI and utility files==]
 
-[==insert code snippet of: import paths update to PascalCase==]
+### Enhancing Codebase Organisation for Scalability 
 
-### Simplifying Code Structure with Clearer Organisation
+Another critical aspect was reorganising the folder structure to align with feature-specific architectures. This involved creating dedicated folders for features like help, auth, questions, statements, and progress. UI components were moved to their corresponding feature directories, along with the introduction of `index.ts` barrel files to support cleaner import paths. By removing unutilised barrel files with single exports, I eliminated unnecessary abstraction, simplifying the codebase and improving its scalability. The refactoring efforts directly addressed previous issues and facilitated adherence to a more organised, scalable structure, ultimately contributing to a more efficient development workflow.
 
-I took a step back to simplify the problem by restructuring the folder layout more logically. This involved creating feature-specific folders for areas such as help, auth, and progress, which housed corresponding UI components and hooks. The relocation of components like ProgressWithFeedback to more appropriate directories and the elimination of redundant barrel files further streamlined the architecture. This reorganisation facilitated cleaner imports and exports by using index.ts barrel files where it added clarity, thus reducing unnecessary indirection and simplifying the navigation of the codebase.
+[==insert image of: reorganised folder structure with feature-specific directories and barrel files==]
 
-[==insert image of: redesigned folder structure showing feature-specific organisation==]
-
-## "Resolving Radix UI Conflicts and Transitioning to Custom React Components for Optimised Application Deployment" {#ksb-b4} [==KSB B4==]
-
+This experience gave me a deeper empathy for junior developers and the importance of good mentorship, emphasising the value of maintaining clear and consistent coding practices in collaborative projects.
+## <a id="ksb-b4"></a>Resolving Production Error by Implementing Radix-Utils Polyfill and Replacing Radix UI with Custom React Components [==KSB B4==]
 [==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/29 ==]
+### Immediate Response to Production Error
 
-### Addressing Technical Conflicts for Optimal Deployment
+The primary goal of this pull request was to resolve a critical production incident caused by a missing data validation layer in the deployed environment, resulting in a "Cannot read properties of undefined (reading useLayoutEffect)" error. To address this, I implemented the radix-utils polyfill to ensure that `React.useLayoutEffect` was correctly handled across all Radix UI components, preventing recurring errors. A new comprehensive React polyfill was also added to manage global methods like `createContext` and `useLayoutEffect`, ensuring that the React environment was stable before any code execution. This immediate reaction was crucial to maintaining application stability and preventing further disruptions in deployment environments.
 
-The performance of certain components within the application had degraded, leading to runtime errors. I was asked to investigate and resolve these issues to ensure a smoother deployment process. The primary problem revolved around the use of the Radix UI library, which caused a 'Cannot read properties of undefined' error associated with `useLayoutEffect`. To navigate this, I initiated the integration of a `radix-utils` polyfill to address the missing React methods [==insert code snippet of: radix-utils polyfill integration==]. Further diagnostic steps involved temporarily replacing Radix UI components with simplified React mockups to precisely identify the erroneous part [==insert code snippet of: React mockup replacements==].
+[==insert code snippet of: added radix-utils polyfill and updated index.html with comprehensive React polyfill==]
 
-### Transitioning to Pure React Components
+### Long-Term Solutions and Future Prevention
 
-Faced with the challenge of unresolved errors stemming from the Radix UI library, I opted for a strategic shift towards creating simple React-based alternatives to Radix UI components. This included developing straightforward components like `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, which were integrated through a compatibility layer designed to minimize code alterations [==insert code snippet of: compatibility layer for Simple components==]. This transition not only eliminated the dependency on Radix but also resolved `useLayoutEffect` and `createContext` errors, preparing the application for successful deployment. Through this process, I became more comfortable with the ambiguity inherent in resolving open-ended problems, balancing technical demands with seamless user interface functionality.
+To hedge against similar incidents in the future, I undertook a thorough refactor to replace Radix UI components with custom React counterparts, thereby removing all Radix UI dependencies. This included developing SimpleDialog, SimpleTooltip, and SimpleLabel components and a compatibility layer to ensure a seamless transition and reduced code changes. The changes improved error handling capabilities while ensuring API compatibility with Radix UI. Furthermore, I initiated a functional tooltip implementation using React context and portals, which adheres to best practices, ensuring both current and future stability of our user interface components. This experience reinforced my understanding of the intricate workings of our dependent open-source libraries.
 
-## "Integrating Cypress for Enhanced Testing and UI Refinements in a WSL2 Environment" {#ksb-k12} [==KSB K12==]
+[==insert code snippet of: removed Radix UI dependencies and created custom components==]
 
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/6 ==]
-
-### Integrating Cypress for Enhanced Testing
-
-To improve the developer experience and streamline our workflow, I focused on integrating Cypress, a cutting-edge testing library, into our project. By choosing Cypress, I aimed to improve our software testing methodologies, specifically targeting component testing and compatibility issues—particularly under Windows Subsystem for Linux 2 (WSL2). This integration involved adding component tests for the `MainPage` and enhancing the Cypress configuration to include retry logic and optimised browser options for a better compatibility with WSL2. Additionally, I addressed WSL2's X server configuration and browser launching challenges, ensuring that our testing environment remains robust and efficient.
-
-[==insert code snippet of: Cypress configuration updates for WSL2==]
-
-### UI Enhancements and Component Refinements
-
-Beyond testing, substantial UI improvements were made to refine the user experience and interface interactions. Key updates included the reinstatement of the "add statement" button, introducing the `SentimentVerbPicker` component to enhance the statement wizard, and implementing filters to improve usability within this component. To streamline component architecture, an intermediate component, `StepContainer`, was devised to manage workflow transitions. Efforts were also directed towards maintaining visual consistency by standardising the appearance of "Next" and "Continue" buttons. Lastly, an additional screen was implemented to expand user input through more comprehensive statement answering, alongside a newly added email preview function.
-
-[==insert image of: Updated user interface with new components and buttons==]
-
-A key takeaway was the delicate balance between perfection and shipping, ensuring that each integration and update enhanced functionality while meeting project timelines.
-
-## "Integrating Modern Security Standards and Simplifying Legacy UI for Balanced System Migration and Feature Enhancement" {#ksb-s2} [==KSB S2==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/32 ==]
-
-### Balancing Migration with Feature Development
-
-The effort began with the challenge of integrating a modern security standard into an older system, a task requiring careful planning and execution. Initially, a technical migration was undertaken to address a critical error related to React's `useLayoutEffect`. This error was triggered by the absence of necessary Polyfills in the deployed environment, leading to a cascade of issues in the user interface components built with Radix UI. The strategy was to develop a comprehensive React shim, incorporating Polyfills for `createContext` and `useLayoutEffect`, as a defensive programming measure to prevent similar issues in the future. This was executed via modifications to `index.html` and TypeScript configurations, ensuring a smooth transition without disrupting existing functionalities. 
-
-[==insert code snippet of: addition of comprehensive React polyfill to handle global methods==]
-
-### Simplifying the User Interface for Seamless Integration
-
-Simultaneously, new feature development was not overlooked. Balancing the ongoing migration, the decision was made to eliminate Radix UI components and substitute them with simpler, native React alternatives. This included creating minimalistic replacements for Dialogs, Tooltips, and Labels, and implementing a compatibility layer to minimize the impact of these changes. This approach allowed for uninterrupted feature enhancement, such as implementing functional tooltips and auto-scrolling capabilities when category changes on statements. Maintaining API compatibility ensured existing features remained operational while progressively phasing out older dependencies.
-
-[==insert code snippet of: new React components replacing Radix UI components==]
-
-The exercise provided a practical lesson in the principles of defensive programming, demonstrating the importance of robust error handling and adaptable development methodologies in maintaining and improving legacy systems.
-
-## "Enhancing Code Quality by Streamlining Deployment and Simplifying React Component Integration" {#ksb-s5} [==KSB S5==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/33 ==]
-
-### Addressing Redundancies and Streamlining the Deploy Process
-
-This work was born out of a team-wide discussion about improving code quality, particularly focusing on a repetitive and error-prone deployment issue related to the `useLayoutEffect` error in the production environment. The pull request involved a systematic overhaul beginning with the introduction of a `radix-utils` polyfill replacing the outdated `react-polyfill`, to counteract the error involving undefined properties in `useLayoutEffect`. Subsequent commits introduced comprehensive React shims specifically tailored to resolve `useLayoutEffect` and `createContext` errors, thus ensuring idempotent and reliable operations in a distributed setting, especially in a live deployment scenario. This approach reduced error frequency and optimised overall code robustness and deployment efficiency.
-[==insert code snippet of: adding radix-utils polyfill and updating configuration files==]
-
-### Transition from Radix UI to Simplified React Components
-
-In an effort to further automate and simplify the deployment process, while removing dependencies prone to errors, this pull request also involved replacing Radix UI components with customised React implementations. The newly added `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel` components provided a direct, compatibility-focused alternative to existing Radix components, minimising the scope of changes while eliminating unnecessary dependencies. This transition was facilitated by a compatibility layer (`radix-compatibility.tsx`), ensuring minimal disruption to existing code architecture. Additionally, a functional tooltips component was created that merges seamlessly with existing code, promoting cleaner, error-free execution. These steps marked the initial phase of dependency removal, bolstering the system against error-prone and manual interventions, and underlining the paramount importance of idempotent operations in reliable distributed systems.
-[==insert code snippet of: replacement of Radix UI components with React alternatives==]  
-[==insert image of: UI changes and new tooltip implementation==]
-
-## "Enhancing Compliance by Replacing Radix UI with Simplified React Components and Polyfills" {#ksb-s17} [==KSB S17==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/34 ==]
-
-### Implementing Compliance with Data Privacy Regulations
-
-The pull request, titled "Fix deploy," addresses various issues related to compliance with a new data privacy regulation by enhancing the React setup used in the system. The approach involved troubleshooting and resolving the `useLayoutEffect` errors encountered during deployment. Initially, the solution focused on implementing a `radix-utils` polyfill and adding necessary imports to all Radix UI components. This was an attempt to prevent the error "Cannot read properties of undefined (reading useLayoutEffect)". Subsequent commits replaced Radix UI components with simplified React mockups and added a comprehensive React polyfill in the `index.html` to address global method deficiencies like `createContext` and `useLayoutEffect`. This targeted approach ensured that the application's functionality adhered to the new compliance standards while maintaining system stability. 
-
-[==insert code snippet of: importing polyfill to all Radix UI components and addressing global method deficiencies==]
-
-### Simplifying the System through a Compatibility Layer
-
-Realising the complexities introduced by the Radix UI components, new React-based alternatives were developed to simplify the system architecture. This step involved removing all Radix UI dependencies from the project, creating simple React replacements for components such as Dialog, Tooltip, and others. A compatibility layer was developed to minimise code changes and ensure these replacements seamlessly integrated into the existing system. This method not only resolved the `useLayoutEffect` and `createContext` errors but also aimed at decreasing future maintenance overhead. The comprehensive React shim further improved type handling and error management, culminating in a more robust, compliance-friendly system setup. 
-
-[==insert code snippet of: creating React-based alternatives and implementing a compatibility layer==]
-
-## "Designing and Implementing a Gamified Progress Tracker with Enhanced UI and TypeScript Optimisations" {#ksb-s14} [==KSB S14==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/2 ==]
-
-### Designing a Gamified Progress Tracker
-
-The journey to deprecating a legacy system began with this first, crucial step: developing a gamified progress tracker for the application. The primary design focus was on creating a user-friendly interface that allows users to track their progress through questions answered versus total questions. This tracking system introduces an element of gamification aimed at enhancing user engagement. The design involved crafting distinct UI elements to visually represent progress, providing immediate feedback and motivation. The decision to employ gamification principles in this feature underscores the importance of user-centric design that prioritises interaction and usability.
-
-[==insert image of: gamified progress tracker UI with questions answered vs total questions==]
-
-### Implementing and Optimising Visual Components
-
-In the implementation phase, I focused on styling the progress components to align aesthetically with the broader application theme, ensuring consistency and clarity. The refinements addressed some underlying errors in TypeScript associated with the old wizard and statement builder, eliminating previous inconsistencies. I also took this opportunity to streamline the code by removing obsolete icons no longer in use. These changes reflect a strategic balance between introducing new features and maintaining existing code quality. Through this process, I realised the power of a well-defined data contract in a microservices architecture, which significantly enhances component interaction and reliability.
-
-[==insert code snippet of: styled progress components implementation in TypeScript==]
-
-## "Improving Application Stability by Integrating React Polyfills and Replacing Radix UI Components" {#ksb-k7} [==KSB K7==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/33 ==]
-
-### Enhancing Application Stability through Polyfilling and Component Replacement
-
-This work was a direct result of a post-mortem analysis of a recent outage, addressing critical stability issues related to the use of `useLayoutEffect` within the deployed environment. The primary adjustment involved integrating a comprehensive React polyfill solution to ensure backward compatibility and system stability when using this hook, which was previously causing runtime errors due to missing or undefined properties. By adding important polyfills to `index.html` and Radix UI components, I eliminated the 'Cannot read properties of undefined (reading useLayoutEffect)' error, securing the application against these disruptions. 
-
-[==insert code snippet of: adding comprehensive React polyfill to index.html and component files==]
-
-### Transition from Radix UI to Simple React Components for Increased Reliability
-
-The project also marked a significant step towards reliance on pure React components as a guard against instability. I progressively replaced all Radix UI dependencies with simple React-based alternatives, creating new components such as `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`. This included developing a compatibility layer and updating all components to maintain minimal disruption to the existing codebase. This incremental shift mitigated runtime errors, ensuring that the application can endure future updates without compromising functionality.
-
-[==insert code snippet of: replacing Radix UI components with Simple React components and introducing a compatibility layer==]
-
-It was a lesson in the art of making incremental, backward-compatible changes to a live system, ensuring that the application remains robust and less susceptible to future disruptions.
-
-## "Developing Custom React Components and Polyfill Solutions for UI Modularity and Compatibility" {#ksb-b6} [==KSB B6==]
-
+[==insert image of: updated UI with new custom React components replacing Radix UI components==]
+## <a id="ksb-b6"></a>"Replacing Radix UI Components with Custom React Alternatives for Simplified Dependency Management" [==KSB B6==]
 [==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/29 ==]
+### Simplifying Component Dependencies
 
-### Transition from Radix UI to Custom React Components
+This pull request represents the culmination of a week-long research spike into simplifying the UI components used in the project by addressing the complexities arising from Radix UI dependencies. To reduce complexity and improve the maintainability of the codebase, I have replaced all Radix UI components with simple React-based alternatives. This change primarily involved creating new components like `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, which serve as pure React alternatives to their Radix counterparts. A compatibility layer was also developed in `radix-compatibility.tsx` to ensure minimal disruptions in existing code functionality. The package configuration was updated to reflect these changes, removing all Radix UI dependencies from `package.json` and replacing component imports throughout the project to leverage the newly implemented React components.
 
-This task involved orchestrating a delicate dance between multiple microservices, culminating in a strategic shift away from Radix UI components to bespoke React alternatives. I initiated the development of custom React components, such as `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, to minimise external dependencies and enhance the modularity of our UI framework. This proactive measure unlocks future capabilities, allowing for more streamlined customisations and optimisations in the application’s user interface. Additionally, implementing a compatibility layer in `radix-compatibility.tsx` ensured that these transitions were seamless, facilitating a smooth transition without necessitating extensive codebase alterations.
+[==insert code snippet of: creation of SimpleDialog, SimpleTooltip, and compatibility layer==]
 
-[==insert code snippet of: implementation of SimpleDialog and compatibility layer==]
+### Addressing Deployment Errors
 
-### Polyfill Integration for React Compatibility
+The integration of Radix UI had introduced issues related to React's `useLayoutEffect`, which were particularly problematic in the deployed environment. To resolve these, I added a `radix-utils` polyfill to ensure `React.useLayoutEffect` availability and eliminated the recurring 'Cannot read properties of undefined' error. Further optimisations included introducing a comprehensive React polyfill in `index.html` to handle `createContext` and `useLayoutEffect`. This polyfill provides non-configurable properties and improved error handling to address conflicts and ensure robust functionality. The outcome of these changes has led to a more stable deployment process free from errors related to the utilisation of React global methods.
 
-During this transition, I encountered errors related to `useLayoutEffect` and `createContext`, which necessitated the integration of a robust polyfill solution. A comprehensive polyfill script was incorporated into `index.html` to preemptively address critical React global methods issues before any component initialisation. This included refining the `react-shim.ts` to handle non-configurable property issues, ensuring compatibility with existing Radix UI components during the transition phase. This reinforced my belief in the "You Ain't Gonna Need It" (YAGNI) principle, emphasising the importance of implementing only necessary elements to prevent future compatibility obstacles and maintain an agile codebase.
+[==insert code snippet of: implementation of `radix-utils` and polyfill in `index.html`==]
+## <a id="ksb-b7"></a>"Implementing a Polyfill to Enhance React Component Compatibility and Stability in Diverse Environments" [==KSB B7==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/21 ==]
+### Enhancing Component Compatibility Across Environments
 
-[==insert code snippet of: improved React polyfill implementation==]
+Our monitoring alerts pointed to a recurring, unhandled exception in the deployed environment, notably the 'Cannot read properties of undefined (reading useLayoutEffect)' error. To resolve this, I implemented a crucial code change by adding a `radix-utils` polyfill. This ensures that `React.useLayoutEffect` is consistently available across all environments, preventing further deployment issues tied to this error. By incorporating this polyfill, I removed a significant hurdle for developers working with Radix UI components, enhancing the stability and compatibility of the codebase across diverse deployment scenarios. 
 
-## "Integrating MagicLink Authentication and Responsive Design Enhancements for Improved User Experience" {#ksb-k4} [==KSB K4==]
+[==insert code snippet of: radix-utils polyfill implementation for useLayoutEffect==]
 
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/11 ==]
+### Promoting Code Reusability and Clarity
 
-### Integrating MagicLink for Enhanced Authentication
+In addition to resolving the specific error, this pull request focused on streamlining the code by importing the polyfill into all Radix UI components. This approach not only fixed the immediate problem but also laid the groundwork for future-proofing the components, making them more reliable for other developers to use in multiple projects. Throughout this process, I learned that a well-placed comment explaining the "why" of a piece of code is invaluable. By documenting the reason behind the implementation, we ensure that future maintainers of the code understand the rationale, thus facilitating effective communication, especially in varied technical discussions.
 
-The performance of the search feature had degraded over time, and I was asked to investigate, leading to the integration of MagicLink. This new authentication technology was introduced to streamline and secure user login processes. The choice of MagicLink was predicated on its ability to offer a seamless user experience by eliminating the need for traditional passwords, instead opting for link-based authentication. Integrating this feature posed challenges, particularly in aligning it with the existing authentication framework, but it ultimately provided a more secure and user-friendly approach for project collaborators and future users. Documentation was also included to ensure easy onboarding and understanding for new contributors.
-[==insert code snippet of: MagicLink authentication integration==]
-
-### Responsive Design Adjustments
-
-Coinciding with the introduction of MagicLink, the mobile design of the application underwent significant adjustments to improve responsiveness. Specific styling changes and strategic element hiding were implemented for narrow screens. These modifications aimed to maintain the integrity of the user interface across various devices and screen sizes, ensuring that the application remained functional and visually appealing on mobile devices. Notable challenges included maintaining a cohesive design while adapting elements dynamically to suit different viewport dimensions. The ultimate result balanced aesthetic perfection with the need to ship functional design components.
-[==insert image of: mobile interface after styling adjustments for narrow screens==]
-
-## "Transitioning from Radix UI Components to Custom React Solutions and Implementing a React Polyfill" {#ksb-k8} [==KSB K8==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/35 ==]
-
-### Transition from Radix UI to Simple React Components
-
-This change was a prerequisite for a much larger, upcoming feature, focusing on transitioning away from Radix UI components to simpler React alternatives in the project. Initially, the codebase heavily relied on Radix UI components, which led to errors in specific deployment environments, notably the 'useLayoutEffect' and 'createContext' issues. To overcome these challenges, I first identified the source of these errors by mocking Radix components and conducting diagnostic commits. Subsequently, I crafted SimpleDialog, SimpleTooltip, and SimpleLabel components as React-based alternatives that maintain API compatibility, mitigating the errors and optimising performance.
-
-[==insert code snippet of: React-based SimpleDialog, SimpleTooltip, and SimpleLabel component implementations==]
-
-### Implementation of a Robust React Polyfill
-
-It was equally crucial to address the underlying issues with the 'useLayoutEffect' and 'createContext' errors by implementing a more comprehensive React polyfill. Initially, polyfills were added directly to the `index.html`, but they caused conflicts and were subsequently improved for better integration. The final solution involved creating a `react-shim.ts` to safely handle global React methods, thus preventing property assignment errors without interfering with existing functionalities. This transition supports cleaner, more maintainable code by eliminating Radix dependencies, illustrating a key takeaway that emphasises the delicate balance between perfection and shipping.
-
-[==insert code snippet of: `react-shim.ts` detailing the implemented polyfills==]
-
-## "Enhancing Deployment with Polyfills and Transitioning to Custom React Components" {#ksb-k10} [==KSB K10==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/26 ==]
-
-### Balancing Technical Migration and Feature Development
-
-The primary focus of the pull request titled "Fix deploy" was to address a deployment issue caused by the absence of critical React methods, particularly `useLayoutEffect` and `createContext`, in certain environments. The solution involved introducing polyfills to enhance the robustness of the Radix UI components in the deployment setup. This effort required integrating a `radix-utils` polyfill across all Radix UI components, thereby preventing errors associated with `useLayoutEffect`. Furthermore, a more comprehensive React polyfill was added to `index.html` to address global method availability, ensuring that the framework's dependency injection system operated smoothly. This strategic approach demystified the intricate workings of the dependency injection system within the framework.
-
-[==insert code snippet of: add radix-utils polyfill to prevent useLayoutEffect error==]
-
-### Transitioning from Radix UI to Custom React Components
-
-In parallel with mitigating technical hurdles, an introductory effort was made to transition from Radix UI components to custom React-based alternatives. This involved crafting simplistic React components such as `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, intended to replace existing Radix UI counterparts. A compatibility layer was developed in `radix-compatibility.tsx` to facilitate minimal disruption to the existing codebase. This transition not only provided an immediate solution to deployment challenges but also laid the groundwork for potentially removing the Radix UI dependency in the future, ensuring a balance between ongoing technical refinement and the development of new features.
-
-[==insert code snippet of: add simple React-based alternatives to Radix UI components==]
-
-## "Optimising Frontend Compatibility and Performance by Enhancing React and Radix UI Integration" {#ksb-k5} [==KSB K5==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/33 ==]
-
-### Addressing User Feedback Through Enhanced Compatibility
-
-In response to direct user feedback about recurring issues, I set out to optimise our frontend’s compatibility and user-facing performance. The primary focus of this update was addressing errors associated with the `useLayoutEffect` hook in a deployed environment, specifically within Radix UI components. To counter this, I added a comprehensive `radix-utils` polyfill to all Radix UI components, ensuring that the `React.useLayoutEffect` and other React global methods are available by default. Furthermore, a React shim was introduced to handle additional methods like `createContext`, thereby eliminating errors in the production environment. This solution included temporarily replacing Radix UI components with simple React mockups to diagnose the error sources and restore functionality once resolved. These improvements confirm that user-facing performance is a feature, not an afterthought. 
-
-[==insert code snippet of: adding radix-utils polyfill to resolve useLayoutEffect error==]
-
-### Laying Groundwork for Future Flexibility
-
-Beyond immediate fixes, this update laid the groundwork for enhanced future flexibility by reducing dependency on Radix UI components. I implemented simple React-based alternatives such as `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`. These new components were integrated into the existing codebase through a compatibility layer in `radix-compatibility.tsx`, ensuring minimal disruption and preserving API compatibility. This adaptability not only addresses the current issue but also sets the stage for potential future enhancements, reflecting an anticipatory step toward broader project capabilities.
-
-[==insert code snippet of: creating simple React components as Radix UI alternatives==]
-
-## "Resolving Deployment Errors through Polyfills and UI Component Migration" {#ksb-s13} [==KSB S13==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/32 ==]
-
-### Rapid Learning in Polyfills and UI Framework Migration
-
-The project began with a deceptively simple goal: to resolve deployment issues related to a 'useLayoutEffect' error occurring in a deployed environment. Initially, I added a radix-utils polyfill to ensure that `React.useLayoutEffect` was available, preventing the error 'Cannot read properties of undefined'. Despite this fix, further investigation revealed the inadequacies of Radix UI components in a production setting. This led me to temporarily replace all Radix UI components with simple React mockups to pinpoint the source of the error, which eventually resulted in the creation of comprehensive React polyfills and an updated Vite configuration that leveraged `radix-utils` instead of the previously utilised `react-polyfill`.
-
-[==insert code snippet of: adding radix-utils polyfill to resolve useLayoutEffect error==]
-
-### Transitioning Away from Radix UI for Robustness
-
-Further challenges and diagnostic testing led me to make a strategic decision to transition away from Radix UI completely. This involved developing simple React-based alternatives to the existing Radix components such as Dialogs, Tooltips, and Labels. Additionally, I crafted a compatibility layer to minimise code changes across the application. The comprehensive polyfills and replacements aimed to address the persistent issues with `useLayoutEffect` and `createContext` errors. Ultimately, this experience gave me a deeper empathy for junior developers, reinforcing the value of good mentorship and the essential role of adaptable problem-solving skills when navigating new technologies.
-
-[==insert code snippet of: implementing simple React Dialog, Tooltip, and Label components==]
-
-## "Enhancing Application Stability and Extensibility through Polyfills and Simplified React Components" {#ksb-b9} [==KSB B9==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/26 ==]
-
-### Introducing Comprehensive Polyfills to Enhance UI Reliability
-
-Following an accessibility audit, it was revealed that our UI had areas requiring improvement, particularly regarding the implementation of the `useLayoutEffect` hook across Radix UI components. This pull request integrates a new technology stack by introducing comprehensive polyfills to ensure the React application runs smoothly, especially in deployed environments. The decision to incorporate the `radix-utils` polyfill was to mitigate errors like 'Cannot read properties of undefined (reading useLayoutEffect)'. After initial testing, problems were traced to missing implementation in some React components. This necessitated the temporary removal of Radix UI components to identify the source of errors better. Ultimately, these diagnostic efforts led to the addition of robust React shims and polyfills, which tackled the `createContext` and `useLayoutEffect` errors and heightened overall compatibility. This setup entailed importing the polyfill across all Radix UI components, thus preventing runtime errors and enhancing application stability.
-
-[==insert code snippet of: radix-utils polyfill for React useLayoutEffect==]
-
-### Transitioning to Simplified React Components
-
-Considering the long-term vision for an extensible software architecture, it was necessary to implement React-based alternatives to some Radix UI components. New simple components—`SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`—were developed to replace the existing Radix UI counterparts. These components serve as a bridge toward eventually phasing out the library altogether, fostering a leaner dependency model. With a compatibility layer created in `radix-compatibility.tsx`, modifications were kept minimal, ensuring a seamless transition for the application and reducing potential integration challenges. This forward-thinking approach laid the groundwork for a future where the project can adapt more flexibly to technological changes, with reduced reliance on third-party libraries, ultimately showcasing the value of building extensible solutions proactively.
-
-[==insert code snippet of: SimpleDialog, SimpleTooltip, SimpleLabel React components==]
-
-## "Integrating Radix and React Polyfills to Enhance Deployment Stability and Configuration" {#ksb-s3} [==KSB S3==]
-
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/24 ==]
-
-### Integrating Radix Polyfill to Address Deployment Challenges
-
-This task commenced with an in-depth examination of a third-party library, specifically focusing on the deployment issues experienced with Radix UI components within the project. The primary challenge was addressing an error related to the `useLayoutEffect` hook, which was not functioning as expected in the deployed environment. To resolve this, I introduced a solution utilising the `radix-utils` polyfill. This required investigating and applying the polyfill across all Radix UI components, preventing the error that was initially causing the deployed application to break. By integrating this new technology, I ensured the correct operation of `useLayoutEffect`, thus enhancing the system's reliability and deployment stability.
-
-[==insert code snippet of: adding radix-utils polyfill to Radix UI components==]
-
-### Reconfiguring the Build Process with React Polyfills 
-
-In addition to the Radix polyfill, I recognised the need to address other foundational challenges within the project's build setup. This led me to update the `vite.config.ts` to include `radix-utils` instead of the previously used `react-polyfill`. Moreover, I temporarily replaced Radix UI components with simple React mockups to troubleshoot and pinpoint error sources. Following diagnostics, I added a comprehensive React polyfill script directly in `index.html` to handle critical functionalities such as `createContext`. This strategic integration reinforced the value of writing idempotent scripts, ensuring that core React functionalities are reliably available across different environments.
-
-[==insert code snippet of: updating vite.config.ts and adding React polyfill to index.html==]
-
-## "Streamlining UI with Native Dropdown Integration for Enhanced Accessibility and Maintainability" {#ksb-s8} [==KSB S8==]
-
-[==PR Link https://github.com/foundersandcoders/LIFT-frontend/pull/3 ==]
-
-### Integrating Native Dropdown Functionality
-
-I inherited a piece of code that was difficult to test, which prompted me to introduce native dropdown components as a solution. By leveraging this foundational web technology, I aimed to improve the functionality and accessibility of user interface elements in the project. The process involved creating a `SubjectDropdown` component that utilised native HTML dropdowns for a more streamlined and maintainable codebase. Implementing native dropdowns not only simplified the overall structure but also enhanced browser compatibility and performance. This decision was guided by the need to prioritise ease of testing and future adaptability over a complex, custom implementation at this stage of the project.
-
-[==insert code snippet of: `SubjectDropdown` component using native dropdown==]
-
-### Transition to a Unified Dropdown Component
-
-To address the challenge of maintaining multiple dropdown variations, I consolidated the functionality into a single, simplified dropdown component. This singular component served to encapsulate the behaviours necessary for autocomplete descriptors, which had previously been managed in a more fragmented manner. The transition required modifications across the codebase to replace existing dropdown instances with the new unified component. Incorporating placeholders within the dropdowns ensured that they met accessibility standards, further optimising the user experience.
-
-[==insert image of: the unified dropdown component with accessibility placeholders==]
-
-This experience taught me to value progress over perfection, especially in the early stages of a project. The strategic decision to adopt a native dropdown technology allowed for a more manageable and testable code environment while laying the groundwork for iterative improvements.
-
-## "Resolving React Compatibility Issues by Implementing Radix-Utils Polyfill and Simplifying Components" {#ksb-b8} [==KSB B8==]
-
+[==insert code snippet of: polyfill import into Radix UI components==]
+## <a id="ksb-b8"></a>"Automating Microservices Compatibility with React Polyfills and Native Component Integration" [==KSB B8==]
 [==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/28 ==]
+### Automating Error Handling and Component Compatibility
 
-### Exploring Solutions for React Compatibility Issues
+This task involved orchestrating a delicate dance between multiple microservices primarily by addressing compatibility and error handling issues in the deployment environment. The pull request introduced a series of polyfills tailored to automate the resolution of 'useLayoutEffect' and 'createContext' errors, which were pervasive in the deployment environment. By incorporating the radix-utils polyfill and a comprehensive React shim, I ensured that critical React methods such as `useLayoutEffect` and `createContext` function seamlessly, hiding underlying complexities from the development team. This approach appreciably streamlined the error handling process, saving valuable time during deployment.
 
-This pull request represents the culmination of a week-long research spike into resolving errors related to `useLayoutEffect` and `createContext` occurring in the deployed environment of the project. The investigation involved testing various solutions, including the introduction of a comprehensive React polyfill and exploring alternative UI component libraries. Specifically, a radix-utils polyfill was added to ensure the availability of `useLayoutEffect` in the deployed environment. This approach aimed to prevent the 'Cannot read properties of undefined (reading useLayoutEffect)' error. Additionally, the polyfill was imported into all Radix UI components. Further diagnostic steps involved mocking all Radix UI components to pinpoint the error source, which facilitated identifying affected components and addressing the issue systematically.
+[==insert code snippet of: react-shim.ts implementing polyfills for global React methods==]
 
-[==insert code snippet of: adding radix-utils polyfill to Radix UI components==]
+### Shifting from Radix UI Components to Native React Alternatives
 
-### Transition to Simplified React Components
+In pursuit of a more efficient and less error-prone interface, I identified the repetitive challenges associated with Radix UI components and devised native React-based alternatives. Through the development of simple components like `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, I established a compatibility layer that minimizes code alterations but significantly enhances flexibility. These modifications are a strategic move towards phasing out Radix UI dependencies, resulting in improved component performance and reduced deployment issues.
 
-In a further step to address compatibility issues, the solution explored the creation of simple React-based alternatives to Radix UI components. This included developing components like `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, which aimed to reduce dependencies on Radix UI while maintaining functionality. A compatibility layer was established to minimise the impact of these changes on the existing codebase. This transition not only resolved the immediate technical challenges but also laid the groundwork for removing Radix UI dependency entirely, thus ensuring a smoother deployment process. It was a valuable experience in communicating complex technical decisions to non-technical stakeholders, ensuring that all parties understood the rationale behind these significant codebase adaptations.
+[==insert code snippet of: compatibility layer in radix-compatibility.tsx==]
+## <a id="ksb-b9"></a>"Adapting Codebase for External API Changes by Implementing a Polyfill and React Alternates to Enhance Stability" [==KSB B9==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/26 ==]
+### Rethinking the Integration Strategy due to External API Changes
 
-[==insert code snippet of: simple React-based alternatives and compatibility layer==]
+Faced with a critical alteration in an external API's contract, our team undertook a comprehensive refactoring of the codebase to adapt to these changes effectively. One significant move was the incorporation of a `radix-utils` polyfill to prevent a 'Cannot read properties of undefined (reading useLayoutEffect)' error that arose in the deployed environment. This modification ensured the availability of `React.useLayoutEffect` across Radix UI components, forestalling application breakdowns in production. Additionally, I replaced all `@radix-ui` components with simple React mockups temporarily, aiming to isolate and identify the error's origin. After pinpointing the issue, I reverted the mock components to their original Radix UI components, ensuring minimal disruption to the existing codebase.
 
-## "Integrating Custom CORS Middleware and Dynamic Configuration for Optimised API Security and Flexibility" {#ksb-k3} [==KSB K3==]
+[==insert code snippet of: radix-utils polyfill implementation==]
 
+### Navigating Ambiguity with a Newly Mapped Code Landscape
+
+Successfully mapping out a clearer interpretation of the system's unexplored complexities, I introduced simple React-based alternatives to Radix UI components, including `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`. These additions, coupled with a compatibility layer in `radix-compatibility.tsx`, offered a forward-looking approach to lessen reliance on Radix UI. This effort represents a proactive first step towards complete independence from external UI dependencies, enhancing system stability and clarity for future developers. Notably, this endeavour addressed the significant challenge of navigating through the initial ambiguity in specifications, ultimately culminating in a more robust and comprehensible code structure.
+
+[==insert code snippet of: compatibility layer in radix-compatibility.tsx==]
+## <a id="ksb-k1"></a>"Development of a Mobile-First Interface with Enhanced Usability and Asynchronous Integration" [==KSB K1==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/40 ==]
+### Designing a New User Experience for Mobile Interfaces
+
+The challenge lay in retrofitting a modern design and security standard into a legacy mobile interface. In this endeavour, I undertook the design and implementation of a mobile-friendly interface, which involved multiple style adjustments and feature enhancements. Key design decisions included adding a 'driver tour' feature to aid in user navigation and employing conditional rendering for the FilterBar on smaller displays to enhance usability across varying screen sizes. Additionally, dynamic size and transition adjustments were integrated for editing user and manager information, ensuring an intuitive and responsive design. Tailwind’s utilities were expanded to include an extra-small (xs) screen size, optimising the interface for smaller devices. This experience allowed me to deep-dive into user-centric design principles and adaptive UI components, solidifying my understanding of mobile-first development methodologies.  
+[==insert code snippet of: dynamic size adjustment for user and manager information on mobile interfaces==]  
+[==insert image of: updated mobile interface with enhanced navigation features==]
+
+### Implementing Core Asynchronous Features and API Adjustments
+
+Simultaneously, I redesigned and refactored underlying components to incorporate asynchronous programming, a core necessity for a seamless user experience. Updates to the Action interface and gratitude API were necessary for cohesive integration, ensuring data consistency and real-time updates. These changes presented trade-offs in complexity and performance, ultimately contributing to a more robust and responsive application architecture. Furthermore, I incorporated a welcome panel that dynamically retrieves text from a JSON file, enhancing flexibility and simplifying content management. This project reinforced my competencies in core asynchronous programming concepts, proving invaluable in creating fluid, interactive applications.  
+[==insert code snippet of: Action interface update and gratitude API adjustment==]  
+[==insert image of: implementation of asynchronous welcome panel==]
+## <a id="ksb-k10"></a>"Resolving Deployment Issues by Replacing Radix UI with React Alternatives and Introducing Compatibility Shims" [==KSB K10==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/26 ==]
+### Diagnosing the Persistent Bug
+
+This pull request encompasses a crucial update aimed at addressing a subtle, persistent bug encountered during the deployment process. The issue was traced back to the use of `useLayoutEffect` in Radix UI components, which caused an error when deployed in certain environments. A comprehensive diagnostic approach was undertaken, temporarily replacing all `@radix-ui` components with simple React mock-ups to isolate the error source. This debugging strategy proved effective in narrowing down the problematic components, allowing for a targeted fix. The reliance on Radix UI was a major hurdle, indicating the importance of well-defined data contracts in microservices architecture to ensure seamless integration and deployment processes.
+
+[==insert code snippet of: diagnostic commit replacing Radix UI components with React mock-ups==]
+
+### Implementing a Long-Term Solution
+
+To resolve the identified issue, a robust React shim was introduced to polyfill the `useLayoutEffect` and `createContext` methods, providing necessary compatibility in environments where these features were undefined. The solution involved modifying the `vite.config.ts` to incorporate `radix-utils` instead of `react-polyfill`, optimising the application's dependency management. Additionally, pure React alternatives to Radix UI components were developed, including `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, establishing a long-term strategy to potentially eliminate dependency on Radix UI altogether. This optimisation not only fixed the deployment issue but also simplified the onboarding process for new developers by standardising component usage and promoting a unified coding practice across the team.
+
+[==insert code snippet of: React shim for useLayoutEffect and createContext==]
+## <a id="ksb-k12"></a>"Optimising Asynchronous Testing and User Interface Enhancements for Improved Scalability and User Experience" [==KSB K12==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/6 ==]
+### Enhancing the User Interface and Testing Capabilities
+
+A key architectural decision we faced was how to handle asynchronous operations effectively within our testing framework, particularly with Cypress. This pull request reflects significant enhancements to both the user interface and the testing environment, aiming at unlocking future capabilities. Notably, the renaming of 'statements' to 'entries' indicates a shift towards clearer, more intuitive naming conventions, setting the stage for future scalability. Additionally, the enhancement of the Cypress configuration to support WSL2 through retry logic and browser options reflects a proactive approach to ensuring smooth async testing operations. This not only optimises existing processes but also enriches our testing toolkit for future needs.
+
+[==insert code snippet of: renaming statements to entries in the code==]
+
+### Implementing UI Innovations for a Cohesive User Experience
+
+The user interface underwent several improvements beyond immediate project requirements, anticipating future user interaction needs. The reinstatement of the 'add statement' button and the introduction of the SentimentVerbPicker component are critical enhancements intended to add depth to the user experience. These additions, along with the implementation of a StepContainer intermediate component, support a more modular and flexible design ethos. The updated styling, where 'Next' and 'Continue' buttons now appear consistently, reflects attention to detail aimed at a more cohesive UI.
+
+[==insert image of: consistent styling of Next and Continue buttons==]
+
+Ultimately, this work was about more than just code; it was about improving the way our team collaborates by building a foundation for future developments and cohesive communication across components.
+## <a id="ksb-k14"></a>"Creating a Reusable Component for Compliant Employer Data Fetching with Deno Configurations and Enhanced Testing" [==KSB K14==]
+[==PR Link https://github.com/foundersandcoders/LIFT-frontend/pull/4 ==]
+### Implementing a Reusable Component for Employer Data Fetching
+
+The driving motivation behind this pull request was to comply with a new data privacy regulation by creating a reusable component that fetches employer names for the Dashboard. This change was pivotal in ensuring that the Employers Dashboard could seamlessly comply with the updated regulations, while also serving as a model for similar future needs across multiple projects. The code changes involved adding specific Deno configurations for both development and production environments, which facilitated the proper testing of the Cross-Origin Resource Sharing (CORS) settings on the deployed version. This was crucial for validating the secure and efficient cross-domain data requests. 
+
+[==insert code snippet of: the configuration setup for Deno in development and production==]
+
+### Enhancing Test Coverage for Data Submission
+
+In addition to implementing the fetching mechanism, this pull request introduced a testing function aimed at evaluating data submission processes on the Employers component. By implementing this test, I was able to demystify the dependency injection framework used in our setup, providing valuable insights that optimised the workflow. The test feature was specifically designed to simulate data posting to the server, ensuring robustness and reliability when handling real-world usage scenarios. This step not only enhanced the component's effectiveness but also laid groundwork for integrating similar features into other parts of the application, thus broadening its utility as a reusable module.
+
+[==insert code snippet of: test function for data posting on the Employers component==]
+## <a id="ksb-k3"></a>"Enhancing Application Security and Flexibility through Custom CORS Middleware and Refined Route Handling" [==KSB K3==]
 [==PR Link https://github.com/foundersandcoders/LIFT-backend/pull/9 ==]
+### Pruning and Optimising for Future Growth
 
-### Bridging Technical Fundamentals with User-Friendly Applications
+This change laid the groundwork for a more significant feature to come by addressing technical debt and updating the existing codebase for better adaptability. The introduction of a custom CORS middleware was a pivotal step in enhancing security and flexibility. By allowing the application to dynamically set the "Access-Control-Allow-Origin" header from environment variables, the middleware prevents unauthorised cross-origin requests and paves the way for smooth integration with future frontend services. This ensures that as new features are implemented, they will be built on a secure and adaptable foundation. 
 
-This task began with a comprehensive examination of a third-party library, focusing on optimising the application's interaction with web resources while ensuring security and efficiency. A custom Cross-Origin Resource Sharing (CORS) middleware was implemented to bridge the gap between a low-level technical API and a high-level, user-friendly interface. By reading the allowed origin from environment variables, the system can dynamically set headers to control resource access. This middleware ensures that only authorised domains can interact with the API, enhancing security without compromising on flexibility or user experience. This strategic enhancement allows the application to cater to different deployment environments by adjusting configurations based on defined environment variables.
+[==insert code snippet of: custom CORS middleware setup in the application==]
 
-[==insert code snippet of: the custom CORS middleware implementation==]
+### Refined Route Handling and Secure Configuration
 
-### Enhancing API Interactions and Configuration Management
+The update further involved refining route handlers to utilise Oak's context management for more effective response setting. This systematic prune of existing code means cleaner, streamlined handling of HTTP requests—demonstrated by the revised `/newEntry` endpoint, which now processes requests more robustly by adopting structured validation and response logic. Additionally, the neo4j configuration was updated to secure connection details through environment variables, reducing security risks and enhancing the maintainability of database interactions. This task highlighted the importance of considering internationalisation and localisation from the start by ensuring the codebase remains flexible and secure for diverse deployment environments.
 
-In addition to middleware improvements, adjustments were made to the backend route handlers to leverage Oak's context management capabilities, thus standardising the way responses are handled. This transformation underscores a thoughtful approach to making API interactions more intuitive and consistent across different endpoints. An example of this can be seen in the updated route handler for the `/newEntry` endpoint, where requests are processed with improved response management. Simultaneously, the Neo4j database connection configurations were migrated to environment variables, allowing seamless adaptation across various environments. This refinement exemplifies clear communication of complex technical decisions, illustrating the value of these changes to non-technical stakeholders by ensuring that configuration and operational aspects are efficiently managed and easily adjustable.
+[==insert code snippet of: updated /newEntry route handler in the application==]
+## <a id="ksb-k4"></a>"Optimising Mobile UI and Code Structuring with Enhanced Documentation" [==KSB K4==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/11 ==]
+### Enhancing Mobile User Experience and Documentation
 
-[==insert code snippet of: route handler and Neo4j config updates using environment variables==]
+The performance of the search feature had degraded over time, and I was asked to investigate its impacts on the mobile interface. Initially, the code supporting the mobile design was complex and not fully optimised for narrow screens. To improve the user experience, I introduced several styling enhancements, such as smart content hiding for narrower screens, which involved adjusting the colours and making the header responsive to mobile devices. Media queries were also utilised to ensure that the `editStatement` feature adjusts seamlessly for mobile users. These changes resulted in a refined and more accessible interface for mobile users. 
 
-Overall, these updates not only streamline the backend operations but also set a foundation for future scalability and maintainability of the application.
+[==insert image of: updated mobile interface with smart content hiding and responsive header==]
+
+### Improving Code Structure and Documentation
+
+The project also necessitated code refactoring for better maintainability, which involved reorganising the file structure. Files were systematically arranged to facilitate easier navigation and understanding for current and future developers. Alongside these structural improvements, I documented the use of `Magic_Link` authentication. This inclusion serves as an important guide, enhancing onboarding for new team members and maintaining consistency in authentication practices. The documentation clearly outlines the setup and usage of `Magic_Link`, reflecting a more structured approach to error handling and code documentation.
+
+[==insert code snippet of: reorganised file structure with new paths==]  
+[==insert code snippet of: Magic_Link documentation demonstrating setup and usage==]
+
+This project taught me to be more deliberate in my approach to error handling, ensuring robust and scalable solutions.
+## <a id="ksb-k5"></a>"Enhancing Application Stability and Error Management through Comprehensive Data Validation and React Component Refactoring" [==KSB K5==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/33 ==]
+### Strengthening Application Stability with Enhanced Data Validation
+
+The goal was to eliminate a whole class of bugs by introducing a stricter data validation layer. Recognising potential risks associated with the incomplete implementation of React functions, I implemented a comprehensive Radix polyfill to enhance application stability. This corrective measure was driven by the frequent occurrence of errors like 'Cannot read properties of undefined' when deploying React useLayoutEffect in a live environment. To mitigate this, I added a detailed polyfill script in `index.html` ensuring essential React global methods, such as createContext and useLayoutEffect, were fully operational. This foundational change is vital for preventing deployment failures that were previously common, thereby safeguarding the system's reliability.
+
+[==insert code snippet of: comprehensive React polyfill added to index.html==]
+
+### Reinforcing Error Handling through Component Refactoring
+
+This project taught me to be more deliberate in my approach to error handling. To address the operational issues posed by the existing Radix UI components, I developed a set of simple React-based alternatives. These included creating SimpleDialog, SimpleTooltip, and SimpleLabel components to replace Radix's counterparts, thereby nullifying the original dependencies. A compatibility layer was also introduced, enabling seamless integration with the existing codebase. This strategic move not only resolved the useLayoutEffect and createContext errors but also represented a pivotal step towards completely removing the Radix UI dependency. Enhancing TypeScript type handling for the global React object further strengthened the application’s resilience against type-related errors, demonstrating a proactive approach to system protection.
+
+[==insert code snippet of: simple React-based alternatives for Radix UI components==]
+
+[==insert code snippet of: TypeScript type handling improvement for global React object==]
+## <a id="ksb-k7"></a>"Developing a React Polyfill and Transitioning from Radix UI to Enhance Application Stability" [==KSB K7==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/33 ==]
+### Implementing a Comprehensive React Polyfill for Stability
+
+The path to a more scalable architecture began with a single observation: persistent errors related to `useLayoutEffect` and `createContext` in a deployed environment. To address this, I implemented a comprehensive React polyfill, ensuring these functions were consistently available. Initially, errors were traced by temporarily replacing `@radix-ui` components with simple React mockups to diagnose which component triggered issues. Post-identification, a more robust `react-shim.ts` was introduced, enhancing TypeScript type handling for the global React object. These modifications significantly reduced deployment error rates, promoting application stability.
+
+[==insert code snippet of: implementing React polyfill in react-shim.ts==]
+
+### Transition from Radix UI to Pure React Components
+
+Addressing the root cause of `useLayoutEffect` errors necessitated a transition away from Radix UI components towards pure React alternatives. I created straightforward replacements for several UI components such as Dialog, Tooltip, Dropdown, and Label, complete with a compatibility layer to minimise code alterations. This strategic shift not only eradicated proprietary Radix dependencies but also safeguarded the application against recurring React-related errors. As a key takeaway, there was a delicate balance between perfection and shipping; the implementation underscored the importance of adaptability in design approaches to uphold system reliability.
+
+[==insert code snippet of: creating simple React-based components and compatibility layer==]
+## <a id="ksb-k8"></a>"Transitioning Radix UI Elements to Native React Components for Enhanced Deployment Stability and User Experience" [==KSB K8==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/35 ==]
+### Transitioning from Radix UI to Native React Components
+
+The final piece of the puzzle was to address critical deployment issues due to `useLayoutEffect` errors in the deployed environment. Initially, I added a `radix-utils` polyfill to ensure that `React.useLayoutEffect` was available in all necessary environments, as part of an effort to stabilise the deployment. This involved updating the `vite.config.ts` to utilise this new polyfill. Additionally, I created a `react-shim.ts` file to handle other potential React global method issues, aiming to ensure comprehensive support in the deployment context. The polyfill was included in the `index.html` through a script tag to guarantee its execution prior to any React code. As a diagnostic step, I temporarily replaced all Radix UI components with simple React mockups to locate the error, which eventually allowed me to safely revert to the original Radix components after enhancements.
+
+[==insert code snippet of: addition of radix-utils polyfill==]
+
+### Developing Pure React Components and Enhancing UX
+
+I realised the power of a well-defined data contract in a microservices architecture as I proceeded to completely mitigate the Radix UI dependency by developing pure React alternatives. This included creating components like `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, along with a compatibility layer to facilitate easy swapping without extensive code modifications. These new components were integrated into the application's primary UI parts, such as the `UserDataModal` and main `App` components. To improve overall usability, I introduced functional tooltips with proper positioning, using React context and portals for optimal results. Enhancements to the user experience, such as implementing auto-scroll and making modals dismissible by clicking outside, significantly refined the application interaction patterns.
+
+[==insert image of: the refined user's data modal for mobile after UI changes==]
+## <a id="ksb-s13"></a>"Optimising UI Frameworks by Replacing Radix UI Components with React Solutions" [==KSB S13==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/32 ==]
+### Automating Error Resolution in UI Framework Conversion
+
+To accommodate a predicted 10x increase in traffic, I initiated a project focused on replacing Radix UI components with native React solutions to improve system stability and error handling. The primary focus was on resolving the recurring `useLayoutEffect` and `createContext` errors that arose during deployment of Radix UI components. This involved the creation and implementation of a `radix-utils` polyfill, integrated into the `vite.config.ts` and all relevant component files, to ensure compatibility and address these errors. Through comprehensive diagnostic testing and temporary mockups of components, I identified the root cause of these errors, leading to the development of a robust React polyfill solution. This polyfill, incorporated as a script in `index.html`, was designed to address dependency injections smoothly, safeguarding against deployment issues. 
+[==insert code snippet of: integrating radix-utils polyfill in vite.config.ts==]
+
+### Streamlining UI Component Functionality with Simplified React Alternatives
+
+The second phase of this endeavour involved the full transition from Radix UI to React-based alternatives. By developing custom components such as `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, I crafted a compatibility layer in `radix-compatibility.tsx` to streamline the transition while minimising disruptions to existing code. This effort not only involved refactoring imports and removing redundant Radix components but also enhancing the system's functionality with features such as auto-scroll upon category changes. The project not only optimised our UI framework but also demystified the inner workings of React's dependency system, significantly aiding future development initiatives. 
+[==insert image of: updated UI with React-based alternatives for Radix components==]
+## <a id="ksb-s14"></a>"Refactoring User Interface Elements and Reducing Technical Debt in Codebase" [==KSB S14==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/2 ==]
+### Pruning and Optimising Interface Elements
+
+This work was born out of a team-wide discussion about improving code quality and centres around refactoring and optimising the user interface elements related to tracking question progress. Significant attention was given to styling the components that reflect the number of questions answered versus the total questions available, adding an element of gamification to enhance user engagement. The new design aims to provide immediate visual feedback, thereby enriching the user experience. This improvement follows best practices for user interface design while ensuring clarity and interaction efficiency for users. 
+[==insert image of: styled progress components showing questions answered vs total questions==]
+
+### Eliminating Redundancies and Addressing Technical Debt
+
+A crucial part of this pull request involved addressing technical debt to improve the codebase's health. This included fixing TypeScript errors in the old wizard and statement builder, which were essential to maintain code integrity and prevent future compilation issues. Additionally, redundant code and icons that were no longer in use were successfully removed to minimise clutter and confusion for developers. These changes reflect a concerted effort to clean up the codebase and enhance its maintainability. This project helped me understand the true cost of technical debt, highlighting the importance of routine maintenance and strategic refactoring for the long-term success of software projects.
+[==insert code snippet of: removal of unused code icons and TypeScript error fixes==]
+## <a id="ksb-s15"></a>"Optimising React Application Performance through Polyfills and Component Simplification" [==KSB S15==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/29 ==]
+### Addressing Performance Bottlenecks through Polyfills and Component Refactoring
+
+A persistent performance bottleneck related to the `useLayoutEffect` error was affecting the deployment environment of the application. The issue stemmed from React components' reliance on certain Radix UI elements, leading to compatibility and maintainability challenges. Initially, a diagnostic polyfill was implemented in `index.html` to ensure `useLayoutEffect` and `createContext` methods were correctly defined before any React code executed. This intervention included introducing a comprehensive React shim, refining the configuration in `vite.config.ts` to switch from `react-polyfill` to `radix-utils`, and perfecting TypeScript type handling for global React objects. The refined approach led to successful deployment without errors. 
+
+[==insert code snippet of: updated vite.config.ts to use radix-utils instead of react-polyfill==]
+
+### Transition towards Simplified Components
+
+Faced with persistent issues linked to Radix UI dependencies, an alternative solution was critically examined: transitioning to simpler React-based components. New components such as `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel` were developed to serve as drop-in replacements while maintaining minimal reconfiguration requirements. This transition aimed to address the inherent polyfill challenges and reinforce the codebase's maintainability and readability. With Radix components entirely phased out, a compatibility layer was utilised to streamline this transition. Ultimately, this effort not only resolved the immediate performance bottleneck but also underscored the importance of clear, maintainable code in software solutions.
+
+[==insert code snippet of: created SimpleDialog, SimpleTooltip, and SimpleLabel components==]
+## <a id="ksb-s17"></a>"Addressing Legacy System Dependencies by Replacing Radix UI with React-Based Solutions" [==KSB S17==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/34 ==]
+### Transitioning from Legacy Dependencies
+
+The journey to deprecating a legacy system began with this first, crucial step of addressing the intermittent useLayoutEffect error. I tackled this issue by introducing a comprehensive polyfill that provided necessary React functionalities such as `createContext` and `useLayoutEffect`. This inclusion ensured compatibility and resolved errors occurring in the deployed environment by incorporating the polyfill within `index.html` as a script tag, maintaining its execution prior to any React code. Additionally, mock versions of Radix UI components were employed temporarily to pinpoint the exact components causing the error, eventually leading to the integration of simple React components as an alternative to Radix UI components. This step marked significant progress toward removing the Radix UI dependency altogether and alleviated existing deployment errors. 
+
+[==insert code snippet of: comprehensive React polyfill implementation==]
+
+### Innovating with Alternative Solutions
+
+To circumvent the limitations imposed by the Radix UI components, new, simple React-based components such as `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel` were developed. These components served as efficient replacements while maintaining API compatibility. Furthermore, improvements included enhanced tooltip functionality using React context and portals, providing proper hover actions and positioning capabilities. This strategic transition not only resolved the ongoing bugs but also laid the groundwork for a future without the Radix UI dependency. Throughout this process, I came to appreciate the foresight required to build extensible software, understanding how incremental steps facilitate meaningful transformations in systems architecture.
+
+[==insert image of: simplified React-based UI components integrated into the application==]
+## <a id="ksb-s2"></a>"Transition to Custom React UI Components with Error-Resistant Deployment Solutions" [==KSB S2==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/32 ==]
+### Transition from Radix UI to Simpler React Components
+
+The project began with a deceptively simple goal: to transition the UI components from Radix UI to custom React-based solutions while maintaining ongoing feature enhancements and ensuring a smooth deployment process. This involved developing alternatives such as SimpleDialog, SimpleTooltip, and SimpleLabel, which are pure React components. A compatibility layer, `radix-compatibility.tsx`, was introduced to streamline code changes, ensuring existing functionalities remained intact without heavy refactoring. This strategic shift from Radix UI was motivated by recurring errors associated with `useLayoutEffect` and `createContext`, prompting the need for bespoke solutions that would not only resolve these issues but also facilitate future component enhancements. 
+
+[==insert code snippet of: creation of SimpleDialog, SimpleTooltip, and SimpleLabel components as React alternatives==]
+
+### Ensuring a Seamless Technical Migration with Error Resolution
+
+The transition involved addressing technical challenges that arose in the deployed environment, primarily errors related to React's `useLayoutEffect` and `createContext`. To prevent these, a comprehensive React polyfill was implemented, which included a robust `react-shim.ts` to ensure the availability of necessary global methods across all environments. This polyfill was optimised to handle property settings safely and reduce conflicts, thereby preventing deployment errors historically encountered. Through this process, there was an enhancement in error handling mechanisms, allowing for smoother deployments and thereby achieving the perfect balance between migrating technologies and delivering functional updates without compromising the integrity of the application.
+
+[==insert code snippet of: react-shim.ts implementation to fix useLayoutEffect and createContext errors==]
+
+Ultimately, the work facilitated a practical understanding of how cryptographic signing works through the strategic solutions deployed to stabilise UI functionality amidst migratory efforts.
+## <a id="ksb-s3"></a>"Streamlining Deployment with Radix-Utils and Comprehensive Compatibility Testing in Legacy System Transition" [==KSB S3==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/24 ==]
+### Balancing Modernisation and Functionality in Deployment
+
+The journey to deprecating a legacy system began with this first crucial step: addressing deployment issues linked to outdated polyfills and component requirements. In navigating conflicting technical requirements, I integrated a `radix-utils` polyfill and ensured its importation across all Radix UI components to rectify the `useLayoutEffect` error encountered within the deployed environment. Moreover, the update of `vite.config.ts` to utilise the `radix-utils` instead of an earlier `react-polyfill` demonstrates a decisive move towards a streamlined configuration. These changes are indicative of a meticulous approach to handling differing technical opinions regarding which approach best suited the deployment needs.
+
+[==insert code snippet of: radix-utils polyfill import to rectify useLayoutEffect error==]
+
+### Identifying and Resolving Underlying Compatibility Concerns
+
+In a fascinating deep dive into a part of the web platform I hadn't explored before, I conducted a series of diagnostic test commits. This involved temporarily replacing all @radix-ui components with simple React mock-ups to trace the root cause of the error. Additionally, I included a comprehensive React polyfill to address broader issues of `createContext` and `useLayoutEffect`, scripting it into `index.html` to run prior to any React code execution. This diagnostic process was pivotal in reconciling diverse stakeholder opinions and ensuring consistent component behaviour in the final deployment setup.
+
+[==insert code snippet of: diagnostic test process with React mockups==]
+## <a id="ksb-s5"></a>"Optimising Memory and Deployment Efficiency Through Polyfill Integration and Component Refactoring" [==KSB S5==]
+[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/33 ==]
+### Reducing Memory Footprint with Enhanced Polyfills and Component Refactoring
+
+In the pursuit of optimising the memory usage of our main data processing service, a comprehensive update was made to our front-end dependencies and their configurations. A significant change included the introduction of a radix-utils polyfill, aimed at preventing errors related to React's `useLayoutEffect` in a deployed environment. This was executed by integrating a comprehensive React polyfill, which solves issues involving `createContext` and other global methods, ensuring React's components function correctly when deployed. The import of this polyfill across all Radix UI component files ensures consistency and mitigates the occurrence of undefined properties errors during execution. In parallel, simple React alternatives like `SimpleDialog` and `SimpleTooltip` were developed, effectively phasing out the Radix UI dependency that previously caused several execution errors. This strategic removal of Radix UI dependencies from the `package.json` file is a move towards a more streamlined and error-resilient deployment process. 
+
+[==insert code snippet of: comprehensive React polyfill integration==]
+
+### Strengthening Code Quality and Deploy Stability
+
+In a broader scope of maintaining code quality and enhancing deploy stability, the pull request introduces improvements to the continuous integration and continuous deployment (CI/CD) pipeline. Diagnostic tests identified and temporary mockups of Radix UI components were implemented to track down the specific sources of the `useLayoutEffect` error. Beyond error resolution, the introduction of functional tooltips with accurate hovering features and enhanced positioning capabilities serves as an addition to elevate user interaction quality. GitHub Actions scripts were fine-tuned to reinstate the creation of the `.env.development` from Deno secrets, optimising environment management in the deployment pipeline. Overall, these efforts underscore the crucial role of structured logging for improved observability, ensuring that any issues encountered during deployment are quickly identified and addressed.
+
+[==insert image of: updated tooltip with enhanced positioning==]
+## <a id="ksb-s8"></a>"Automating and Documenting Dropdown Features for Improved User Interface Interactions" [==KSB S8==]
+[==PR Link https://github.com/foundersandcoders/LIFT-frontend/pull/3 ==]
+### Automating User Interaction with Dropdowns
+
+This work laid the foundation for a more interactive and dynamic user experience by introducing automated dropdown components into the software. The primary task focused on creating a dropdown feature that was both simple and effective, leveraging native dropdown functionality to enhance user selection processes. The implementation began with transforming existing data into descriptors and constructing a component for autocomplete functionality. Subsequently, a singular, cohesive dropdown component was developed to streamline this interaction. Simplifying the dropdown element was a priority to ensure efficiency and user-friendly design, alongside incorporating placeholders to improve accessibility for users.
+
+[==insert code snippet of: simplified dropdown component implementation==]
+
+### Enhancing Component Structure and Documentation
+
+In parallel, significant efforts were directed towards building a structured and comprehensible design framework for these new components. Documentation, such as the `reactModStructure.md` file, was updated to provide clear guidance and understanding of the program's new dropdown elements. This task taught me the value of building a minimal, reproducible example when reporting a bug, as it highlighted potential issues early in the design process. Documenting the structure and behaviour of the dropdown elements within the codebase was essential for future development and debugging tasks, thereby reducing manual effort and mitigating potential errors.
+
+[==insert image of: improved dropdown user interface with placeholders for accessibility==]
