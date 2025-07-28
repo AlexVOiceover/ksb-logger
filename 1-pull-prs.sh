@@ -9,5 +9,5 @@ if [ -z "$GITHUB_USERNAME" ]; then
     exit 1
 fi
 
-echo "Pulling PRs for user: $GITHUB_USERNAME for the last $GITHUB_DAYSBACK days"
-python cli.py pull-prs --username "$GITHUB_USERNAME" --days-back "$GITHUB_DAYSBACK" 
+echo "Starting interactive repository selection for user: $GITHUB_USERNAME"
+python cli.py pull-prs --username "$GITHUB_USERNAME" --days-back "$GITHUB_DAYSBACK" --interactive 

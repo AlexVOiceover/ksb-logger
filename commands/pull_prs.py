@@ -7,7 +7,8 @@ from github_client import GitHubClient, GitHubAPIError
 @click.command()
 @click.option('--username', required=True, help='GitHub username to fetch PRs for.')
 @click.option('--days-back', type=int, default=365, help='Number of days back to fetch PRs.')
-def pull_prs(username, days_back):
+@click.option('--interactive', '-i', is_flag=True, help='Interactively select repositories to include.')
+def pull_prs(username, days_back, interactive):
     """Pulls PRs from GitHub and saves them to a local file."""
     github_token = os.getenv("GITHUB_API")
     if not github_token:
@@ -17,9 +18,39 @@ def pull_prs(username, days_back):
     github_client = GitHubClient(token=github_token)
     pull_requests_csv = "output/pull_requests.csv"
 
-    logging.info(f"Searching for PRs authored by {username} from the last {days_back} days...")
-    try:
+    if interactive:
+        # Interactive mode: show all repositories (personal + organization) sorted newest to oldest
+        from repo_selector import select_repositories_interactive
+        
+        logging.info(f"Finding all repositories where {username} has activity...")
+        try:
+            # Get ALL repositories (personal + organization) without date filtering
+            all_user_repos = github_client.get_all_user_repositories(username)
+            if not all_user_repos:
+                logging.error(f"No repositories found for {username}")
+                return
+                
+            logging.info(f"Found {len(all_user_repos)} repositories (personal + organization)")
+            
+            # Let user select repositories interactively using arrow keys + spacebar
+            selected_repos = select_repositories_interactive(all_user_repos)
+            if not selected_repos:
+                logging.info("No repositories selected. Exiting.")
+                return
+            
+            # Now fetch PRs only from selected repositories (apply days_back filter only to PR search)
+            logging.info(f"Fetching PRs from {len(selected_repos)} selected repositories...")
+            prs = github_client.search_pull_requests_by_author_filtered(username, days_back, selected_repos)
+            
+        except GitHubAPIError as e:
+            logging.error(f"Failed to fetch repositories from GitHub: {e}")
+            return
+    else:
+        # Non-interactive mode: search all repositories
+        logging.info(f"Searching for PRs authored by {username} from the last {days_back} days...")
         prs = github_client.search_pull_requests_by_author(username, days_back)
+
+    try:
         save_pull_requests(pull_requests_csv, prs)
         logging.info(f"Fetched and saved {len(prs)} PRs.")
     except GitHubAPIError as e:

@@ -103,8 +103,18 @@ def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksb
         "|--------|-------------|----------|"
     ]
     
-    # Sort KSBs for consistent ordering
-    sorted_ksbs = sorted(ksbs, key=lambda k: k.id)
+    # Sort KSBs by K, S, B order, then by number
+    def ksb_sort_key(ksb):
+        ksb_id = ksb.id
+        # Extract the letter and number parts
+        letter = ksb_id[0]  # K, S, or B
+        number = int(ksb_id[1:])  # The number part
+        
+        # Define order: K=1, S=2, B=3
+        letter_order = {'K': 1, 'S': 2, 'B': 3}
+        return (letter_order.get(letter, 4), number)
+    
+    sorted_ksbs = sorted(ksbs, key=ksb_sort_key)
     
     for ksb in sorted_ksbs:
         ksb_id = ksb.id
@@ -150,8 +160,18 @@ def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksb
     logging.info(f"Generating portfolio chapters for {len(best_prs_per_ksb)} KSBs...")
     previous_chapter_context = "" # Initialize previous_chapter_context
     
-    # Sort sections by KSB ID to match table order
-    sorted_ksb_items = sorted(best_prs_per_ksb.items(), key=lambda x: x[0])
+    # Sort sections by KSB ID to match table order (K, S, B)
+    def ksb_id_sort_key(item):
+        ksb_id = item[0]  # Extract KSB ID from the tuple
+        # Extract the letter and number parts
+        letter = ksb_id[0]  # K, S, or B
+        number = int(ksb_id[1:])  # The number part
+        
+        # Define order: K=1, S=2, B=3
+        letter_order = {'K': 1, 'S': 2, 'B': 3}
+        return (letter_order.get(letter, 4), number)
+    
+    sorted_ksb_items = sorted(best_prs_per_ksb.items(), key=ksb_id_sort_key)
     
     for ksb_id, data in sorted_ksb_items:
         pr = data["pr"]

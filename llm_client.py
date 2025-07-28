@@ -13,6 +13,11 @@ from requests.exceptions import RequestException
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
+# Suppress verbose HTTP request logs from OpenAI and httpx
+logging.getLogger("openai").setLevel(logging.WARNING)
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
+
 class LLMAPIError(Exception):
     """Custom exception for LLM API errors."""
     pass

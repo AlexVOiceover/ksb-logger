@@ -4,338 +4,343 @@
 
 | KSB ID | Description | Evidence |
 |--------|-------------|----------|
-| B1 | Works independently and takes responsibility. For example | [View Evidence](#ksb-b1) |
-| B4 | Works collaboratively with a wide range of people in differe... | [View Evidence](#ksb-b4) |
-| B5 | Acts with integrity with respect to ethical | ❌ No evidence yet |
-| B6 | Shows initiative and takes responsibility for solving proble... | [View Evidence](#ksb-b6) |
-| B7 | Communicates effectively in a variety of situations to both ... | [View Evidence](#ksb-b7) |
-| B8 | Shows curiosity to the business context in which the solutio... | [View Evidence](#ksb-b8) |
-| B9 | Committed to continued professional development | [View Evidence](#ksb-b9) |
 | K1 | All stages of the software development life-cycle | [View Evidence](#ksb-k1) |
-| K10 | Principles and uses of relational and non-relational databas... | [View Evidence](#ksb-k10) |
-| K12 | Software testing frameworks and methodologies | [View Evidence](#ksb-k12) |
 | K3 | The roles and responsibilities of the project life-cycle wit... | [View Evidence](#ksb-k3) |
 | K4 | How best to communicate using the different communication me... | [View Evidence](#ksb-k4) |
-| K5 | The similarities and differences between different software ... | [View Evidence](#ksb-k5) |
+| K5 | The similarities and differences between different software ... | ❌ No evidence yet |
 | K7 | Software design approaches and patterns | [View Evidence](#ksb-k7) |
 | K8 | Organisational policies and procedures relating to the tasks... | [View Evidence](#ksb-k8) |
-| S13 | Follow testing frameworks and methodologies | [View Evidence](#ksb-s13) |
-| S14 | Follow company | [View Evidence](#ksb-s14) |
-| S15 | Communicate software solutions and ideas to technical and no... | [View Evidence](#ksb-s15) |
-| S17 | Interpret and implement a given design whist remaining compl... | [View Evidence](#ksb-s17) |
+| K10 | Principles and uses of relational and non-relational databas... | [View Evidence](#ksb-k10) |
+| K12 | Software testing frameworks and methodologies | [View Evidence](#ksb-k12) |
 | S2 | Develop effective user interfaces | [View Evidence](#ksb-s2) |
 | S3 | Link code to data sets | [View Evidence](#ksb-s3) |
 | S5 | Conduct a range of test types | [View Evidence](#ksb-s5) |
 | S8 | Create simple software designs to effectively communicate un... | [View Evidence](#ksb-s8) |
-| S9 | Create analysis artefacts | ❌ No evidence yet |
+| S9 | Create analysis artefacts | [View Evidence](#ksb-s9) |
+| S13 | Follow testing frameworks and methodologies | [View Evidence](#ksb-s13) |
+| S14 | Follow company | [View Evidence](#ksb-s14) |
+| S15 | Communicate software solutions and ideas to technical and no... | [View Evidence](#ksb-s15) |
+| S17 | Interpret and implement a given design whist remaining compl... | [View Evidence](#ksb-s17) |
+| B1 | Works independently and takes responsibility. For example | [View Evidence](#ksb-b1) |
+| B4 | Works collaboratively with a wide range of people in differe... | [View Evidence](#ksb-b4) |
+| B5 | Acts with integrity with respect to ethical | [View Evidence](#ksb-b5) |
+| B6 | Shows initiative and takes responsibility for solving proble... | [View Evidence](#ksb-b6) |
+| B7 | Communicates effectively in a variety of situations to both ... | [View Evidence](#ksb-b7) |
+| B8 | Shows curiosity to the business context in which the solutio... | [View Evidence](#ksb-b8) |
+| B9 | Committed to continued professional development | [View Evidence](#ksb-b9) |
 
 ---
 
-## <a id="ksb-b1"></a>"Optimising Project File Structure and Naming Conventions for Enhanced Developer Experience and Codebase Scalability" [==KSB B1==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/43 ==]
-### Optimising File Structure for Performance Improvements
+## <a id="ksb-k1"></a>"Harmonising Multi-Platform User Experience with Tooltip Enhancements and Mobile Optimisation" [==KSB K1==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/42 ==]
+### Achieving Harmonised User Experience Across Platforms
 
-To improve the developer experience and streamline our workflow, I focused on optimising the folder structure and standardising file naming conventions in the project. Initially, I identified that inconsistencies in naming and file organisation were causing build failures and ESLint issues. By renaming UI component files to PascalCase and utility files to camelCase, the code now adheres to React conventions, which ensures consistency across the project. The changes also included updating import paths and modifying the `tsconfig.app.json` to resolve case sensitivity issues. These actions have significantly reduced the cognitive load for developers, allowing for easier navigation and understanding of the codebase.
+A critical need for a more robust solution emerged when we discovered conflicting requirements for desktop and mobile user experiences. To address these issues, several enhancements were implemented to ensure a cohesive and user-friendly interface. A comprehensive tooltip system was introduced with smart positioning across eight possible placements and augmented with accessibility features to serve diverse user needs. Contextual tooltips were added to indicate question status, promoting better understanding among users. This system also included tooltips for the visibility toggle to clarify response-sharing settings. Adjusting the tooltip show delay to 300 ms was critical to enhance user interaction by reducing distraction from prematurely appearing tooltips.
 
-[==insert code snippet of: PascalCase and camelCase renaming for UI and utility files==]
+[==insert code snippet of: Tooltip component with smart positioning==]
 
-### Enhancing Codebase Organisation for Scalability 
+### Balancing Design Aesthetics with Functionality
 
-Another critical aspect was reorganising the folder structure to align with feature-specific architectures. This involved creating dedicated folders for features like help, auth, questions, statements, and progress. UI components were moved to their corresponding feature directories, along with the introduction of `index.ts` barrel files to support cleaner import paths. By removing unutilised barrel files with single exports, I eliminated unnecessary abstraction, simplifying the codebase and improving its scalability. The refactoring efforts directly addressed previous issues and facilitated adherence to a more organised, scalable structure, ultimately contributing to a more efficient development workflow.
+In addressing the balancing act between design aesthetics and functionality, mobile user experience improvements were prioritised. Enhanced viewport handling, achieved by transitioning from `h-screen` to `h-[100dvh]`, facilitated better mobile compatibility, while safe area insets ensured content remained accessible across devices, such as iPhones. UI and layout improvements included refined spacing, alignment consistency, and the strategic removal of visual clutter, such as the header's borderline and the dark theme. These comprehensive changes culminated in a more intuitive and visually appealing interface, demonstrating that a small, well-placed change can have a massive, positive ripple effect.
 
-[==insert image of: reorganised folder structure with feature-specific directories and barrel files==]
+[==insert image of: improved mobile footer layout with safe area padding==]
+## <a id="ksb-k3"></a>"Enhancing UI Consistency and Database Efficiency with Tailwind CSS and Improved Scripting" [==KSB K3==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/19 ==]
+### Introducing Tailwind for Enhanced UI Styling
 
-This experience gave me a deeper empathy for junior developers and the importance of good mentorship, emphasising the value of maintaining clear and consistent coding practices in collaborative projects.
-## <a id="ksb-b4"></a>Resolving Production Error by Implementing Radix-Utils Polyfill and Replacing Radix UI with Custom React Components [==KSB B4==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/29 ==]
-### Immediate Response to Production Error
+I inherited a piece of code that was difficult to test, which prompted me to reassess our project's styling framework. To advance the project's frontend development, I implemented Tailwind CSS, replacing placeholder classes with a more consistent and scalable styling approach. This change significantly improved the maintainability and appearance of the project's UI components. Key files such as `ListItem.svelte` and `Dash.svelte` were updated with the new styling framework. The transition to Tailwind facilitated a more streamlined development process by reducing the complexity of managing CSS classes, ultimately enhancing the visual coherence of the user interface.
 
-The primary goal of this pull request was to resolve a critical production incident caused by a missing data validation layer in the deployed environment, resulting in a "Cannot read properties of undefined (reading useLayoutEffect)" error. To address this, I implemented the radix-utils polyfill to ensure that `React.useLayoutEffect` was correctly handled across all Radix UI components, preventing recurring errors. A new comprehensive React polyfill was also added to manage global methods like `createContext` and `useLayoutEffect`, ensuring that the React environment was stable before any code execution. This immediate reaction was crucial to maintaining application stability and preventing further disruptions in deployment environments.
+[==insert code snippet of: an example of Tailwind CSS implementation in a Svelte component==]
 
-[==insert code snippet of: added radix-utils polyfill and updated index.html with comprehensive React polyfill==]
+### Streamlining Database Management with Enhanced Scripts
 
-### Long-Term Solutions and Future Prevention
+The project also involved integrating improved scripts to manage database operations more efficiently. These scripts were designed to handle both local and production environments, incorporating fake data generation and management actions. This involved creating scripts like `generate-test-data.js` and `prod-seed-questions.sh`, which were pivotal in automating data management. By structuring the scripts to differentiate between local and production use, the deployment process was optimised, ensuring seamless data migration and testing. This experience highlighted the value of feature flagging and gradually rolling out changes to users, as it allowed for safer and more controlled updates to the system.
 
-To hedge against similar incidents in the future, I undertook a thorough refactor to replace Radix UI components with custom React counterparts, thereby removing all Radix UI dependencies. This included developing SimpleDialog, SimpleTooltip, and SimpleLabel components and a compatibility layer to ensure a seamless transition and reduced code changes. The changes improved error handling capabilities while ensuring API compatibility with Radix UI. Furthermore, I initiated a functional tooltip implementation using React context and portals, which adheres to best practices, ensuring both current and future stability of our user interface components. This experience reinforced my understanding of the intricate workings of our dependent open-source libraries.
+[==insert code snippet of: a database script to seed data for testing==]
+## <a id="ksb-k4"></a>"Enhancing Email System Performance Through JSON-Based Generation and Type Conversion Optimisation" [==KSB K4==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/21 ==]
+### Optimising Email System for Enhanced Performance
 
-[==insert code snippet of: removed Radix UI dependencies and created custom components==]
+This change simplified the onboarding process for new developers by optimising the email system. I identified inefficiencies in how emails were generated, which was a bottleneck due to basic text output methods. To address this, I implemented a JSON-based email generation system within `emailBuilder.ts` and `email.ts`. This included creating `EmailData` interfaces to structure email content and introducing functions like `generateEmailData()` for creating JSON objects from user responses and `renderEmailToHTML()` to transform this into styled HTML. These modifications facilitated more efficient data handling and improved the scalability of the email system. Additionally, I applied brand colours for visual consistency. This experience solidified my understanding of core asynchronous programming concepts.
 
-[==insert image of: updated UI with new custom React components replacing Radix UI components==]
-## <a id="ksb-b6"></a>"Replacing Radix UI Components with Custom React Alternatives for Simplified Dependency Management" [==KSB B6==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/29 ==]
-### Simplifying Component Dependencies
+[==insert code snippet of: generateEmailData() function==]
 
-This pull request represents the culmination of a week-long research spike into simplifying the UI components used in the project by addressing the complexities arising from Radix UI dependencies. To reduce complexity and improve the maintainability of the codebase, I have replaced all Radix UI components with simple React-based alternatives. This change primarily involved creating new components like `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, which serve as pure React alternatives to their Radix counterparts. A compatibility layer was also developed in `radix-compatibility.tsx` to ensure minimal disruptions in existing code functionality. The package configuration was updated to reflect these changes, removing all Radix UI dependencies from `package.json` and replacing component imports throughout the project to leverage the newly implemented React components.
+### Streamlining Action Service Type Handling
 
-[==insert code snippet of: creation of SimpleDialog, SimpleTooltip, and compatibility layer==]
+Another focal point was standardizing the type conversion process in the action services (`actions.ts`). Inconsistencies in type conversions were causing performance lags and potential data errors during database operations. I standardised the conversion from database types to `tableMain` types across all action service functions, including `getUserActions`, `createAction`, and others. The implementation of the new `getActionsByResponseId` function, complete with versioning logic, further optimised data retrieval processes, ensuring consistent and seamless function outputs.
 
-### Addressing Deployment Errors
+[==insert code snippet of: type conversion implementation in actions.ts==]
 
-The integration of Radix UI had introduced issues related to React's `useLayoutEffect`, which were particularly problematic in the deployed environment. To resolve these, I added a `radix-utils` polyfill to ensure `React.useLayoutEffect` availability and eliminated the recurring 'Cannot read properties of undefined' error. Further optimisations included introducing a comprehensive React polyfill in `index.html` to handle `createContext` and `useLayoutEffect`. This polyfill provides non-configurable properties and improved error handling to address conflicts and ensure robust functionality. The outcome of these changes has led to a more stable deployment process free from errors related to the utilisation of React global methods.
+### Visual Improvements in Email Preview
 
-[==insert code snippet of: implementation of `radix-utils` and polyfill in `index.html`==]
-## <a id="ksb-b7"></a>"Implementing a Polyfill to Enhance React Component Compatibility and Stability in Diverse Environments" [==KSB B7==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/21 ==]
-### Enhancing Component Compatibility Across Environments
+Although the visual styling is not finalised, I made preliminary updates to the `EmailPreview.svelte` component to support the new JSON-based system, replacing plain text with HTML rendering. This preliminary visual enhancement ensures emails now display category headers with a brand-styled teal background, clear Q&A hierarchies, and action items with status indicators for better functionality and readability.
 
-Our monitoring alerts pointed to a recurring, unhandled exception in the deployed environment, notably the 'Cannot read properties of undefined (reading useLayoutEffect)' error. To resolve this, I implemented a crucial code change by adding a `radix-utils` polyfill. This ensures that `React.useLayoutEffect` is consistently available across all environments, preventing further deployment issues tied to this error. By incorporating this polyfill, I removed a significant hurdle for developers working with Radix UI components, enhancing the stability and compatibility of the codebase across diverse deployment scenarios. 
+[==insert image of: updated EmailPreview component showing structured content==]
+## <a id="ksb-k7"></a>"Developing a Comprehensive Tooltip and Mobile Interface System for Enhanced User Experience" [==KSB K7==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/42 ==]
+### Enhancing Usability: A Comprehensive Tooltip System
 
-[==insert code snippet of: radix-utils polyfill implementation for useLayoutEffect==]
+The discussion in the original issue ticket highlighted a clear need for a more intuitive and informative user experience, leading to the implementation of a comprehensive tooltip system. This enhancement bridges the gap between low-level technical details and the user-friendly interface, offering users contextual assistance as they navigate the application. The new tooltip component includes smart positioning with eight potential placements and ample accessibility features. Contextual tooltips are now available for question status indicators and the visibility toggle, aiding users in discerning between statuses and sharing responses effectively. Additionally, a default 300ms show delay was introduced to enhance user interaction without overwhelming them with immediate responses.
 
-### Promoting Code Reusability and Clarity
+[==insert code snippet of: Tooltip component implementation with smart positioning==]
 
-In addition to resolving the specific error, this pull request focused on streamlining the code by importing the polyfill into all Radix UI components. This approach not only fixed the immediate problem but also laid the groundwork for future-proofing the components, making them more reliable for other developers to use in multiple projects. Throughout this process, I learned that a well-placed comment explaining the "why" of a piece of code is invaluable. By documenting the reason behind the implementation, we ensure that future maintainers of the code understand the rationale, thus facilitating effective communication, especially in varied technical discussions.
+### Streamlining Mobile Experience & Interface Layout
 
-[==insert code snippet of: polyfill import into Radix UI components==]
-## <a id="ksb-b8"></a>"Automating Microservices Compatibility with React Polyfills and Native Component Integration" [==KSB B8==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/28 ==]
-### Automating Error Handling and Component Compatibility
+Significant improvements were made to the mobile user experience by addressing viewport handling issues and optimizing layout responsiveness. Enhancements include using `h-[100dvh]` for dynamic viewport height and adding safe area insets specific to iPhones, ensuring elements do not clutter or extend beyond the viewable screen. The layout experienced polish with consistent max-width constraints across views, card-based grouping of dashboard categories, and improved spacing, notably reducing dashboard tile margins and footer padding. Though the dark theme was temporarily disabled for future contemplation, these refinements collectively create a more cohesive and accessible interface. Through these changes, I gained a practical understanding of how cryptographic signing works within user interface adjustments, ensuring a secure and seamless user experience.
 
-This task involved orchestrating a delicate dance between multiple microservices primarily by addressing compatibility and error handling issues in the deployment environment. The pull request introduced a series of polyfills tailored to automate the resolution of 'useLayoutEffect' and 'createContext' errors, which were pervasive in the deployment environment. By incorporating the radix-utils polyfill and a comprehensive React shim, I ensured that critical React methods such as `useLayoutEffect` and `createContext` function seamlessly, hiding underlying complexities from the development team. This approach appreciably streamlined the error handling process, saving valuable time during deployment.
+[==insert image of: Updated mobile layout with safe area insets and improved footer==]
+## <a id="ksb-k8"></a>"Developing an Automated Dashboard Solution for Enhanced Resource Access for Neurodivergent Employees" [==KSB K8==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/30 ==]
+### Automating Resource Access for Neurodivergent Employees
 
-[==insert code snippet of: react-shim.ts implementing polyfills for global React methods==]
+In response to direct user feedback about the difficulty in accessing workplace support resources, I implemented an automated solution by introducing a new resources tile to the dashboard. This tile enables neurodivergent employees to conveniently access a curated list of 12 workplace resources, which are automatically populated each time the database is reset. The solution included adding a resources table to the database schema and creating a production seeding script to streamline deployment. This approach optimises the user experience by removing unnecessary UI elements and ensuring that resources can be efficiently maintained and updated. 
 
-### Shifting from Radix UI Components to Native React Alternatives
+[==insert code snippet of: the creation and population of resources table==]
 
-In pursuit of a more efficient and less error-prone interface, I identified the repetitive challenges associated with Radix UI components and devised native React-based alternatives. Through the development of simple components like `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, I established a compatibility layer that minimizes code alterations but significantly enhances flexibility. These modifications are a strategic move towards phasing out Radix UI dependencies, resulting in improved component performance and reduced deployment issues.
+### Dashboard Enhancements and User Navigation Improvements
 
-[==insert code snippet of: compatibility layer in radix-compatibility.tsx==]
-## <a id="ksb-b9"></a>"Adapting Codebase for External API Changes by Implementing a Polyfill and React Alternates to Enhance Stability" [==KSB B9==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/26 ==]
-### Rethinking the Integration Strategy due to External API Changes
+Enhancements were made to the dashboard interface to accommodate the new resources tile, which now appears alongside existing components. The tile displays the number of available resources and provides a streamlined list view with clickable URLs, which open in new tabs for seamless navigation without disrupting the user's workflow. This work demonstrates that a small, well-placed change can have a massive, positive ripple effect by improving access to essential information through better UI/UX design.
 
-Faced with a critical alteration in an external API's contract, our team undertook a comprehensive refactoring of the codebase to adapt to these changes effectively. One significant move was the incorporation of a `radix-utils` polyfill to prevent a 'Cannot read properties of undefined (reading useLayoutEffect)' error that arose in the deployed environment. This modification ensured the availability of `React.useLayoutEffect` across Radix UI components, forestalling application breakdowns in production. Additionally, I replaced all `@radix-ui` components with simple React mockups temporarily, aiming to isolate and identify the error's origin. After pinpointing the issue, I reverted the mock components to their original Radix UI components, ensuring minimal disruption to the existing codebase.
+[==insert image of: resources tile on the dashboard showing resource count==]
+## <a id="ksb-k10"></a>Standardising Database Seeding by Reconciling Environment Discrepancies and Optimising Schema Compatibility [==KSB K10==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/26 ==]
+### Harmonising Seeding Processes Across Environments
 
-[==insert code snippet of: radix-utils polyfill implementation==]
+The journey to deprecating a legacy system began with addressing significant issues in the database seeding scripts. This pull request focused on reconciling the discrepancies between local and production environments by adjusting scripts and schemas to align with current database requirements. By fixing the malformed URL encoding in the `prod-seed-test-data.sh` script, the data seeding process now accurately performs question lookups, thereby resolving critical malfunctions that previously hindered the creation of responses and actions. Additionally, by removing the deprecated `is_latest` field from response creation API calls, both environments have been standardised to ensure reliability in data generation.
 
-### Navigating Ambiguity with a Newly Mapped Code Landscape
+[==insert code snippet of: fixed URL encoding in question lookup query==]
 
-Successfully mapping out a clearer interpretation of the system's unexplored complexities, I introduced simple React-based alternatives to Radix UI components, including `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`. These additions, coupled with a compatibility layer in `radix-compatibility.tsx`, offered a forward-looking approach to lessen reliance on Radix UI. This effort represents a proactive first step towards complete independence from external UI dependencies, enhancing system stability and clarity for future developers. Notably, this endeavour addressed the significant challenge of navigating through the initial ambiguity in specifications, ultimately culminating in a more robust and comprehensible code structure.
+### Balancing Legacy and Modern Requirements
 
-[==insert code snippet of: compatibility layer in radix-compatibility.tsx==]
-## <a id="ksb-k1"></a>"Development of a Mobile-First Interface with Enhanced Usability and Asynchronous Integration" [==KSB K1==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/40 ==]
-### Designing a New User Experience for Mobile Interfaces
+Navigating through conflicting requirements of outdated schemas and the need for a more streamlined approach, this pull request demonstrates a successful compromise between legacy constraints and modern database needs. Key changes involved regenerating test data SQL files to ensure their compatibility with the updated schema and integrating enhanced error handling mechanisms for question lookups. Removal of obsolete fields not only decluttered the code but also optimised the overall performance of database interactions. This meticulous effort culminated in a robust seeding process, ultimately leading to a newfound respect for the maintainers of the open-source libraries undeniably pivotal in our development process.
 
-The challenge lay in retrofitting a modern design and security standard into a legacy mobile interface. In this endeavour, I undertook the design and implementation of a mobile-friendly interface, which involved multiple style adjustments and feature enhancements. Key design decisions included adding a 'driver tour' feature to aid in user navigation and employing conditional rendering for the FilterBar on smaller displays to enhance usability across varying screen sizes. Additionally, dynamic size and transition adjustments were integrated for editing user and manager information, ensuring an intuitive and responsive design. Tailwind’s utilities were expanded to include an extra-small (xs) screen size, optimising the interface for smaller devices. This experience allowed me to deep-dive into user-centric design principles and adaptive UI components, solidifying my understanding of mobile-first development methodologies.  
-[==insert code snippet of: dynamic size adjustment for user and manager information on mobile interfaces==]  
-[==insert image of: updated mobile interface with enhanced navigation features==]
+[==insert code snippet of: regenerated test data SQL files]==]
+## <a id="ksb-k12"></a>"Integrating Contextual User Testing and UI Consistency Enhancements with Improved Developer Workflow" [==KSB K12==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/33 ==]
+### Balancing Testing Requirements with Development Needs
 
-### Implementing Core Asynchronous Features and API Adjustments
+This change is a foundational prerequisite for an upcoming feature, showcasing the delicate balance between improving testing capabilities and advancing UI consistency. A significant addition is the user selector dropdown, facilitating contextual user testing during development. The dropdown integrates with real user data fetched from the database, enabling seamless transitions and interactions with test user profiles. Emphasizing transient use, all related testing code and components are marked with "TESTING ONLY" comments to ensure easy removal prior to production deployment.
+[==insert code snippet of: user selector dropdown implementation and "TESTING ONLY" comments==]
 
-Simultaneously, I redesigned and refactored underlying components to incorporate asynchronous programming, a core necessity for a seamless user experience. Updates to the Action interface and gratitude API were necessary for cohesive integration, ensuring data consistency and real-time updates. These changes presented trade-offs in complexity and performance, ultimately contributing to a more robust and responsive application architecture. Furthermore, I incorporated a welcome panel that dynamically retrieves text from a JSON file, enhancing flexibility and simplifying content management. This project reinforced my competencies in core asynchronous programming concepts, proving invaluable in creating fluid, interactive applications.  
-[==insert code snippet of: Action interface update and gratitude API adjustment==]  
-[==insert image of: implementation of asynchronous welcome panel==]
-## <a id="ksb-k10"></a>"Resolving Deployment Issues by Replacing Radix UI with React Alternatives and Introducing Compatibility Shims" [==KSB K10==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/26 ==]
-### Diagnosing the Persistent Bug
+### Elevating UI Consistency and Developer Workflow
 
-This pull request encompasses a crucial update aimed at addressing a subtle, persistent bug encountered during the deployment process. The issue was traced back to the use of `useLayoutEffect` in Radix UI components, which caused an error when deployed in certain environments. A comprehensive diagnostic approach was undertaken, temporarily replacing all `@radix-ui` components with simple React mock-ups to isolate the error source. This debugging strategy proved effective in narrowing down the problematic components, allowing for a targeted fix. The reliance on Radix UI was a major hurdle, indicating the importance of well-defined data contracts in microservices architecture to ensure seamless integration and deployment processes.
+UI enhancements aim to harmonise the dashboard's visual layout, introducing consistency across tiles and list items. Changes include cursor behaviour adjustments to enhance user interaction feedback and meticulous refactoring of CSS classes to optimise component styling. Moreover, the PR restructures components, specifically relocating EmailPreview for cleaner architecture. Further improvements were made in responsive design, aided by upgraded TailwindCSS and DaisyUI theming. Coupled with these UI advancements, the introduction of GitHub Actions workflows and enhanced documentation fortifies development practices, making the environment more agile and comprehensive.
 
-[==insert code snippet of: diagnostic commit replacing Radix UI components with React mock-ups==]
+[==insert image of: improved UI layout and cursor behaviour on the dashboard==]
 
-### Implementing a Long-Term Solution
+Overall, this task underscored the necessity of a comprehensive and fast test suite, ensuring that both testing requirements and ongoing development are synchronised effectively.
+## <a id="ksb-s2"></a>"Optimising User Interface with Enhanced Tooltip System and Responsive Mobile Design Improvements" [==KSB S2==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/42 ==]
+### Enhancing User Guidance and Mobile Experience
 
-To resolve the identified issue, a robust React shim was introduced to polyfill the `useLayoutEffect` and `createContext` methods, providing necessary compatibility in environments where these features were undefined. The solution involved modifying the `vite.config.ts` to incorporate `radix-utils` instead of `react-polyfill`, optimising the application's dependency management. Additionally, pure React alternatives to Radix UI components were developed, including `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, establishing a long-term strategy to potentially eliminate dependency on Radix UI altogether. This optimisation not only fixed the deployment issue but also simplified the onboarding process for new developers by standardising component usage and promoting a unified coding practice across the team.
+This update provided an opportunity to experiment with a new approach to solve a long-standing problem of improving user experience through better interface tools. By developing a comprehensive tooltip system, I directly addressed user feedback regarding the lack of contextual guidance within the application. Smart positioning with eight possible positions for tooltips was implemented, ensuring visibility without obstructing other UI elements. The system was augmented by including accessibility features to aid users relying on keyboard navigation, and default show delay settings prevent tooltips from appearing too rapidly. Contextual tooltips now provide guidance on question status indicators, such as pink requiring attention and grey marking answered or skipped questions, and on visibility toggles explaining public and private settings. This strategic enhancement empowers users to navigate more efficiently and makes the application more intuitive.
 
-[==insert code snippet of: React shim for useLayoutEffect and createContext==]
-## <a id="ksb-k12"></a>"Optimising Asynchronous Testing and User Interface Enhancements for Improved Scalability and User Experience" [==KSB K12==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/6 ==]
-### Enhancing the User Interface and Testing Capabilities
+[==insert code snippet of: Tooltip component with smart positioning and accessibility features==]
 
-A key architectural decision we faced was how to handle asynchronous operations effectively within our testing framework, particularly with Cypress. This pull request reflects significant enhancements to both the user interface and the testing environment, aiming at unlocking future capabilities. Notably, the renaming of 'statements' to 'entries' indicates a shift towards clearer, more intuitive naming conventions, setting the stage for future scalability. Additionally, the enhancement of the Cypress configuration to support WSL2 through retry logic and browser options reflects a proactive approach to ensuring smooth async testing operations. This not only optimises existing processes but also enriches our testing toolkit for future needs.
+### Responsive Design and Mobile UX Refinements
 
-[==insert code snippet of: renaming statements to entries in the code==]
+Significant improvements were made to the mobile user experience, responding to issues where content would appear misaligned or overly cluttered on smaller screens. The updates included switching from the `h-screen` utility to `h-[100dvh]` for dynamic viewport height handling, optimizing the layout for various devices. Safe area insets were added for iPhone compatibility, and footer spacing was adjusted to prevent content from touching screen edges. These changes ensured seamless functionality and a visually appealing interface on mobile devices. Legal compliance was enhanced through the addition of responsive Terms of Use and Privacy Policy buttons, incorporating comprehensive modals. As a result, users benefit from improved navigation and accessibility across diverse devices, with a cleaner and more organised interface.
 
-### Implementing UI Innovations for a Cohesive User Experience
+[==insert image of: improved mobile footer layout with responsive legal buttons==]
+## <a id="ksb-s3"></a>"Implementing Local Development Environment for Neo4j Using Docker and Environment-Specific Configurations" [==KSB S3==]
+[==PR Link https://github.com/foundersandcoders/LIFT-backend/pull/7 ==]
+### Enhancing Offline Development Experience
 
-The user interface underwent several improvements beyond immediate project requirements, anticipating future user interaction needs. The reinstatement of the 'add statement' button and the introduction of the SentimentVerbPicker component are critical enhancements intended to add depth to the user experience. These additions, along with the implementation of a StepContainer intermediate component, support a more modular and flexible design ethos. The updated styling, where 'Next' and 'Continue' buttons now appear consistently, reflects attention to detail aimed at a more cohesive UI.
+In response to direct user feedback about recurring issues with development relying on a remote database, I implemented a comprehensive local development setup using Docker for Neo4j. This change allows our team to work offline and avoid unintended modifications to the production database. By introducing `.env.local` and `.env.production` files, we enable environment-specific configurations. The `neo4j.ts` has been updated to dynamically load the appropriate `.env` file, facilitating seamless switching between local and production environments. This ensures that the command `deno task dev` initiates the backend connection with the local Neo4j Docker instance, while `deno task prod` connects it to AuraDB. This approach aims to enrich the developer experience by reducing dependency on remote services during development.  
+[==insert code snippet of: introducing `.env.local` and `.env.production` for environment-specific configurations==]
 
-[==insert image of: consistent styling of Next and Continue buttons==]
+### Streamlining Development with Docker
 
-Ultimately, this work was about more than just code; it was about improving the way our team collaborates by building a foundation for future developments and cohesive communication across components.
-## <a id="ksb-k14"></a>"Creating a Reusable Component for Compliant Employer Data Fetching with Deno Configurations and Enhanced Testing" [==KSB K14==]
-[==PR Link https://github.com/foundersandcoders/LIFT-frontend/pull/4 ==]
-### Implementing a Reusable Component for Employer Data Fetching
+The incorporation of Docker for a local Neo4j setup is a pivotal addition. By providing detailed instructions to set up Docker Desktop and run a Neo4j container, developers can now locally manage their database instances. This Dockerisation ensures a consistent setup across various development environments, eradicating discrepancies that often arise from differing local configurations. The setup includes specific commands to start the local environment and seed the database, which can be accessed and verified through a local instance. This experience taught me to value progress over perfection, reinforcing that establishing a solid foundation can substantially improve the overall workflow for developers.  
+[==insert image of: Docker running a local Neo4j instance==]
+## <a id="ksb-s5"></a>"Optimising Database Structure and Email Preview System for Enhanced Performance and User Experience" [==KSB S5==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/24 ==]
+### Refining the Database Structure
 
-The driving motivation behind this pull request was to comply with a new data privacy regulation by creating a reusable component that fetches employer names for the Dashboard. This change was pivotal in ensuring that the Employers Dashboard could seamlessly comply with the updated regulations, while also serving as a model for similar future needs across multiple projects. The code changes involved adding specific Deno configurations for both development and production environments, which facilitated the proper testing of the Cross-Origin Resource Sharing (CORS) settings on the deployed version. This was crucial for validating the secure and efficient cross-domain data requests. 
+The performance of the search feature had degraded over time, prompting an investigation into the database structure and related functionality. In this pull request, I removed the obsolete `is_latest` column from the `responses` and `actions` tables. This decision was based on the move towards a more version-based logic which offers a cleaner and more efficient way to determine the latest entries. All related database scripts and functionalities were updated to support this change, including modifications to the version filtering functions and test data generation scripts. These updates ensure a more streamlined process and accurate version filtering, reducing unnecessary data handling operations.
 
-[==insert code snippet of: the configuration setup for Deno in development and production==]
+[==insert code snippet of: database schema migration without is_latest column==]
 
-### Enhancing Test Coverage for Data Submission
+### Enhancing the Email Preview System
 
-In addition to implementing the fetching mechanism, this pull request introduced a testing function aimed at evaluating data submission processes on the Employers component. By implementing this test, I was able to demystify the dependency injection framework used in our setup, providing valuable insights that optimised the workflow. The test feature was specifically designed to simulate data posting to the server, ensuring robustness and reliability when handling real-world usage scenarios. This step not only enhanced the component's effectiveness but also laid groundwork for integrating similar features into other parts of the application, thus broadening its utility as a reusable module.
+In parallel with the database optimisation, I identified and resolved significant issues within the email preview functionality. This involved implementing filters to exclude deleted responses, which were appearing due to being created as new versions with empty content. Through updates in `emailBuilder.ts`, responses and actions with empty fields are now effectively filtered out, aligning with the "1 response = 1 action" business rule. Additionally, I introduced navigation and action buttons, such as "Back" and "Send", to the email preview interface to improve user interaction, adhering to DaisyUI design principles in `app.css`.
 
-[==insert code snippet of: test function for data posting on the Employers component==]
-## <a id="ksb-k3"></a>"Enhancing Application Security and Flexibility through Custom CORS Middleware and Refined Route Handling" [==KSB K3==]
+[==insert code snippet of: filtering logic for empty responses in emailBuilder.ts==]
+
+[==insert image of: enhanced email preview UI with navigation buttons==]
+
+These modifications collectively enhance both the backend structure and frontend user experience. In the process, I became much more adept at using the browser's performance profiling tools to hunt down bottlenecks, reflecting a significant growth in my technical expertise.
+## <a id="ksb-s8"></a>"Redesigning File Upload User Experience with Smart Tooltips and Enhanced Mobile Optimisation" [==KSB S8==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/42 ==]
+### Enhancing User Experience Through Tooltips and Mobile Optimisation
+
+The user experience for file uploads was a known pain point, and I was tasked with redesigning it. This pull request addresses several crucial elements in the UI to improve both desktop and mobile user interactions. A major feature is the implementation of a comprehensive tooltip system, which includes smart positioning capabilities in eight different orientations and enhanced accessibility features. These tooltips provide contextual help, such as indicating question statuses (pink for needing attention, grey for answered/skipped) and explaining visibility controls, thereby facilitating a more intuitive navigation experience. To prevent unnecessary interruptions, a default 300ms delay has been added to tooltip display, ensuring a smoother interaction flow. 
+
+[==insert code snippet of: Tooltip component with smart positioning==]
+
+Significant improvements were also made to the mobile user experience, including optimised viewport handling and better content spacing. By switching from `h-screen` to `h-[100dvh]`, the application now handles dynamic viewport height more effectively, catering to a range of mobile devices. Additionally, the footer was enhanced with responsive legal compliance modals and improved button layouts, ensuring users have seamless access to important information. The layout adjustments, such as the consistent max-width constraint on all view content and the introduction of card-based grouping for better category organisation, collectively bring about a visually cohesive and user-centred design.
+
+[==insert image of: improved mobile layout with better spacing==]
+
+### Linting, Deployment, and Version Management Enhancements
+
+Realising the power of a well-defined data contract in a microservices architecture, the deployment process was refined with the inclusion of an automated script to streamline version management. The new `deploy.sh` script automates the version increment and deployment processes, thereby enhancing the CI/CD pipeline's efficiency and reliability. By dynamically fetching version numbers from `package.json`, the deployment workflow is not only optimised but also greatly reduced the risk of human error caused by hardcoded values.
+
+[==insert code snippet of: automated deployment script==]
+
+Overall, the improvements made in this iteration not only enhance user interactions across devices but also effectively strengthen the development and deployment processes through automation and optimisation.
+## <a id="ksb-s9"></a>"Refactoring Action Filtering and Creation Logic for Enhanced Application Stability and Reliability" [==KSB S9==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/35 ==]
+### Enhancing Application Stability with Question-Based Action Filtering
+
+I began by writing a failing test to reproduce the reported bug, highlighting risks in the existing actions system. The core issue stemmed from the response-based filtering mechanism, which threatened data consistency and obfuscated the system's state. To mitigate these risks, I refactored the actions filtering system from a response-based approach to a more reliable question-based strategy. By updating `filterLatestActions` to associate actions with `user_id + question_id` instead of `user_id + response_id`, the system can now more effectively return the latest action per question. This change ensures improved stability as actions align more intuitively with user interactions, reducing potential for data mismanagement. Additionally, an optional `question_id` field was integrated into the Action type to bolster filtering logic. These adjustments collectively fortify the system against inconsistencies by centralising the logic around questions rather than disparate responses.
+
+[==insert code snippet of: filterLatestActions using user_id + question_id==]
+
+### Automatic Action Creation for Improved Reliability
+
+In conjunction with the improved filtering logic, I implemented automatic action creation to enhance the application's reliability. Previously, actions were often not created, even when users provided the necessary data, leading to incomplete records and user frustration. By integrating logic within the FormButton to detect when users include action type and description, actions are now created instantly upon response submission. This development not only streamlines processes but also guarantees data integrity through immediate action-response linkage. During this process, I reinforced the system by adding error handling mechanisms to maintain the backward compatibility of existing records and enhance the overall robustness of data operations. Ultimately, this initiative highlighted the importance of writing clear and concise documentation, allowing future developers to navigate enhancements easily.
+
+[==insert code snippet of: logic in FormButton for automatic action creation==]
+## <a id="ksb-s13"></a>"Enhancing Database Seeding through Schema and Encoding Fixes for Environment Consistency" [==KSB S13==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/26 ==]
+### Database Seeding Challenges and Solutions
+
+The primary objective was to enhance the database seeding process, aiming for a seamless and responsive user interface. Initially, the hypothesis was that deprecated schema fields and malformed API queries were causing disruptions, preventing necessary responses and actions from being created accurately in the production environment. Investigations led to identifying issues with URL encoding and deprecated fields in the API calls, necessitating a solution that could restore proper functionality to the seeding scripts. The changes implemented involved correcting malformed URL encoding in the `prod-seed-test-data.sh` script, removing deprecated `is_latest` fields from API calls, and integrating more robust error handling for question lookups. These adjustments were meticulously tested to ensure both local and production environments are capable of accurate data seeding. 
+[==insert code snippet of: URL encoding fix and removal of deprecated fields==]
+
+### Testing and Validation for Consistent Environments
+
+To address the inconsistencies in the local and production environments, test data generation scripts were updated and regenerated to align with the current schema. Enhancements were made to the `scripts/generate-test-data.sh` to ensure it generated data that adhered to the updated schema requirements. By removing references to outdated fields, the team guaranteed that both responses and actions could be generated seamlessly without issues in both test environments. The updates not only optimised the production environment but also ensured that local tests aligned with production standards. As a result of these targeted efforts, it became an invaluable experience in effectively communicating complex technical constraints and resolutions to non-technical stakeholders.
+[==insert code snippet of: updated test data generation script==]
+
+Overall, this work has helped facilitate a smooth transition for both environments, ensuring reliable and efficient data seeding processes aligned with real-world requirements.
+## <a id="ksb-s14"></a>"Refactoring Frontend Aesthetics with Tailwind and Streamlining Database Management Scripts" [==KSB S14==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/19 ==]
+### Modernising Frontend Aesthetics
+
+The core objective of this pull request was to refactor a critical piece of legacy code by merging aesthetic improvements from the `make-pretty` branch into the `auto_deploy` branch. This significant update involves a comprehensive revamp of the UI components using Tailwind styling, replacing previous dev placeholder classes to enhance visual consistency and sophistication across the application. Frontend file changes extend from styling in `ListItem.svelte` and `Footer.svelte` to views such as `Dash.svelte`, `Detail.svelte`, and `List.svelte`, integrating a more cohesive and appealing design throughout. These enhancements serve to not only improve user engagement but also to standardise visual elements, making the codebase more manageable and less prone to future styling inconsistencies. 
+
+[==insert image of: updated UI with Tailwind styling==]
+
+### Streamlining Database Management
+
+In addition to UI improvements, this update is instrumental in pruning technical debt relating to database management scripts. The branch introduces several scripts for maintaining local and production database instances effectively. These scripts are designed to handle a range of tasks, from seeding fake data for testing to executing production migrations, ensuring a robust and flexible database configuration. This meticulous organisation of database scripts, like `generate-test-data.js` and `prod-seed-questions.sh`, helps clarify the distinction between local and production environments, reducing potential errors and enhancing overall codebase reliability. The work not only maintains existing functionality but optimises processes, contributing positively to the stability and maintainability of the application.
+
+[==insert code snippet of: database script update for production seeding==]
+
+This experience underscored the value of thoughtful code management and the importance of good mentorship, as effective refactoring and documentation provide significant support to junior developers navigating complex codebases.
+## <a id="ksb-s15"></a>"Implementing a JSON-Based Email Preview System and Standardised Data Handling for Enhanced User Experience" [==KSB S15==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/21 ==]
+### Enhancing User Experience through Structured Email Preview
+
+This pull request introduces a JSON-based email preview system designed to improve the clarity and usability of email content by integrating user feedback. The new functionality allows users to see actions clearly displayed below question and answer pairs within preview emails, addressing a common user request for better visibility and structure. This enhancement leverages JSON objects to organise email data, converting them into styled HTML for better user interaction. Notably, brand colours and category headers are used to improve visual hierarchy and theme coherence, thus improving the overall aesthetic and user experience of emails. This update empowers users by providing a structured, visually appealing interface that makes relevant information more accessible and comprehensible.  
+
+[==insert image of: the new email preview with structured content and action items displayed==]
+
+### Consistent Data Handling for Improved Service Experience
+
+Realising the power of a well-defined data contract in a microservices architecture, this update standardises type conversion across all action service functions, ensuring no breaking changes in existing code. This standardisation is crucial for maintaining data integrity and eliminating discrepancies that may confuse users. Several functions within the actions service, such as database operations related to user actions, have now been corrected to align with consistent 'tableMain' types. By ensuring uniform data handling, users can expect consistent, reliable interactions, which is especially critical for those relying on accurate and timely information for decision-making processes. This consistency across the board underscores the importance of robust data contracts in enhancing user trust and experience.
+
+[==insert code snippet of: standardised type conversion for action service functions==]
+## <a id="ksb-s17"></a>"Enhancing Tooltip System and Mobile User Experience with Smart Positioning and Responsive Design" [==KSB S17==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/42 ==]
+### Comprehensive Tooltip and Mobile UX Enhancements
+
+To improve the developer experience and streamline our workflow, I focused on enhancing the application's tooltip system and mobile user experience. A new component for tooltips was introduced, offering smart positioning across eight orientations, along with accessibility features. Tooltips now provide contextual assistance, such as explaining question status indicators and the implications of response visibility settings. This enhancement aims to guide users more effectively through the interface by delivering timely information. Additionally, a show delay of 300 milliseconds was added to tooltips to prevent them from appearing too quickly, ensuring they do not obstruct user interactions inadvertently. 
+
+[==insert code snippet of: Tooltip component addition with smart positioning and accessibility features==]
+
+### Design Consistency and Mobile Optimisation
+
+Significant efforts were made to optimise the layout for mobile and ensure consistency across devices. The application's responsive design was improved by implementing safe area insets for compatibility with iPhones and other mobile browsers. Adjustments in the layout and spacing, such as reducing dashboard tile margins and ensuring footer components have sufficient safe area padding, contribute to a cleaner and more organised interface. Footer enhancements included responsive adjustments to Terms of Use and Privacy Policy buttons, ensuring legal compliance modals display appropriately across devices. These improvements enhance the overall user experience on mobile, making interactions smoother and more intuitive.
+
+[==insert image of: improved footer layout with responsive text display on mobile devices==]
+
+This project gave me a better appreciation for the challenges of API design, as enhancing the user experience necessitated a careful balance of aesthetics and functionality within the constraints of interface design principles.
+## <a id="ksb-b1"></a>"Introducing a User-friendly Confirmation Modal with Enhanced Response Management and Button Functionality in Svelte Components" [==KSB B1==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/39 ==]
+### Introduction of a User-friendly Confirmation Workflow
+
+I was tasked with simplifying a notoriously complex part of the codebase by introducing a user-friendly confirmation modal to address a subtle, intermittent bug that had long plagued the team. This enhancement involved the creation of a new component, `ConfirmModal.svelte`, designed with DaisyUI styling. The modal not only provides users with the ability to cancel out accidental deletions by supporting click-outside-to-close functionality but also enhances the overall user experience with improved focus management and accessibility. Furthermore, to align with the existing UI framework, the modal follows DaisyUI conventions. This ensures seamless integration and consistency across the application.
+
+[==insert code snippet of: ConfirmModal.svelte structure==]
+
+### Streamlining Response Management and Button Functionality
+
+In conjunction with the confirmation modal, I enhanced the `QuestionCard.svelte` by implementing a delete confirmation workflow, which triggers asynchronous handling of deletions, complete with error management. This improvement allows for automatic navigation back to the list view once a response is deleted, significantly improving the user interaction flow. To maintain audit trails, a "skipped" response is created instead of performing a hard delete, adhering to the project's versioning system. Additionally, modifications to `FormButton.svelte` now permit custom click handlers, supporting both default form submissions and specialised actions, while retaining backward compatibility. Through this PR, I learned to write code that was not just correct but also easy to delete, ensuring future adaptations can be made effortlessly.
+
+[==insert code snippet of: updated QuestionCard.svelte logic==]
+[==insert image of: updated UI with confirm modal for deletion==]
+## <a id="ksb-b4"></a>"Optimising Tooltip and Mobile Layout Systems for Enhanced User Experience and Accessibility" [==KSB B4==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/42 ==]
+### Streamlining the Tooltip System for Better UX
+
+I was tasked with simplifying a notoriously complex part of the codebase by re-engineering the tooltip system to improve user interaction and accessibility across the application. To achieve this, I implemented a component with smart positioning capabilities that supports eight different positioning options, enhancing the clarity and usability of tooltips. Contextual tooltips were introduced for visual indicators, such as question status, which now provide explanations for both pink (requiring attention) and grey (answered/skipped) states. Additional tooltips clarify the functionalities of features like the visibility toggle for shared responses. To further enhance user experience, a default 300ms show delay was added to prevent tooltips from appearing too abruptly when users hover over interactive elements, reducing unnecessary distractions.
+
+[==insert code snippet of: Tooltip component with smart positioning and contextual explanations==]
+
+### Enhancing Mobile Accessibility and Layout Consistency
+
+In parallel with the tooltip improvements, mobile user experience was meticulously enhanced to ensure a smoother and more intuitive interaction on smaller screens. The mobile handling was refined by using dynamic viewport units, replacing static configurations like `h-screen` with `h-[100dvh]` to accommodate a variety of devices efficiently. Layout adjustments, such as the addition of safe-area insets for devices like iPhones, were made to maintain content within viewable regions. Moreover, footer spacing was optimised to prevent content from bleeding off screen, ensuring that elements like the Terms of Use and Privacy Policy buttons remain accessible and readable. These refinements illustrate the value of building a minimal, reproducible example when addressing layout challenges, providing a clearer path to optimise mobile and responsive design effectively.
+
+[==insert image of: improved mobile layout with responsive footer and dynamic viewport handling==]
+## <a id="ksb-b5"></a>"Enhancing Security and Consistency through Custom CORS Middleware and Route Handler Optimisation in a Neo4j Application" [==KSB B5==]
 [==PR Link https://github.com/foundersandcoders/LIFT-backend/pull/9 ==]
-### Pruning and Optimising for Future Growth
+### Implementing a Custom CORS Middleware for Enhanced Security
 
-This change laid the groundwork for a more significant feature to come by addressing technical debt and updating the existing codebase for better adaptability. The introduction of a custom CORS middleware was a pivotal step in enhancing security and flexibility. By allowing the application to dynamically set the "Access-Control-Allow-Origin" header from environment variables, the middleware prevents unauthorised cross-origin requests and paves the way for smooth integration with future frontend services. This ensures that as new features are implemented, they will be built on a secure and adaptable foundation. 
+An accessibility audit identified several areas for improvement in our UI, prompting us to address security concerns at the system level. In this update, I focused on mapping out and clarifying the existing CORS handling, which was previously underdeveloped. To enhance cross-origin resource sharing security, I developed a custom CORS middleware that dynamically reads allowed origins from environment variables. This implementation ensures that the server only permits requests from explicitly defined frontend origins, thereby fortifying the security framework while maintaining extensibility. 
 
-[==insert code snippet of: custom CORS middleware setup in the application==]
+[==insert code snippet of: custom CORS middleware setting headers based on environment variables==]
 
-### Refined Route Handling and Secure Configuration
+### Updating Route Handlers for Consistent Context Usage
 
-The update further involved refining route handlers to utilise Oak's context management for more effective response setting. This systematic prune of existing code means cleaner, streamlined handling of HTTP requests—demonstrated by the revised `/newEntry` endpoint, which now processes requests more robustly by adopting structured validation and response logic. Additionally, the neo4j configuration was updated to secure connection details through environment variables, reducing security risks and enhancing the maintainability of database interactions. This task highlighted the importance of considering internationalisation and localisation from the start by ensuring the codebase remains flexible and secure for diverse deployment environments.
+I came to appreciate the foresight required to build extensible software as I refined the route handling within our Neo4j-driven application. By updating the route handlers to utilise Oak's context consistently, I ensured standardised response formatting and seamless request processing. Changes in `hub.ts` included reading and writing to the context, specifically modifying the `/newEntry` endpoint to process incoming JSON data and respond appropriately. Additionally, I configured Neo4j to source connection details from environment variables, enhancing the maintainability and configurability of the system.
 
-[==insert code snippet of: updated /newEntry route handler in the application==]
-## <a id="ksb-k4"></a>"Optimising Mobile UI and Code Structuring with Enhanced Documentation" [==KSB K4==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/11 ==]
-### Enhancing Mobile User Experience and Documentation
+[==insert code snippet of: updated `/newEntry` endpoint using Oak's context==]
+## <a id="ksb-b6"></a>"Implementing Reactive State Management and User Interface Enhancements for Action Status Handling" [==KSB B6==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/29 ==]
+### Diagnostic and Solution Deployment
 
-The performance of the search feature had degraded over time, and I was asked to investigate its impacts on the mobile interface. Initially, the code supporting the mobile design was complex and not fully optimised for narrow screens. To improve the user experience, I introduced several styling enhancements, such as smart content hiding for narrower screens, which involved adjusting the colours and making the header responsive to mobile devices. Media queries were also utilised to ensure that the `editStatement` feature adjusts seamlessly for mobile users. These changes resulted in a refined and more accessible interface for mobile users. 
+Our monitoring alerts pointed to a recurring, unhandled exception in the status management of workplace accommodation actions, leading to inconsistent displays and user interface issues. The implementation of a comprehensive action management system addressed this critical production issue. This enhancement enables users to toggle action statuses between active and archived, providing clarity and avoiding previous confusion caused by placeholder texts. The key development included the creation of a custom `ActionStatusToggle` component, which manages state reactively and provides text labels for status clarity. An optimistic UI update approach ensures that user experience remains seamless, even if a network failure requires an immediate rollback. Moreover, database functions, such as `updateActionStatus()`, support persistent status updates, while enhanced type safety and error handling improve code reliability.  
+[==insert code snippet of: ActionStatusToggle component with text labels and reactive state management==]
 
-[==insert image of: updated mobile interface with smart content hiding and responsive header==]
+### User Interface and Experience Enhancements
 
-### Improving Code Structure and Documentation
+Significant user interface improvements were made to bolster usability and accessibility. The list view now prominently features action descriptions, eliminating the generic "ACTION" placeholder, and implements left-aligned text for improved readability of lengthy entries. Each action now represents the most recent version, preventing duplicate entries. Changes to the `ListItem.svelte` component support action-specific styling and status management, while styling updates introduce custom accent colours for toggles to ensure visibility and contrast. These collective updates mitigate prior user experience frustrations and align with accessibility standards. This project honed my skills in debugging complex, multi-threaded race conditions, ensuring the system’s robustness and user satisfaction.  
+[==insert image of: enhanced list view with left-aligned action descriptions and toggle functionality==]
+## <a id="ksb-b7"></a>"Developing Svelte-Based Component Infrastructure with Tailwind CSS and Code Duplication Mitigation Strategies" [==KSB B7==]
+[==PR Link https://github.com/JasonWarrenUK/kannotban/pull/3 ==]
+### Establishing Component Infrastructure
 
-The project also necessitated code refactoring for better maintainability, which involved reorganising the file structure. Files were systematically arranged to facilitate easier navigation and understanding for current and future developers. Alongside these structural improvements, I documented the use of `Magic_Link` authentication. This inclusion serves as an important guide, enhancing onboarding for new team members and maintaining consistency in authentication practices. The documentation clearly outlines the setup and usage of `Magic_Link`, reflecting a more structured approach to error handling and code documentation.
+The challenge of balancing technical needs with project priorities has resulted in the creation of key components to enhance the efficiency of future developments. This pull request includes the creation of shell components like BoardLayout, Column, TaskCard, TaskForm, and ConfirmDialog. These components serve as the building blocks for further development, adhering to the predefined architectural framework, and are complemented by basic styling using Tailwind CSS. The purpose of this initial setup is to simplify the import and export processes for these components, thereby maintaining a seamless workflow and codebase consistency. These components have been developed in isolated files, conforming to Svelte conventions, ensuring their ease of integration into the broader system.  
+[==insert code snippet of: component structure and imports/exports using Svelte conventions==]
 
-[==insert code snippet of: reorganised file structure with new paths==]  
-[==insert code snippet of: Magic_Link documentation demonstrating setup and usage==]
+### Guarding Against Code Duplication
 
-This project taught me to be more deliberate in my approach to error handling, ensuring robust and scalable solutions.
-## <a id="ksb-k5"></a>"Enhancing Application Stability and Error Management through Comprehensive Data Validation and React Component Refactoring" [==KSB K5==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/33 ==]
-### Strengthening Application Stability with Enhanced Data Validation
+The development process underscored the importance of idempotent operations by highlighting the risk of code duplication when tasks are completed in parallel. While no architectural changes were deemed necessary at this stage, attention was given to avoid replicating code across separate tickets. This concern is particularly relevant when defining types, as maintaining a uniform type structure across components is crucial to preventing discrepancies. As the author navigated through the creation process, the collaboration with Claude, an AI assistance tool, provided clarity in maintaining stylistic and standardisation consistency across components, aiding in efficient decision-making and reinforcing the integrity of the initial architecture.  
+[==insert image of: folder structure with new component files==]
+## <a id="ksb-b8"></a>"Implementing JSON-Based Dynamic Email Rendering and Standardising Action Services for Enhanced System Consistency" [==KSB B8==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/21 ==]
+### Introducing a Dynamic Email Preview System
 
-The goal was to eliminate a whole class of bugs by introducing a stricter data validation layer. Recognising potential risks associated with the incomplete implementation of React functions, I implemented a comprehensive Radix polyfill to enhance application stability. This corrective measure was driven by the frequent occurrence of errors like 'Cannot read properties of undefined' when deploying React useLayoutEffect in a live environment. To mitigate this, I added a detailed polyfill script in `index.html` ensuring essential React global methods, such as createContext and useLayoutEffect, were fully operational. This foundational change is vital for preventing deployment failures that were previously common, thereby safeguarding the system's reliability.
+This pull request marks the transformation of the email system by implementing a JSON-based rendering approach to generate structured and styled emails. The new system facilitates the inclusion of actions displayed beneath corresponding Q&A pairs, bringing a more interactive and dynamic user experience. The introduction of `EmailData` interfaces enables structured email content generation, while the `generateEmailData()` and `renderEmailToHTML()` functions ensure the conversion of user responses into HTML formatted emails. In terms of design, brand colours are applied throughout, enhancing visual appeal and ensuring consistency with the organisational standards. The email preview component has been updated to incorporate these advancements, transitioning from plain text to styled HTML content, thus significantly improving the user's workflow efficiency.
 
-[==insert code snippet of: comprehensive React polyfill added to index.html==]
+[==insert code snippet of: JSON-based email generation with conversion functions==]
 
-### Reinforcing Error Handling through Component Refactoring
+### Standardising Actions and Enhancing Utility Functions
 
-This project taught me to be more deliberate in my approach to error handling. To address the operational issues posed by the existing Radix UI components, I developed a set of simple React-based alternatives. These included creating SimpleDialog, SimpleTooltip, and SimpleLabel components to replace Radix's counterparts, thereby nullifying the original dependencies. A compatibility layer was also introduced, enabling seamless integration with the existing codebase. This strategic move not only resolved the useLayoutEffect and createContext errors but also represented a pivotal step towards completely removing the Radix UI dependency. Enhancing TypeScript type handling for the global React object further strengthened the application’s resilience against type-related errors, demonstrating a proactive approach to system protection.
+This update to the codebase removes technical debt by standardising the handling of action services. All actions now consistently convert database responses to `tableMain` types, ensuring smooth operation across functions such as `getUserActions`, `createAction`, and `updateAction`. Additionally, a new `getActionsByResponseId` function adds further robustness with proper versioning logic. Text processing utilities are also enhanced, with improvements like the complete removal of underscores using `replaceAll`, and better display of category names in the email preview. These refinements collectively lead to a cleaner, more predictable codebase, which aids developers in maintaining the system and users in experiencing a seamless service.
 
-[==insert code snippet of: simple React-based alternatives for Radix UI components==]
+[==insert code snippet of: standard type conversion in action services==]
+## <a id="ksb-b9"></a>"Streamlining Supabase Configuration and Database Seeding for Enhanced Development Efficiency" [==KSB B9==]
+[==PR Link https://github.com/foundersandcoders/LIFT02/pull/2 ==]
+### Automating Supabase Configuration and Database Seeding
 
-[==insert code snippet of: TypeScript type handling improvement for global React object==]
-## <a id="ksb-k7"></a>"Developing a React Polyfill and Transitioning from Radix UI to Enhance Application Stability" [==KSB K7==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/33 ==]
-### Implementing a Comprehensive React Polyfill for Stability
+To efficiently process a large volume of data without impacting user performance, I focused on improving our Supabase local development setup. This entailed migrating the configuration system from `config.toml` files to environment-based files, allowing for improved project management and cleaner environment configurations. This change was necessary to reduce manual errors and enhance the scalability of our configurations, making the setup more adaptable to different environments. By implementing this automated system, the overhead involved in managing configuration complexities was significantly reduced. 
+[==insert code snippet of: environment file setup replacing config.toml==]
 
-The path to a more scalable architecture began with a single observation: persistent errors related to `useLayoutEffect` and `createContext` in a deployed environment. To address this, I implemented a comprehensive React polyfill, ensuring these functions were consistently available. Initially, errors were traced by temporarily replacing `@radix-ui` components with simple React mockups to diagnose which component triggered issues. Post-identification, a more robust `react-shim.ts` was introduced, enhancing TypeScript type handling for the global React object. These modifications significantly reduced deployment error rates, promoting application stability.
+### Enhanced Data Seeding for Reliable Testing
 
-[==insert code snippet of: implementing React polyfill in react-shim.ts==]
-
-### Transition from Radix UI to Pure React Components
-
-Addressing the root cause of `useLayoutEffect` errors necessitated a transition away from Radix UI components towards pure React alternatives. I created straightforward replacements for several UI components such as Dialog, Tooltip, Dropdown, and Label, complete with a compatibility layer to minimise code alterations. This strategic shift not only eradicated proprietary Radix dependencies but also safeguarded the application against recurring React-related errors. As a key takeaway, there was a delicate balance between perfection and shipping; the implementation underscored the importance of adaptability in design approaches to uphold system reliability.
-
-[==insert code snippet of: creating simple React-based components and compatibility layer==]
-## <a id="ksb-k8"></a>"Transitioning Radix UI Elements to Native React Components for Enhanced Deployment Stability and User Experience" [==KSB K8==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/35 ==]
-### Transitioning from Radix UI to Native React Components
-
-The final piece of the puzzle was to address critical deployment issues due to `useLayoutEffect` errors in the deployed environment. Initially, I added a `radix-utils` polyfill to ensure that `React.useLayoutEffect` was available in all necessary environments, as part of an effort to stabilise the deployment. This involved updating the `vite.config.ts` to utilise this new polyfill. Additionally, I created a `react-shim.ts` file to handle other potential React global method issues, aiming to ensure comprehensive support in the deployment context. The polyfill was included in the `index.html` through a script tag to guarantee its execution prior to any React code. As a diagnostic step, I temporarily replaced all Radix UI components with simple React mockups to locate the error, which eventually allowed me to safely revert to the original Radix components after enhancements.
-
-[==insert code snippet of: addition of radix-utils polyfill==]
-
-### Developing Pure React Components and Enhancing UX
-
-I realised the power of a well-defined data contract in a microservices architecture as I proceeded to completely mitigate the Radix UI dependency by developing pure React alternatives. This included creating components like `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, along with a compatibility layer to facilitate easy swapping without extensive code modifications. These new components were integrated into the application's primary UI parts, such as the `UserDataModal` and main `App` components. To improve overall usability, I introduced functional tooltips with proper positioning, using React context and portals for optimal results. Enhancements to the user experience, such as implementing auto-scroll and making modals dismissible by clicking outside, significantly refined the application interaction patterns.
-
-[==insert image of: the refined user's data modal for mobile after UI changes==]
-## <a id="ksb-s13"></a>"Optimising UI Frameworks by Replacing Radix UI Components with React Solutions" [==KSB S13==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/32 ==]
-### Automating Error Resolution in UI Framework Conversion
-
-To accommodate a predicted 10x increase in traffic, I initiated a project focused on replacing Radix UI components with native React solutions to improve system stability and error handling. The primary focus was on resolving the recurring `useLayoutEffect` and `createContext` errors that arose during deployment of Radix UI components. This involved the creation and implementation of a `radix-utils` polyfill, integrated into the `vite.config.ts` and all relevant component files, to ensure compatibility and address these errors. Through comprehensive diagnostic testing and temporary mockups of components, I identified the root cause of these errors, leading to the development of a robust React polyfill solution. This polyfill, incorporated as a script in `index.html`, was designed to address dependency injections smoothly, safeguarding against deployment issues. 
-[==insert code snippet of: integrating radix-utils polyfill in vite.config.ts==]
-
-### Streamlining UI Component Functionality with Simplified React Alternatives
-
-The second phase of this endeavour involved the full transition from Radix UI to React-based alternatives. By developing custom components such as `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel`, I crafted a compatibility layer in `radix-compatibility.tsx` to streamline the transition while minimising disruptions to existing code. This effort not only involved refactoring imports and removing redundant Radix components but also enhancing the system's functionality with features such as auto-scroll upon category changes. The project not only optimised our UI framework but also demystified the inner workings of React's dependency system, significantly aiding future development initiatives. 
-[==insert image of: updated UI with React-based alternatives for Radix components==]
-## <a id="ksb-s14"></a>"Refactoring User Interface Elements and Reducing Technical Debt in Codebase" [==KSB S14==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/2 ==]
-### Pruning and Optimising Interface Elements
-
-This work was born out of a team-wide discussion about improving code quality and centres around refactoring and optimising the user interface elements related to tracking question progress. Significant attention was given to styling the components that reflect the number of questions answered versus the total questions available, adding an element of gamification to enhance user engagement. The new design aims to provide immediate visual feedback, thereby enriching the user experience. This improvement follows best practices for user interface design while ensuring clarity and interaction efficiency for users. 
-[==insert image of: styled progress components showing questions answered vs total questions==]
-
-### Eliminating Redundancies and Addressing Technical Debt
-
-A crucial part of this pull request involved addressing technical debt to improve the codebase's health. This included fixing TypeScript errors in the old wizard and statement builder, which were essential to maintain code integrity and prevent future compilation issues. Additionally, redundant code and icons that were no longer in use were successfully removed to minimise clutter and confusion for developers. These changes reflect a concerted effort to clean up the codebase and enhance its maintainability. This project helped me understand the true cost of technical debt, highlighting the importance of routine maintenance and strategic refactoring for the long-term success of software projects.
-[==insert code snippet of: removal of unused code icons and TypeScript error fixes==]
-## <a id="ksb-s15"></a>"Optimising React Application Performance through Polyfills and Component Simplification" [==KSB S15==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/29 ==]
-### Addressing Performance Bottlenecks through Polyfills and Component Refactoring
-
-A persistent performance bottleneck related to the `useLayoutEffect` error was affecting the deployment environment of the application. The issue stemmed from React components' reliance on certain Radix UI elements, leading to compatibility and maintainability challenges. Initially, a diagnostic polyfill was implemented in `index.html` to ensure `useLayoutEffect` and `createContext` methods were correctly defined before any React code executed. This intervention included introducing a comprehensive React shim, refining the configuration in `vite.config.ts` to switch from `react-polyfill` to `radix-utils`, and perfecting TypeScript type handling for global React objects. The refined approach led to successful deployment without errors. 
-
-[==insert code snippet of: updated vite.config.ts to use radix-utils instead of react-polyfill==]
-
-### Transition towards Simplified Components
-
-Faced with persistent issues linked to Radix UI dependencies, an alternative solution was critically examined: transitioning to simpler React-based components. New components such as `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel` were developed to serve as drop-in replacements while maintaining minimal reconfiguration requirements. This transition aimed to address the inherent polyfill challenges and reinforce the codebase's maintainability and readability. With Radix components entirely phased out, a compatibility layer was utilised to streamline this transition. Ultimately, this effort not only resolved the immediate performance bottleneck but also underscored the importance of clear, maintainable code in software solutions.
-
-[==insert code snippet of: created SimpleDialog, SimpleTooltip, and SimpleLabel components==]
-## <a id="ksb-s17"></a>"Addressing Legacy System Dependencies by Replacing Radix UI with React-Based Solutions" [==KSB S17==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/34 ==]
-### Transitioning from Legacy Dependencies
-
-The journey to deprecating a legacy system began with this first, crucial step of addressing the intermittent useLayoutEffect error. I tackled this issue by introducing a comprehensive polyfill that provided necessary React functionalities such as `createContext` and `useLayoutEffect`. This inclusion ensured compatibility and resolved errors occurring in the deployed environment by incorporating the polyfill within `index.html` as a script tag, maintaining its execution prior to any React code. Additionally, mock versions of Radix UI components were employed temporarily to pinpoint the exact components causing the error, eventually leading to the integration of simple React components as an alternative to Radix UI components. This step marked significant progress toward removing the Radix UI dependency altogether and alleviated existing deployment errors. 
-
-[==insert code snippet of: comprehensive React polyfill implementation==]
-
-### Innovating with Alternative Solutions
-
-To circumvent the limitations imposed by the Radix UI components, new, simple React-based components such as `SimpleDialog`, `SimpleTooltip`, and `SimpleLabel` were developed. These components served as efficient replacements while maintaining API compatibility. Furthermore, improvements included enhanced tooltip functionality using React context and portals, providing proper hover actions and positioning capabilities. This strategic transition not only resolved the ongoing bugs but also laid the groundwork for a future without the Radix UI dependency. Throughout this process, I came to appreciate the foresight required to build extensible software, understanding how incremental steps facilitate meaningful transformations in systems architecture.
-
-[==insert image of: simplified React-based UI components integrated into the application==]
-## <a id="ksb-s2"></a>"Transition to Custom React UI Components with Error-Resistant Deployment Solutions" [==KSB S2==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/32 ==]
-### Transition from Radix UI to Simpler React Components
-
-The project began with a deceptively simple goal: to transition the UI components from Radix UI to custom React-based solutions while maintaining ongoing feature enhancements and ensuring a smooth deployment process. This involved developing alternatives such as SimpleDialog, SimpleTooltip, and SimpleLabel, which are pure React components. A compatibility layer, `radix-compatibility.tsx`, was introduced to streamline code changes, ensuring existing functionalities remained intact without heavy refactoring. This strategic shift from Radix UI was motivated by recurring errors associated with `useLayoutEffect` and `createContext`, prompting the need for bespoke solutions that would not only resolve these issues but also facilitate future component enhancements. 
-
-[==insert code snippet of: creation of SimpleDialog, SimpleTooltip, and SimpleLabel components as React alternatives==]
-
-### Ensuring a Seamless Technical Migration with Error Resolution
-
-The transition involved addressing technical challenges that arose in the deployed environment, primarily errors related to React's `useLayoutEffect` and `createContext`. To prevent these, a comprehensive React polyfill was implemented, which included a robust `react-shim.ts` to ensure the availability of necessary global methods across all environments. This polyfill was optimised to handle property settings safely and reduce conflicts, thereby preventing deployment errors historically encountered. Through this process, there was an enhancement in error handling mechanisms, allowing for smoother deployments and thereby achieving the perfect balance between migrating technologies and delivering functional updates without compromising the integrity of the application.
-
-[==insert code snippet of: react-shim.ts implementation to fix useLayoutEffect and createContext errors==]
-
-Ultimately, the work facilitated a practical understanding of how cryptographic signing works through the strategic solutions deployed to stabilise UI functionality amidst migratory efforts.
-## <a id="ksb-s3"></a>"Streamlining Deployment with Radix-Utils and Comprehensive Compatibility Testing in Legacy System Transition" [==KSB S3==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/24 ==]
-### Balancing Modernisation and Functionality in Deployment
-
-The journey to deprecating a legacy system began with this first crucial step: addressing deployment issues linked to outdated polyfills and component requirements. In navigating conflicting technical requirements, I integrated a `radix-utils` polyfill and ensured its importation across all Radix UI components to rectify the `useLayoutEffect` error encountered within the deployed environment. Moreover, the update of `vite.config.ts` to utilise the `radix-utils` instead of an earlier `react-polyfill` demonstrates a decisive move towards a streamlined configuration. These changes are indicative of a meticulous approach to handling differing technical opinions regarding which approach best suited the deployment needs.
-
-[==insert code snippet of: radix-utils polyfill import to rectify useLayoutEffect error==]
-
-### Identifying and Resolving Underlying Compatibility Concerns
-
-In a fascinating deep dive into a part of the web platform I hadn't explored before, I conducted a series of diagnostic test commits. This involved temporarily replacing all @radix-ui components with simple React mock-ups to trace the root cause of the error. Additionally, I included a comprehensive React polyfill to address broader issues of `createContext` and `useLayoutEffect`, scripting it into `index.html` to run prior to any React code execution. This diagnostic process was pivotal in reconciling diverse stakeholder opinions and ensuring consistent component behaviour in the final deployment setup.
-
-[==insert code snippet of: diagnostic test process with React mockups==]
-## <a id="ksb-s5"></a>"Optimising Memory and Deployment Efficiency Through Polyfill Integration and Component Refactoring" [==KSB S5==]
-[==PR Link https://github.com/foundersandcoders/lift-frontend-v2/pull/33 ==]
-### Reducing Memory Footprint with Enhanced Polyfills and Component Refactoring
-
-In the pursuit of optimising the memory usage of our main data processing service, a comprehensive update was made to our front-end dependencies and their configurations. A significant change included the introduction of a radix-utils polyfill, aimed at preventing errors related to React's `useLayoutEffect` in a deployed environment. This was executed by integrating a comprehensive React polyfill, which solves issues involving `createContext` and other global methods, ensuring React's components function correctly when deployed. The import of this polyfill across all Radix UI component files ensures consistency and mitigates the occurrence of undefined properties errors during execution. In parallel, simple React alternatives like `SimpleDialog` and `SimpleTooltip` were developed, effectively phasing out the Radix UI dependency that previously caused several execution errors. This strategic removal of Radix UI dependencies from the `package.json` file is a move towards a more streamlined and error-resilient deployment process. 
-
-[==insert code snippet of: comprehensive React polyfill integration==]
-
-### Strengthening Code Quality and Deploy Stability
-
-In a broader scope of maintaining code quality and enhancing deploy stability, the pull request introduces improvements to the continuous integration and continuous deployment (CI/CD) pipeline. Diagnostic tests identified and temporary mockups of Radix UI components were implemented to track down the specific sources of the `useLayoutEffect` error. Beyond error resolution, the introduction of functional tooltips with accurate hovering features and enhanced positioning capabilities serves as an addition to elevate user interaction quality. GitHub Actions scripts were fine-tuned to reinstate the creation of the `.env.development` from Deno secrets, optimising environment management in the deployment pipeline. Overall, these efforts underscore the crucial role of structured logging for improved observability, ensuring that any issues encountered during deployment are quickly identified and addressed.
-
-[==insert image of: updated tooltip with enhanced positioning==]
-## <a id="ksb-s8"></a>"Automating and Documenting Dropdown Features for Improved User Interface Interactions" [==KSB S8==]
-[==PR Link https://github.com/foundersandcoders/LIFT-frontend/pull/3 ==]
-### Automating User Interaction with Dropdowns
-
-This work laid the foundation for a more interactive and dynamic user experience by introducing automated dropdown components into the software. The primary task focused on creating a dropdown feature that was both simple and effective, leveraging native dropdown functionality to enhance user selection processes. The implementation began with transforming existing data into descriptors and constructing a component for autocomplete functionality. Subsequently, a singular, cohesive dropdown component was developed to streamline this interaction. Simplifying the dropdown element was a priority to ensure efficiency and user-friendly design, alongside incorporating placeholders to improve accessibility for users.
-
-[==insert code snippet of: simplified dropdown component implementation==]
-
-### Enhancing Component Structure and Documentation
-
-In parallel, significant efforts were directed towards building a structured and comprehensible design framework for these new components. Documentation, such as the `reactModStructure.md` file, was updated to provide clear guidance and understanding of the program's new dropdown elements. This task taught me the value of building a minimal, reproducible example when reporting a bug, as it highlighted potential issues early in the design process. Documenting the structure and behaviour of the dropdown elements within the codebase was essential for future development and debugging tasks, thereby reducing manual effort and mitigating potential errors.
-
-[==insert image of: improved dropdown user interface with placeholders for accessibility==]
+I aimed to enhance the database seeding process, which is crucial for testing and development, by improving the quality and structure of seed data found in `supabase/data/questions.json`. This effort focused on updating the seeding scripts to ensure reliability across various development environments. By creating a more robust seeding setup, testing accuracy and development efficiency have been optimised, reducing errors and improving data integrity. In this process, I developed a deeper intuition for choosing between relational and non-relational data stores, enhancing data handling strategies in different contexts.
+[==insert code snippet of: improved seeding script with enhanced data organisation==]
