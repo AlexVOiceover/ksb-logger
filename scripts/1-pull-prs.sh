@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Load environment variables
+# Load environment variables from project root
+cd "$(dirname "$0")/.."
 source .env
 
 # Check if GITHUB_USERNAME is set

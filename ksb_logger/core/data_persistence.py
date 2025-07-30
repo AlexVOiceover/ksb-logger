@@ -5,7 +5,7 @@ import logging
 
 csv.field_size_limit(2**25) # Set CSV field size limit to 32MB
 from typing import List, Dict, Any
-from github_client import PullRequest
+from ..clients.github_client import PullRequest
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')

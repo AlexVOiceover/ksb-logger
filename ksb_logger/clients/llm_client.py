@@ -130,7 +130,10 @@ class LLMClient:
             return {"error": f"Unexpected error: {e}", "cost": 0.0}
 
     def _load_prompt_from_file(self, file_name: str) -> str:
-        file_path = os.path.join("prompts", file_name)
+        # Get the directory containing this file, then navigate to data/prompts
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        package_dir = os.path.dirname(current_dir)  # ksb_logger/
+        file_path = os.path.join(package_dir, "data", "prompts", file_name)
         if not os.path.exists(file_path):
             logging.error(f"Prompt file not found: {file_path}")
             raise FileNotFoundError(f"Prompt file not found: {file_path}")

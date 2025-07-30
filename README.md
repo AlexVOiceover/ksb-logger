@@ -29,19 +29,41 @@ A CLI tool to generate a professional software development portfolio from GitHub
 
 ## Configuration
 
-This tool requires the following environment variables to be set:
+### Environment Variables
 
-*   `GITHUB_API`: Your GitHub Personal Access Token. This token needs `repo` scope to access pull requests.
-*   `OPENAI_API_KEY`: Your API key for the OpenAI LLM service.
-*   ~~`GROQ_API`: Your API key for the Groq LLM service.~~ (Deprecated - replaced with OpenAI)
+This tool requires specific environment variables to be configured. **You must create a `.env` file** in the project root with the following variables:
 
-You can set these in your shell or create a `.env` file in the project root:
-
-```
+```env
+# Required: GitHub Personal Access Token
 GITHUB_API="your_github_token_here"
+
+# Required: Your GitHub username for PR fetching
+GITHUB_USERNAME="your_github_username"
+
+# Required: OpenAI API key for LLM processing
 OPENAI_API_KEY="your_openai_api_key_here"
-# GROQ_API="your_groq_api_key_here"  # Deprecated - replaced with OpenAI
+
+# Optional: Number of days back to fetch PRs (defaults to 365)
+GITHUB_DAYSBACK=200
+
+# Deprecated (commented out - replaced with OpenAI)
+# GROQ_API="your_groq_api_key_here"
 ```
+
+#### How to obtain the required tokens:
+
+**GitHub Personal Access Token:**
+1. Go to GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
+2. Click "Generate new token"
+3. Select scopes: `repo` (for private repos) or `public_repo` (for public repos only)
+4. Copy the generated token
+
+**OpenAI API Key:**
+1. Visit [OpenAI API Keys](https://platform.openai.com/api-keys)
+2. Create a new API key
+3. Copy the key (starts with `sk-proj-...`)
+
+⚠️ **Security Note**: Never commit your `.env` file to version control. It's already ignored by `.gitignore`.
 
 ### Changing the LLM Provider
 
@@ -63,7 +85,24 @@ This approach makes it relatively easy to swap out LLM providers due to Langchai
 
 ## Usage
 
-All commands are run via `python cli.py <command>`.
+### Convenience Scripts
+
+For easier workflow, use the provided shell scripts in the `scripts/` directory that read configuration from your `.env` file:
+
+```bash
+# 1. Interactive repository selection and PR fetching
+./scripts/1-pull-prs.sh
+
+# 2. Rate the fetched PRs against KSBs
+./scripts/2-rate-work.sh
+
+# 3. Generate the final portfolio
+./scripts/3-write-portfolio.sh
+```
+
+### Manual CLI Usage
+
+Alternatively, all commands can be run directly via `python cli.py <command>`.
 
 ### 1. Pull Pull Requests
 
@@ -135,16 +174,53 @@ This method forces stylistic diversity across chapters, resulting in a more natu
 
 ## Project Structure
 
-*   `cli.py`: The main entry point for the command-line interface.
-*   `commands/`: Contains the implementation for each CLI command (`extract_style.py`, `pull_prs.py`, `rate_work.py`, `write_portfolio.py`).
-*   `data_persistence.py`: Handles reading from and writing to CSV files for PRs and rated work.
-*   `github_client.py`: Interacts with the GitHub API to fetch PR data.
-*   `ksb_loader.py`: Loads KSB definitions from `ksbs.csv`.
-*   `llm_client.py`: Handles interactions with the LLM (OpenAI, previously Groq).
-*   `portfolio_generator.py`: Contains the core logic for assessing PRs and generating portfolio content.
-*   `prompts/`: Stores markdown files used as prompts for the LLM.
-*   `ksbs.csv`: (Input) A CSV file defining the Knowledge, Skills, and Behaviors.
-*   `output/`: Directory for all generated output files.
-    *   `pull_requests.csv`: (Generated) Stores the fetched pull request data.
-    *   `rated_work.csv`: (Generated) Stores the results of the PR assessment against KSBs.
-    *   `portfolio.md`: (Generated) The final markdown portfolio.
+The project follows Python packaging best practices with a clean separation of concerns:
+
+```
+ksb-logger/
+├── ksb_logger/                 # Main Python package
+│   ├── __init__.py
+│   ├── cli.py                  # CLI interface implementation
+│   ├── clients/                # External service clients
+│   │   ├── __init__.py
+│   │   ├── github_client.py    # GitHub API integration
+│   │   └── llm_client.py       # LLM integration (OpenAI)
+│   ├── commands/               # CLI command implementations
+│   │   ├── __init__.py
+│   │   ├── extract_style.py    # Style analysis command
+│   │   ├── pull_prs.py         # PR fetching command
+│   │   ├── rate_work.py        # PR rating command
+│   │   └── write_portfolio.py  # Portfolio generation command
+│   ├── core/                   # Core business logic
+│   │   ├── __init__.py
+│   │   ├── data_persistence.py # CSV file handling
+│   │   ├── ksb_loader.py       # KSB definitions loader
+│   │   ├── portfolio_generator.py # Portfolio generation logic
+│   │   └── repo_selector.py    # Interactive repository selection
+│   └── data/                   # Static data files
+│       ├── ksbs.csv            # KSB definitions
+│       └── prompts/            # LLM prompt templates
+├── scripts/                    # Convenience shell scripts
+│   ├── 1-pull-prs.sh          # Interactive PR fetching
+│   ├── 2-rate-work.sh         # Rate PRs against KSBs
+│   └── 3-write-portfolio.sh   # Generate final portfolio
+├── output/                     # Generated files (ignored by git)
+│   ├── pull_requests.csv      # Fetched PR data
+│   ├── rated_work.csv         # PR assessment results
+│   └── portfolio.md           # Final portfolio
+├── cli.py                      # Main entry point (wrapper)
+├── requirements.txt            # Python dependencies
+├── .env                        # Environment variables (ignored by git)
+├── .gitignore                  # Git ignore rules
+└── README.md                   # This file
+```
+
+### Key Components
+
+- **`cli.py`**: Main entry point that delegates to the package CLI
+- **`ksb_logger/`**: Core package containing all business logic
+- **`clients/`**: External service integrations (GitHub, OpenAI)
+- **`commands/`**: Individual CLI command implementations
+- **`core/`**: Core business logic and data handling
+- **`data/`**: Static configuration and prompt files
+- **`scripts/`**: User-friendly shell scripts for common workflows

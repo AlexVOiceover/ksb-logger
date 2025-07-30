@@ -1,7 +1,7 @@
 import os
 import logging
 import click
-from llm_client import LLMClient, LLMAPIError, LLMResponseError
+from ..clients.llm_client import LLMClient, LLMAPIError, LLMResponseError
 
 @click.command()
 def extract_style():

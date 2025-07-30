@@ -1,8 +1,8 @@
 import os
 import logging
 import click
-from data_persistence import save_pull_requests
-from github_client import GitHubClient, GitHubAPIError
+from ..core.data_persistence import save_pull_requests
+from ..clients.github_client import GitHubClient, GitHubAPIError
 
 @click.command()
 @click.option('--username', required=True, help='GitHub username to fetch PRs for.')
@@ -20,7 +20,7 @@ def pull_prs(username, days_back, interactive):
 
     if interactive:
         # Interactive mode: show all repositories (personal + organization) sorted newest to oldest
-        from repo_selector import select_repositories_interactive
+        from ..core.repo_selector import select_repositories_interactive
         
         logging.info(f"Finding all repositories where {username} has activity...")
         try:

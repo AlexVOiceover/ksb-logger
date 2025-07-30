@@ -5,9 +5,9 @@ import time
 import random
 from typing import List, Dict, Any
 from datetime import datetime
-from ksb_loader import KSB
-from github_client import PullRequest
-from llm_client import LLMClient, LLMAPIError, LLMResponseError
+from .ksb_loader import KSB
+from ..clients.github_client import PullRequest
+from ..clients.llm_client import LLMClient, LLMAPIError, LLMResponseError
 from langchain.prompts import ChatPromptTemplate
 
 # Configure logging
