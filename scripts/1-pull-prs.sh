@@ -11,4 +11,4 @@ if [ -z "$GITHUB_USERNAME" ]; then
 fi
 
 echo "Starting interactive repository selection for user: $GITHUB_USERNAME"
-python cli.py pull-prs --username "$GITHUB_USERNAME" --days-back "$GITHUB_DAYSBACK" --interactive 
+python cli.py pull-prs --username "$GITHUB_USERNAME"  --interactive 

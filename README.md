@@ -43,8 +43,8 @@ GITHUB_USERNAME="your_github_username"
 # Required: OpenAI API key for LLM processing
 OPENAI_API_KEY="your_openai_api_key_here"
 
-# Optional: Number of days back to fetch PRs (defaults to 365)
-GITHUB_DAYSBACK=200
+# Optional: Can be removed as days_back functionality has been removed
+# GITHUB_DAYSBACK=200
 
 # Deprecated (commented out - replaced with OpenAI)
 # GROQ_API="your_groq_api_key_here"
@@ -109,15 +109,14 @@ Alternatively, all commands can be run directly via `python cli.py <command>`.
 Fetches pull requests for a specified GitHub username.
 
 ```bash
-python cli.py pull-prs --username <your_github_username> --days-back <number_of_days>
+python cli.py pull-prs --username <your_github_username>
 ```
 
 *   `<your_github_username>`: The GitHub username to fetch PRs for (e.g., `patdel0`).
-*   `<number_of_days>`: (Optional) Number of days back to fetch PRs. Defaults to 365.
 
 Example:
 ```bash
-python cli.py pull-prs --username patdel0 --days-back 365
+python cli.py pull-prs --username patdel0
 ```
 This will save the fetched PRs to `output/pull_requests.csv`. This command is the first step in the portfolio generation process, providing the raw data for subsequent assessment.
 

@@ -1,6 +1,6 @@
 import requests
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import List, Dict, Any
 
 # Configure logging
@@ -42,8 +42,8 @@ class GitHubClient:
             raise GitHubAPIError(f"Failed to fetch data from {url}: {e}")
 
     def get_user_public_repos(self, username: str) -> List[Dict[str, Any]]:
-        logging.info(f"Fetching public repositories for {username}")
-        url = f"https://api.github.com/users/{username}/repos?type=public&per_page=100"
+        logging.info(f"Fetching all repositories for {username}")
+        url = f"https://api.github.com/users/{username}/repos?type=all&per_page=100"
         repos = []
         while url:
             try:
@@ -51,10 +51,10 @@ class GitHubClient:
                 repos.extend(data)
                 url = requests.get(url, headers=self.headers).links.get('next', {}).get('url')
             except GitHubAPIError as e:
-                logging.error(f"Failed to fetch public repositories for {username}: {e}")
+                logging.error(f"Failed to fetch repositories for {username}: {e}")
                 return []
             except Exception as e:
-                logging.error(f"An unexpected error occurred while fetching public repositories for {username}: {e}")
+                logging.error(f"An unexpected error occurred while fetching repositories for {username}: {e}")
                 return []
         return repos
 
@@ -70,18 +70,16 @@ class GitHubClient:
             logging.warning(f"An unexpected error occurred while fetching comments for {comments_url}: {e}")
             return []
 
-    def search_pull_requests_by_author(self, username: str, days_back: int) -> List[PullRequest]:
+    def search_pull_requests_by_author(self, username: str) -> List[PullRequest]:
         """Search for pull requests authored by a user across all of GitHub."""
-        since_date = datetime.now() - timedelta(days=days_back)
-        since_str = since_date.strftime("%Y-%m-%d")
         
-        # GitHub search API for PRs authored by user since a specific date
-        url = f"https://api.github.com/search/issues?q=type:pr+author:{username}+created:>={since_str}&per_page=100"
+        # GitHub search API for PRs authored by user
+        url = f"https://api.github.com/search/issues?q=type:pr+author:{username}&per_page=100"
         
         all_pull_requests = []
         page_num = 1
         
-        logging.info(f"Starting search for PRs authored by {username} since {since_str}")
+        logging.info(f"Starting search for PRs authored by {username}")
         
         while url:
             try:
@@ -138,68 +136,22 @@ class GitHubClient:
         
         return all_pull_requests
 
-    def get_repositories_with_prs(self, username: str, days_back: int) -> List[Dict[str, Any]]:
-        """Get a list of repositories where the user has PRs, without fetching full PR details."""
-        since_date = datetime.now() - timedelta(days=days_back)
-        since_str = since_date.strftime("%Y-%m-%d")
-        
-        # Quick search to find repositories (just get first page for speed)
-        url = f"https://api.github.com/search/issues?q=type:pr+author:{username}+created:>={since_str}&per_page=100"
-        
-        try:
-            logging.info("Doing quick search to find repositories with your PRs...")
-            search_data = self._make_request(url)
-            items = search_data.get('items', [])
-            
-            if not items:
-                return []
-            
-            # Extract unique repositories
-            repo_urls = set()
-            for pr_item in items:
-                repo_url = pr_item.get("repository_url", "")
-                if repo_url:
-                    repo_urls.add(repo_url)
-            
-            # Get repository details
-            repos_with_prs = []
-            for repo_url in repo_urls:
-                try:
-                    repo_data = self._make_request(repo_url)
-                    repos_with_prs.append(repo_data)
-                except GitHubAPIError as e:
-                    logging.warning(f"Could not fetch details for repository {repo_url}: {e}")
-            
-            logging.info(f"Found {len(repos_with_prs)} repositories:")
-            for repo in repos_with_prs:
-                logging.info(f"  - {repo['owner']['login']}/{repo['name']}")
-            
-            return repos_with_prs
-            
-        except GitHubAPIError as e:
-            logging.error(f"Failed to search for repositories: {e}")
-            return []
-        except Exception as e:
-            logging.error(f"An unexpected error occurred while searching repositories: {e}")
-            return []
 
-    def search_pull_requests_by_author_filtered(self, username: str, days_back: int, selected_repos: List[Dict[str, Any]]) -> List[PullRequest]:
+    def search_pull_requests_by_author_filtered(self, username: str, selected_repos: List[Dict[str, Any]]) -> List[PullRequest]:
         """Search for pull requests authored by a user, filtered to specific repositories."""
-        since_date = datetime.now() - timedelta(days=days_back)
-        since_str = since_date.strftime("%Y-%m-%d")
         
         # Create a set of selected repository names for efficient lookup
         selected_repo_names = {f"{repo['owner']['login']}/{repo['name']}" for repo in selected_repos}
         
         # Build search query with repository filter - GitHub search supports multiple repo: filters
         repo_filters = " ".join([f"repo:{repo['owner']['login']}/{repo['name']}" for repo in selected_repos])
-        query = f"type:pr author:{username} created:>={since_str} {repo_filters}"
+        query = f"type:pr author:{username} {repo_filters}"
         url = f"https://api.github.com/search/issues?q={query}&per_page=100"
         
         all_pull_requests = []
         page_num = 1
         
-        logging.info(f"Searching for PRs authored by {username} since {since_str} in {len(selected_repos)} selected repositories")
+        logging.info(f"Searching for PRs authored by {username} in {len(selected_repos)} selected repositories")
         logging.info(f"Search query: {query}")
         
         while url:
@@ -270,7 +222,7 @@ class GitHubClient:
         
         logging.info(f"Fetching all repositories where {username} has activity...")
         
-        # 1. Get personal public repositories  
+        # 1. Get all personal repositories (public + private)
         try:
             personal_repos = self.get_user_public_repos(username)
             for repo in personal_repos:
@@ -337,9 +289,9 @@ class GitHubClient:
         except Exception as e:
             logging.warning(f"Could not search for organization repositories: {e}")
         
-        # 3. Convert to list and sort by updated_at (newest first)  
+        # 3. Convert to list and sort by created_at (newest first)  
         repo_list = list(all_repos.values())
-        repo_list.sort(key=lambda r: r.get('updated_at', ''), reverse=True)
+        repo_list.sort(key=lambda r: r.get('created_at', ''), reverse=True)
         
         # 4. Separate and interleave personal vs organization repos
         personal_repos = [r for r in repo_list if r.get('repo_type') == 'personal']
@@ -356,22 +308,19 @@ class GitHubClient:
                 interleaved_repos.append(org_repos[i])
         
         logging.info(f"Total repositories found: {len(interleaved_repos)} ({len(personal_repos)} personal, {len(org_repos)} organization)")
-        for repo in interleaved_repos[:5]:  # Log first 5 for verification
-            logging.info(f"  - {repo['owner']['login']}/{repo['name']} ({repo.get('repo_type', 'unknown')})")
         
         return interleaved_repos
 
-    def get_pull_requests(self, username: str, days_back: int) -> List[PullRequest]:
-        """Fetch pull requests for a user from their public repositories from the last N days."""
+    def get_pull_requests(self, username: str) -> List[PullRequest]:
+        """Fetch pull requests for a user from all their repositories."""
         all_pull_requests = []
-        since_date = datetime.now() - timedelta(days=days_back)
 
-        public_repos = self.get_user_public_repos(username)
-        if not public_repos:
-            logging.info(f"No public repositories found for {username} or failed to fetch them.")
+        all_repos = self.get_user_public_repos(username)
+        if not all_repos:
+            logging.info(f"No repositories found for {username} or failed to fetch them.")
             return []
 
-        for repo in public_repos:
+        for repo in all_repos:
             repo_owner = repo["owner"]["login"]
             repo_name = repo["name"]
             logging.info(f"Fetching PRs for repository: {repo_owner}/{repo_name}")
@@ -384,8 +333,8 @@ class GitHubClient:
                 try:
                     prs_data = self._make_request(url)
                     for pr_item in prs_data:
-                        # Filter by author and creation date
-                        if pr_item["user"]["login"] == username and datetime.strptime(pr_item["created_at"], "%Y-%m-%dT%H:%M:%SZ") >= since_date:
+                        # Filter by author only
+                        if pr_item["user"]["login"] == username:
                             pr_id = pr_item["number"]
                             pr_url = pr_item["url"]
 

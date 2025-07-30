@@ -4,7 +4,6 @@ import sys
 from typing import List, Dict, Any
 import inquirer
 from rich.console import Console
-from rich import print as rprint
 
 console = Console()
 
@@ -42,7 +41,19 @@ def select_repositories_interactive(repos: List[Dict[str, Any]]) -> List[Dict[st
             ),
         ]
         
-        answers = inquirer.prompt(questions)
+        # Try to increase display height by setting environment variable
+        import os
+        original_lines = os.environ.get('LINES')
+        os.environ['LINES'] = '30'  # Set terminal height to show more items
+        
+        try:
+            answers = inquirer.prompt(questions)
+        finally:
+            # Restore original environment
+            if original_lines:
+                os.environ['LINES'] = original_lines
+            else:
+                os.environ.pop('LINES', None)
         
         if not answers or not answers['selected_repos']:
             console.print("[yellow]No repositories selected. Exiting.[/yellow]")
