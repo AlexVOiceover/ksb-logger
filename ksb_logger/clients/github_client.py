@@ -368,3 +368,77 @@ class GitHubClient:
                     logging.error(f"An unexpected error occurred while fetching PRs for {repo_owner}/{repo_name}: {e}")
                     break # Move to next repository if there's an unexpected error
         return all_pull_requests
+
+    def get_commits_by_author(self, username: str, selected_repos: List[Dict[str, Any]]) -> List[PullRequest]:
+        """Fetch commits authored by a user from selected repositories, grouped as pseudo-PRs."""
+        all_commits = []
+        
+        logging.info(f"Fetching commits authored by {username} from {len(selected_repos)} selected repositories...")
+        
+        for repo in selected_repos:
+            repo_owner = repo['owner']['login']
+            repo_name = repo['name']
+            repo_full_name = f"{repo_owner}/{repo_name}"
+            
+            logging.info(f"Fetching commits from {repo_full_name}...")
+            
+            # GitHub API for listing commits in a repository
+            url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/commits?author={username}&per_page=100"
+            
+            repo_commits = []
+            page_num = 1
+            
+            while url:
+                try:
+                    logging.info(f"Fetching page {page_num} of commits from {repo_full_name}...")
+                    commits_data = self._make_request(url)
+                    
+                    if not commits_data:
+                        break
+                        
+                    logging.info(f"Found {len(commits_data)} commits on page {page_num}")
+                    
+                    for commit in commits_data:
+                        # Only include commits where the user is the author
+                        if commit.get('author') and commit['author'].get('login') == username:
+                            repo_commits.append({
+                                'sha': commit['sha'],
+                                'message': commit['commit']['message'],
+                                'date': commit['commit']['author']['date'],
+                                'url': commit['html_url']
+                            })
+                    
+                    # Check for next page
+                    response = requests.get(url, headers=self.headers)
+                    url = response.links.get('next', {}).get('url')
+                    page_num += 1
+                    
+                except GitHubAPIError as e:
+                    logging.error(f"Failed to fetch commits from {repo_full_name}: {e}")
+                    break
+                except Exception as e:
+                    logging.error(f"An unexpected error occurred while fetching commits from {repo_full_name}: {e}")
+                    break
+            
+            if repo_commits:
+                # Group commits into a single "pseudo-PR" for each repository
+                commit_messages = [commit['message'] for commit in repo_commits]
+                latest_commit = repo_commits[0] if repo_commits else None
+                
+                # Create a pseudo-PR object representing all commits from this repo
+                # Use repo ID + large offset to avoid conflicts with actual PR IDs
+                pseudo_pr = PullRequest(
+                    id=repo['id'] + 100000000,  # Add 100M to ensure uniqueness
+                    title=f"Commits from {repo_full_name} ({len(repo_commits)} commits)",
+                    body=f"Collection of {len(repo_commits)} commits from repository {repo_full_name}",
+                    url=latest_commit['url'] if latest_commit else f"https://github.com/{repo_full_name}",
+                    created_at=latest_commit['date'] if latest_commit else repo.get('created_at', ''),
+                    commit_messages=commit_messages,
+                    comments=[]
+                )
+                
+                all_commits.append(pseudo_pr)
+                logging.info(f"Created pseudo-PR for {repo_full_name} with {len(repo_commits)} commits")
+        
+        logging.info(f"Completed commit fetching. Created {len(all_commits)} pseudo-PRs from commit analysis.")
+        return all_commits

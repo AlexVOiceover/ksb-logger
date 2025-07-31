@@ -18,7 +18,7 @@ def assess_prs_against_ksbs(prs: List[PullRequest], ksbs: List[KSB], llm_client:
     rated_work = []
     logging.info(f"Starting assessment of {len(prs)} PRs against {len(ksbs)} KSBs...")
 
-    for pr in prs:
+    for i, pr in enumerate(prs, 1):
         pr_details = {
             "title": pr.title if pr.title is not None else "",
             "body": pr.body if pr.body is not None else "",
@@ -29,7 +29,7 @@ def assess_prs_against_ksbs(prs: List[PullRequest], ksbs: List[KSB], llm_client:
         ksb_list_for_llm = [{'id': ksb.id, 'description': ksb.description} for ksb in ksbs]
 
         try:
-            logging.info(f"Assessing PR ID: {pr.id} - \"{pr.title}\" against KSBs...")
+            logging.info(f"Processing PR {i}/{len(prs)}: {pr.id} - \"{pr.title}\"...")
             ratings = llm_client.rate_pr_against_ksbs(pr_details, ksb_list_for_llm)
             for rating in ratings:
                 rated_work.append({
@@ -38,11 +38,11 @@ def assess_prs_against_ksbs(prs: List[PullRequest], ksbs: List[KSB], llm_client:
                     "score": rating["score"],
                     "justification": rating["justification"]
                 })
-            logging.info(f"Successfully assessed PR ID: {pr.id}")
+            logging.info(f"✓ Completed PR {i}/{len(prs)}: {pr.id}")
         except (LLMAPIError, LLMResponseError) as e:
-            logging.error(f"Error assessing PR ID {pr.id} with LLM: {e}")
+            logging.error(f"Error assessing PR {i}/{len(prs)} (ID {pr.id}) with LLM: {e}")
         except Exception as e:
-            logging.error(f"An unexpected error occurred during LLM assessment for PR ID {pr.id}: {e}")
+            logging.error(f"An unexpected error occurred during LLM assessment for PR {i}/{len(prs)} (ID {pr.id}): {e}")
     
     logging.info(f"Finished PR assessment. Total rated work entries: {len(rated_work)}")
     return rated_work

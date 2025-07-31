@@ -32,14 +32,30 @@ def pull_prs(username, interactive):
             logging.info(f"Found {len(all_user_repos)} repositories (personal + organization)")
             
             # Let user select repositories interactively using arrow keys + spacebar
-            selected_repos = select_repositories_interactive(all_user_repos)
-            if not selected_repos:
+            selected_repo_choices = select_repositories_interactive(all_user_repos)
+            if not selected_repo_choices:
                 logging.info("No repositories selected. Exiting.")
                 return
             
-            # Now fetch PRs from selected repositories
-            logging.info(f"Fetching PRs from {len(selected_repos)} selected repositories...")
-            prs = github_client.search_pull_requests_by_author_filtered(username, selected_repos)
+            # Separate repos by analysis method
+            pr_repos = [choice[0] for choice in selected_repo_choices if choice[1] == 'PRs']
+            commit_repos = [choice[0] for choice in selected_repo_choices if choice[1] == 'commits']
+            
+            all_prs = []
+            
+            # Fetch PRs from repositories selected for PR analysis
+            if pr_repos:
+                logging.info(f"Fetching PRs from {len(pr_repos)} repositories selected for PR analysis...")
+                prs_from_repos = github_client.search_pull_requests_by_author_filtered(username, pr_repos)
+                all_prs.extend(prs_from_repos)
+            
+            # Fetch commits from repositories selected for commit analysis
+            if commit_repos:
+                logging.info(f"Fetching commits from {len(commit_repos)} repositories selected for commit analysis...")
+                commits_as_prs = github_client.get_commits_by_author(username, commit_repos)
+                all_prs.extend(commits_as_prs)
+            
+            prs = all_prs
             
         except GitHubAPIError as e:
             logging.error(f"Failed to fetch repositories from GitHub: {e}")
