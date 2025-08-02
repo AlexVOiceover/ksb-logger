@@ -11,7 +11,7 @@ class GitHubAPIError(Exception):
     pass
 
 class PullRequest:
-    def __init__(self, id: int, title: str, body: str, url: str, created_at: str, commit_messages: List[str], comments: List[Dict[str, Any]] = []):
+    def __init__(self, id: int, title: str, body: str, url: str, created_at: str, commit_messages: List[str], comments: List[Dict[str, Any]] = [], file_changes: List[Dict[str, Any]] = []):
         self.id = id
         self.title = title
         self.body = body
@@ -19,6 +19,7 @@ class PullRequest:
         self.created_at = created_at
         self.commit_messages = commit_messages
         self.comments = comments
+        self.file_changes = file_changes  # New field for storing file diffs and changes
 
 class GitHubClient:
     def __init__(self, token: str):
@@ -40,6 +41,99 @@ class GitHubClient:
         except Exception as e:
             logging.error(f"GitHub API request failed for {url}: {e}")
             raise GitHubAPIError(f"Failed to fetch data from {url}: {e}")
+
+    def get_pr_file_changes(self, pr_api_url: str) -> List[Dict[str, Any]]:
+        """Fetch file changes for a specific PR."""
+        files_url = pr_api_url + "/files"
+        try:
+            files_data = self._make_request(files_url)
+            
+            file_changes = []
+            for file_info in files_data:
+                # Extract key information about each changed file
+                file_change = {
+                    'filename': file_info.get('filename', ''),
+                    'status': file_info.get('status', ''),  # added, modified, deleted, renamed
+                    'additions': file_info.get('additions', 0),
+                    'deletions': file_info.get('deletions', 0),
+                    'changes': file_info.get('changes', 0),
+                    'patch': file_info.get('patch', ''),  # The actual diff
+                    'language': self._detect_language_from_filename(file_info.get('filename', ''))
+                }
+                file_changes.append(file_change)
+            
+            return file_changes
+        except GitHubAPIError as e:
+            logging.warning(f"Could not fetch file changes for PR {pr_api_url}: {e}")
+            return []
+        except Exception as e:
+            logging.warning(f"An unexpected error occurred while fetching file changes for PR {pr_api_url}: {e}")
+            return []
+
+    def _detect_language_from_filename(self, filename: str) -> str:
+        """Detect programming language from file extension."""
+        if not filename:
+            return 'text'
+        
+        extension = filename.split('.')[-1].lower() if '.' in filename else ''
+        
+        language_map = {
+            'js': 'javascript',
+            'jsx': 'javascript',
+            'ts': 'typescript',
+            'tsx': 'typescript', 
+            'py': 'python',
+            'java': 'java',
+            'cpp': 'cpp',
+            'c': 'c',
+            'cs': 'csharp',
+            'php': 'php',
+            'rb': 'ruby',
+            'go': 'go',
+            'rs': 'rust',
+            'sh': 'bash',
+            'sql': 'sql',
+            'html': 'html',
+            'css': 'css',
+            'scss': 'scss',
+            'sass': 'sass',
+            'json': 'json',
+            'xml': 'xml',
+            'yaml': 'yaml',
+            'yml': 'yaml',
+            'md': 'markdown',
+            'dockerfile': 'dockerfile'
+        }
+        
+        return language_map.get(extension, 'text')
+
+    def get_commit_file_changes(self, repo_owner: str, repo_name: str, commit_sha: str) -> List[Dict[str, Any]]:
+        """Fetch file changes for a specific commit."""
+        commit_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/commits/{commit_sha}"
+        try:
+            commit_data = self._make_request(commit_url)
+            files = commit_data.get('files', [])
+            
+            file_changes = []
+            for file_info in files:
+                file_change = {
+                    'filename': file_info.get('filename', ''),
+                    'status': file_info.get('status', ''),
+                    'additions': file_info.get('additions', 0),
+                    'deletions': file_info.get('deletions', 0),
+                    'changes': file_info.get('changes', 0),
+                    'patch': file_info.get('patch', ''),
+                    'language': self._detect_language_from_filename(file_info.get('filename', ''))
+                }
+                file_changes.append(file_change)
+            
+            return file_changes
+        except GitHubAPIError as e:
+            logging.warning(f"Could not fetch file changes for commit {commit_sha}: {e}")
+            return []
+        except Exception as e:
+            logging.warning(f"An unexpected error occurred while fetching file changes for commit {commit_sha}: {e}")
+            return []
 
     def get_user_public_repos(self, username: str) -> List[Dict[str, Any]]:
         logging.info(f"Fetching all repositories for {username}")
@@ -112,6 +206,9 @@ class GitHubClient:
                     except GitHubAPIError as e:
                         logging.warning(f"Could not fetch commits for PR {pr_number}: {e}")
                     
+                    # Fetch file changes
+                    file_changes = self.get_pr_file_changes(pr_url)
+                    
                     all_pull_requests.append(PullRequest(
                         id=pr_number,
                         title=pr_details["title"],
@@ -119,7 +216,8 @@ class GitHubClient:
                         url=html_url,
                         created_at=pr_details["created_at"],
                         commit_messages=commit_messages,
-                        comments=[]
+                        comments=[],
+                        file_changes=file_changes
                     ))
                 
                 # Check for next page in search results
@@ -191,6 +289,9 @@ class GitHubClient:
                     except GitHubAPIError as e:
                         logging.warning(f"Could not fetch commits for PR {pr_number}: {e}")
                     
+                    # Fetch file changes
+                    file_changes = self.get_pr_file_changes(pr_url)
+                    
                     all_pull_requests.append(PullRequest(
                         id=pr_number,
                         title=pr_details["title"],
@@ -198,7 +299,8 @@ class GitHubClient:
                         url=html_url,
                         created_at=pr_details["created_at"],
                         commit_messages=commit_messages,
-                        comments=[]
+                        comments=[],
+                        file_changes=file_changes
                     ))
                 
                 # Check for next page in search results
@@ -425,6 +527,12 @@ class GitHubClient:
                 commit_messages = [commit['message'] for commit in repo_commits]
                 latest_commit = repo_commits[0] if repo_commits else None
                 
+                # Collect file changes from all commits (limited to avoid too much data)
+                all_file_changes = []
+                for commit in repo_commits[:5]:  # Limit to first 5 commits to avoid huge data
+                    commit_file_changes = self.get_commit_file_changes(repo_owner, repo_name, commit['sha'])
+                    all_file_changes.extend(commit_file_changes)
+                
                 # Create a pseudo-PR object representing all commits from this repo
                 # Use repo ID + large offset to avoid conflicts with actual PR IDs
                 pseudo_pr = PullRequest(
@@ -434,7 +542,8 @@ class GitHubClient:
                     url=latest_commit['url'] if latest_commit else f"https://github.com/{repo_full_name}",
                     created_at=latest_commit['date'] if latest_commit else repo.get('created_at', ''),
                     commit_messages=commit_messages,
-                    comments=[]
+                    comments=[],
+                    file_changes=all_file_changes
                 )
                 
                 all_commits.append(pseudo_pr)

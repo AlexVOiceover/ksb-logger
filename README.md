@@ -46,6 +46,12 @@ OPENAI_API_KEY="your_openai_api_key_here"
 # Optional: Can be removed as days_back functionality has been removed
 # GITHUB_DAYSBACK=200
 
+# Code Extraction Configuration (optional)
+CODE_MAX_LINES=20              # Maximum lines per code snippet
+CODE_MIN_LINES=3               # Minimum lines per code snippet  
+CODE_TRUNCATE_THRESHOLD=15     # When to start smart truncation
+CODE_MAX_SNIPPETS_PER_PR=5     # Maximum code snippets per PR
+
 # Deprecated (commented out - replaced with OpenAI)
 # GROQ_API="your_groq_api_key_here"
 ```
@@ -64,6 +70,15 @@ OPENAI_API_KEY="your_openai_api_key_here"
 3. Copy the key (starts with `sk-proj-...`)
 
 ⚠️ **Security Note**: Never commit your `.env` file to version control. It's already ignored by `.gitignore`.
+
+#### Code Extraction Configuration
+
+The code extraction process can be customized using these optional environment variables:
+
+- **`CODE_MAX_LINES`** (default: 20): Maximum number of lines per code snippet. Larger blocks will be intelligently truncated.
+- **`CODE_MIN_LINES`** (default: 3): Minimum number of lines required for a code snippet to be included.
+- **`CODE_TRUNCATE_THRESHOLD`** (default: 15): When code blocks exceed this size, smart truncation is applied to preserve key logic.
+- **`CODE_MAX_SNIPPETS_PER_PR`** (default: 5): Maximum number of code snippets to extract per PR/commit.
 
 ### Changing the LLM Provider
 
@@ -96,8 +111,11 @@ For easier workflow, use the provided shell scripts in the `scripts/` directory 
 # 2. Rate the fetched PRs against KSBs
 ./scripts/2-rate-work.sh
 
-# 3. Generate the final portfolio
-./scripts/3-write-portfolio.sh
+# 3. Extract code snippets from high-scoring PRs
+./scripts/3-extract-code.sh
+
+# 4. Generate the final portfolio with real code
+./scripts/4-write-portfolio.sh
 ```
 
 ### Manual CLI Usage
