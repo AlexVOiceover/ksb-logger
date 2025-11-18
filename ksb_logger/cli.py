@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from .commands.pull_prs import pull_prs
 from .commands.extract_style import extract_style
 from .commands.rate_work import rate_work
+from .commands.extract_code import extract_code
 from .commands.write_portfolio import write_portfolio
 
 # Configure logging
@@ -21,6 +22,7 @@ def cli(verbose):
 cli.add_command(pull_prs)
 cli.add_command(extract_style)
 cli.add_command(rate_work)
+cli.add_command(extract_code)
 cli.add_command(write_portfolio)
 
 if __name__ == '__main__':

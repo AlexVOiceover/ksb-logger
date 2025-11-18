@@ -21,15 +21,15 @@ def rate_work():
         return
 
     llm_client = LLMClient(api_key=openai_api_key)
-    pull_requests_csv = "output/pull_requests.csv"
-    rated_work_csv = "rated_work.csv"
+    pull_requests_json = "output/pull_requests.json"
+    rated_work_json = "rated_work.json"
     # Path to KSBs CSV file in the data directory
     current_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(os.path.dirname(current_dir))
     ksbs_csv = os.path.join(project_root, "ksb_logger", "data", "ksbs.csv")
 
     try:
-        prs = load_pull_requests(pull_requests_csv)
+        prs = load_pull_requests(pull_requests_json)
         ksbs = load_ksbs(ksbs_csv)
     except FileNotFoundError as e:
         logging.error(f"Required file not found: {e}. Please run the pull-prs command first.")
@@ -47,8 +47,8 @@ def rate_work():
 
     logging.info("Assessing PRs against KSBs...")
     rated_work = assess_prs_against_ksbs(prs, ksbs, llm_client)
-    save_rated_work(rated_work_csv, rated_work)
-    logging.info(f"Saved {len(rated_work)} rated work entries to {rated_work_csv}.")
+    save_rated_work(rated_work_json, rated_work)
+    logging.info(f"Saved {len(rated_work)} rated work entries to {rated_work_json}.")
     
     # Display session statistics
     stats = llm_client.get_session_stats()

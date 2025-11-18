@@ -88,10 +88,62 @@ def select_best_pr_per_ksb(rated_work: List[Dict[str, Any]], prs: List[PullReque
 
 
 
+def load_code_snippets() -> Dict[str, Any]:
+    """Load extracted code snippets from JSON file."""
+    code_snippets_json = "output/code_snippets.json"
+    try:
+        with open(code_snippets_json, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        logging.warning(f"Code snippets file not found: {code_snippets_json}. Placeholders will remain.")
+        return {}
+    except Exception as e:
+        logging.warning(f"Error loading code snippets: {e}. Placeholders will remain.")
+        return {}
+
+def replace_code_placeholders(content: str, pr_id: int, code_snippets: Dict[str, Any]) -> str:
+    """Replace code placeholders with actual extracted code snippets."""
+    pr_key = str(pr_id)
+    if pr_key not in code_snippets:
+        return content
+    
+    pr_snippets = code_snippets[pr_key]['snippets']
+    if not pr_snippets:
+        return content
+    
+    import re
+    
+    # Find all code placeholders in the content
+    placeholder_pattern = r'\[==insert code snippet of: ([^]]+)==\]'
+    placeholders = re.findall(placeholder_pattern, content)
+    
+    if not placeholders:
+        return content
+    
+    # Replace placeholders with actual code snippets
+    modified_content = content
+    for i, placeholder_desc in enumerate(placeholders):
+        if i < len(pr_snippets):
+            snippet = pr_snippets[i]
+            
+            # Create formatted code block
+            code_block = f"```{snippet['language']}\n{snippet['code']}\n```\n"
+            code_block += f"*From {snippet['filename']} - {snippet['context']}*"
+            
+            # Replace the placeholder
+            old_placeholder = f"[==insert code snippet of: {placeholder_desc}==]"
+            modified_content = modified_content.replace(old_placeholder, code_block, 1)
+    
+    return modified_content
+
 def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksbs: List[KSB], output_file: str, llm_client: LLMClient):
     """Generates the portfolio markdown file."""
     portfolio_content = []
     ksb_descriptions = {ksb.id: ksb.description for ksb in ksbs}
+    
+    # Load code snippets for placeholder replacement
+    code_snippets = load_code_snippets()
+    logging.info(f"Loaded code snippets for {len(code_snippets)} PRs")
     
     # Generate KSB matching table at the beginning
     table_lines = [
@@ -134,7 +186,12 @@ def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksb
 
     # Load the variety kit
     try:
-        with open(os.path.join("prompts", "portfolio_variety_kit.md"), 'r', encoding='utf-8') as f:
+        # Get the correct path to prompts directory
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(os.path.dirname(current_dir))
+        variety_kit_path = os.path.join(project_root, "ksb_logger", "data", "prompts", "portfolio_variety_kit.md")
+        
+        with open(variety_kit_path, 'r', encoding='utf-8') as f:
             variety_content = f.read()
         
         sections = variety_content.split('## ')[1:]
@@ -147,7 +204,11 @@ def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksb
         narrative_angles, opening_hooks, reflection_phrases = [], [], []
 
     try:
-        prompt_template_path = os.path.join("prompts", "generate_narrative_portfolio_chapter.md")
+        # Get the correct path to prompts directory  
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(os.path.dirname(current_dir))
+        prompt_template_path = os.path.join(project_root, "ksb_logger", "data", "prompts", "generate_narrative_portfolio_chapter.md")
+        
         with open(prompt_template_path, 'r', encoding='utf-8') as f:
             chapter_prompt_template = f.read()
     except FileNotFoundError:
@@ -207,13 +268,16 @@ def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksb
             # Generate the chapter title
             chapter_title = llm_client.generate_chapter_title(response.content)
 
+            # Replace code placeholders with actual code snippets
+            chapter_content = replace_code_placeholders(response.content, pr.id, code_snippets)
+
             # Add the KSB heading with anchor, PR link, and the refined chapter to the portfolio
             anchor_id = f"ksb-{ksb_id.lower()}"
             ksb_heading = f"## <a id=\"{anchor_id}\"></a>{chapter_title} [==KSB {ksb_id}==]"
             pr_link_tag = f"[==PR Link {pr.url} ==]"
             portfolio_content.append(ksb_heading)
             portfolio_content.append(pr_link_tag)
-            portfolio_content.append(response.content)
+            portfolio_content.append(chapter_content)
             
             # Update previous_chapter_context for the next iteration
             previous_chapter_context = response.content

@@ -15,7 +15,7 @@ def pull_prs(username, interactive):
         return
 
     github_client = GitHubClient(token=github_token)
-    pull_requests_csv = "output/pull_requests.csv"
+    pull_requests_json = "output/pull_requests.json"
 
     if interactive:
         # Interactive mode: show all repositories (personal + organization) sorted newest to oldest
@@ -66,7 +66,7 @@ def pull_prs(username, interactive):
         prs = github_client.search_pull_requests_by_author(username)
 
     try:
-        save_pull_requests(pull_requests_csv, prs)
+        save_pull_requests(pull_requests_json, prs)
         logging.info(f"Fetched and saved {len(prs)} PRs.")
     except GitHubAPIError as e:
         logging.error(f"Failed to fetch PRs from GitHub: {e}")
