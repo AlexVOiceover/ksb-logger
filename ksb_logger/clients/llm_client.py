@@ -179,27 +179,51 @@ class LLMClient:
             logging.error(f"An unexpected error occurred during writing style analysis: {e}")
             raise
 
-    def rate_pr_against_ksbs(self, pr_details: Dict[str, Any], ksb_list: List[Dict[str, str]]) -> List[Dict[str, Any]]:
-        """Rates a pull request against a list of KSBs."""
+    def rate_pr_against_ksbs(self, pr_details: Dict[str, Any], ksb_list: List[Dict[str, str]], use_strict_validation: bool = False) -> List[Dict[str, Any]]:
+        """Rates a pull request against a list of KSBs.
+
+        Args:
+            pr_details: Dictionary containing PR information (title, body, commit_messages, comments)
+            ksb_list: List of KSB dictionaries with 'id' and 'description' keys
+            use_strict_validation: If True, uses Pydantic validation that will raise an error on invalid KSB IDs.
+                                   If False (default), filters out invalid IDs with a warning.
+        """
         try:
             prompt_template = self._load_prompt_from_file("rate_pr_against_ksbs.md")
             prompt = ChatPromptTemplate.from_template(prompt_template)
 
             ksb_formatted_list = "\n".join([f"{ksb['id']}: {ksb['description']}" for ksb in ksb_list])
-            
-            chain = prompt | self.llm.with_structured_output(KSBMatchList)
+            valid_ksb_ids = {ksb['id'] for ksb in ksb_list}
+
+            # Choose validation model based on strictness setting
+            if use_strict_validation:
+                ValidationModel = create_validated_ksb_match(valid_ksb_ids)
+            else:
+                ValidationModel = KSBMatchList
+
+            chain = prompt | self.llm.with_structured_output(ValidationModel)
             response = chain.invoke({"ksb_list": ksb_formatted_list, **pr_details})
-            
+
             # Track token usage (structured output doesn't have usage_metadata, estimate from content)
             # This is a workaround - structured output doesn't expose token usage directly
             estimated_tokens = len(str(response)) // 4  # Rough estimate: 4 chars per token
             self.total_tokens += estimated_tokens
             self.completion_tokens += estimated_tokens // 2
             self.prompt_tokens += estimated_tokens // 2
-            
+
             # Explicitly validate the response to catch issues with structured output
-            validated_response = KSBMatchList.model_validate(response.model_dump())
-            return [match.model_dump() for match in validated_response.matches]
+            validated_response = ValidationModel.model_validate(response.model_dump())
+
+            # Filter out any KSB IDs that weren't in the input list (LLM hallucinations)
+            # This acts as a safety net even with strict validation
+            filtered_matches = []
+            for match in validated_response.matches:
+                if match.ksb_id in valid_ksb_ids:
+                    filtered_matches.append(match.model_dump())
+                else:
+                    logging.warning(f"LLM returned invalid KSB ID '{match.ksb_id}' not in provided list. Skipping.")
+
+            return filtered_matches
         except FileNotFoundError:
             raise
         except (ValidationError, json.JSONDecodeError) as e:
@@ -269,6 +293,27 @@ class KSBMatch(BaseModel):
 
 class KSBMatchList(BaseModel):
     matches: List[KSBMatch] = Field(..., description="List of KSB matches")
+
+def create_validated_ksb_match(valid_ksb_ids: set) -> type[BaseModel]:
+    """Creates a Pydantic model with dynamic validation for KSB IDs."""
+    from pydantic import field_validator
+
+    class ValidatedKSBMatch(BaseModel):
+        ksb_id: str = Field(..., description="The ID of the KSB")
+        score: int = Field(..., ge=0, le=100, description="Confidence score (0-100)")
+        justification: str = Field(..., description="Justification for the score, explaining how the PR demonstrates the KSB.")
+
+        @field_validator('ksb_id')
+        @classmethod
+        def validate_ksb_id(cls, v: str) -> str:
+            if v not in valid_ksb_ids:
+                raise ValueError(f"KSB ID '{v}' is not in the list of valid KSB IDs: {sorted(valid_ksb_ids)}")
+            return v
+
+    class ValidatedKSBMatchList(BaseModel):
+        matches: List[ValidatedKSBMatch] = Field(..., description="List of KSB matches")
+
+    return ValidatedKSBMatchList
 
 class WritingStyle(BaseModel):
     tone: str = Field(..., description="Overall tone of the writing (e.g., formal, informal, technical)")

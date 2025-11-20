@@ -47,15 +47,21 @@ def assess_prs_against_ksbs(prs: List[PullRequest], ksbs: List[KSB], llm_client:
     logging.info(f"Finished PR assessment. Total rated work entries: {len(rated_work)}")
     return rated_work
 
-def select_best_pr_per_ksb(rated_work: List[Dict[str, Any]], prs: List[PullRequest]) -> Dict[str, Dict[str, Any]]:
+def select_best_pr_per_ksb(rated_work: List[Dict[str, Any]], prs: List[PullRequest], ksbs: List[KSB]) -> Dict[str, Dict[str, Any]]:
     """Selects the best PR for each KSB based on score, breaking ties by recency."""
     best_prs_per_ksb = {}
     pr_map = {pr.id: pr for pr in prs}
+    valid_ksb_ids = {ksb.id for ksb in ksbs}
 
     for item in rated_work:
         ksb_id = item["ksb_id"]
         pr_id = item["pr_id"]
         score = item["score"]
+
+        # Validate that the KSB ID exists in the loaded KSB list
+        if ksb_id not in valid_ksb_ids:
+            logging.warning(f"Invalid KSB ID '{ksb_id}' found in rated work (not in ksbs.csv). Skipping.")
+            continue
 
         pr = pr_map.get(pr_id)
         if not pr:
@@ -128,7 +134,7 @@ def replace_code_placeholders(content: str, pr_id: int, code_snippets: Dict[str,
             
             # Create formatted code block
             code_block = f"```{snippet['language']}\n{snippet['code']}\n```\n"
-            code_block += f"*From {snippet['filename']} - {snippet['context']}*"
+            code_block += f"*From {snippet['filename']}*"
             
             # Replace the placeholder
             old_placeholder = f"[==insert code snippet of: {placeholder_desc}==]"
@@ -273,7 +279,7 @@ def generate_portfolio_markdown(best_prs_per_ksb: Dict[str, Dict[str, Any]], ksb
 
             # Add the KSB heading with anchor, PR link, and the refined chapter to the portfolio
             anchor_id = f"ksb-{ksb_id.lower()}"
-            ksb_heading = f"## <a id=\"{anchor_id}\"></a>{chapter_title} [==KSB {ksb_id}==]"
+            ksb_heading = f"## <a id=\"{anchor_id}\"></a>{ksb_id}: {ksb_description} - {chapter_title}"
             pr_link_tag = f"[==PR Link {pr.url} ==]"
             portfolio_content.append(ksb_heading)
             portfolio_content.append(pr_link_tag)

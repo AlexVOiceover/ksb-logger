@@ -45,7 +45,7 @@ def write_portfolio():
         return
 
     logging.info("Selecting best PR per KSB...")
-    best_prs_per_ksb = select_best_pr_per_ksb(rated_work, prs)
+    best_prs_per_ksb = select_best_pr_per_ksb(rated_work, prs, ksbs)
     if not best_prs_per_ksb:
         logging.warning("No best PRs selected for any KSB. Exiting.")
         return
