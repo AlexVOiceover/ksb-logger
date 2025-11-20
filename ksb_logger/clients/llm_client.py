@@ -6,7 +6,7 @@ import requests
 from typing import List, Dict, Any, Optional
 # from langchain_groq import ChatGroq  # Commented out - replaced with OpenAI
 from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field, ValidationError
 from requests.exceptions import RequestException
 

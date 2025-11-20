@@ -8,7 +8,7 @@ from datetime import datetime
 from .ksb_loader import KSB
 from ..clients.github_client import PullRequest
 from ..clients.llm_client import LLMClient, LLMAPIError, LLMResponseError
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
