@@ -1,46 +1,149 @@
 # Portfolio Variety Kit
 
-This file contains a collection of narrative angles, opening hooks, and reflection phrases to be randomly selected from when generating portfolio chapters. This is to mitigate repetitive content from the LLM.
+This file contains narrative angles and opening hooks to be randomly selected when generating portfolio chapters. Each narrative angle is mapped to compatible KSB types to ensure appropriate framing.
 
-## Narrative Angles
+## Narrative Angles (with KSB Compatibility)
 
-1.  **The Detective:** Frame the narrative as an investigation. Start with a mysterious bug, a performance issue, or an unexpected behavior. Detail the process of uncovering the root cause through debugging, logging, and analysis.
-2.  **The Architect:** Tell the story of designing a new system, component, or feature from the ground up. Focus on the design decisions, the trade-offs considered, and the blueprint you created before writing code.
-3.  **The Refactorer:** Describe the process of improving existing code. Use a "before and after" structure. Show the code's initial state (e.g., complex, inefficient, hard to read) and explain how your changes improved its structure, performance, or maintainability.
-4.  **The Collaborator:** Center the story on teamwork. Explain how you worked with others, incorporated feedback from a code review, or contributed to a larger team effort. Highlight communication and shared ownership.
-5.  **The Simplifier:** Focus on taking a complex problem or piece of code and making it simpler. Explain how you reduced complexity, improved clarity, and made the system easier for others to understand and use.
-6.  **The Pioneer:** Talk about introducing a new technology, library, or programming paradigm to the project. Explain why you chose it, the challenges of integrating it, and the benefits it brought.
-7.  **The Guardian:** Frame the work around improving the stability, security, or reliability of the application. Describe how you identified a potential risk and implemented a solution to protect the system.
-8.  **The Optimizer:** Focus on performance. Describe how you identified a bottleneck and implemented changes to make the code faster, more memory-efficient, or more scalable.
-9.  **The Educator:** Tell the story of how you improved documentation, added helpful comments, or created a guide that helped other developers. Frame the work as an act of teaching and knowledge sharing.
-10. **The User Advocate:** Describe a change you made that was directly driven by user feedback or aimed at improving the user experience. Center the narrative on the end-user's perspective and how your work made their life better.
-11. **The Archaeologist:** Unearthing a piece of legacy code to understand its secrets and safely modify it without breaking critical functionality.
-12. **The Firefighter:** Recounting the response to a critical production incident. Detail the high-pressure situation, the diagnosis, the fix, and the follow-up to prevent recurrence.
-13. **The Diplomat:** Navigating conflicting requirements or technical opinions from different stakeholders to arrive at a successful compromise.
-14. **The Scientist:** Forming a hypothesis about a complex issue, designing and running experiments to test it, and using the data to inform the final solution.
-15. **The Gardener:** Tell the story of pruning dead code, weeding out technical debt, and tidying up a neglected corner of the codebase to improve its overall health.
-16. **The Cartographer:** Mapping out a complex, poorly understood part of the system to create clarity for the rest of the team.
-17. **The Translator:** Bridging the gap between a low-level technical API and a high-level, user-friendly interface.
-18. **The Gatekeeper:** Improving the CI/CD pipeline, enhancing automated testing, or adding linting rules to protect code quality and prevent bad merges.
-19. **The Scout:** Tasked with researching multiple potential solutions for a problem, prototyping them, and presenting a well-reasoned recommendation to the team.
-20. **The Automator:** Identifying a repetitive, manual, and error-prone process and building a tool or script to automate it, saving the team time and effort.
-21. **The Librarian:** Creating a reusable component, module, or library that can be leveraged by other developers across multiple projects.
-22. **The Juggler:** Balancing a technical migration with the ongoing development of new features, ensuring neither effort was compromised.
-23. **The Student:** Describe a time you had to learn a completely new domain or technology on the fly to complete a task.
-24. **The Visionary:** Proposing and implementing a change that wasn't a direct requirement but that you knew would unlock future capabilities for the project.
-25. **The Mechanic:** Diagnosing and fixing a subtle, intermittent bug that had been plaguing the team for a long time.
+### 1. **The Detective**
+**Compatible with**: K (all), S5-8, S17, B6
+**Incompatible with**: B4 (too solo-focused)
+**Description**: Frame the narrative as an investigation. Start with a mysterious bug, a performance issue, or an unexpected behavior. Detail the process of uncovering the root cause through debugging, logging, and analysis.
+
+### 2. **The Architect**
+**Compatible with**: K1-1, K7-7, S8, S9, B8
+**Incompatible with**: S13, S14 (these need execution focus, not design)
+**Description**: Tell the story of designing a new system, component, or feature from the ground up. Focus on the design decisions, the trade-offs considered, and the blueprint you created before writing code.
+
+### 3. **The Refactorer**
+**Compatible with**: K7-7, S17, B6, B8
+**Best for**: Maintenance and improvement work
+**Description**: Describe the process of improving existing code. Use a "before and after" structure. Show the code's initial state (e.g., complex, inefficient, hard to read) and explain how your changes improved its structure, performance, or maintainability.
+
+### 4. **The Collaborator**
+**Compatible with**: K3-2, K4-3, B4, B7, S15
+**Incompatible with**: Solo technical work
+**Description**: Center the story on teamwork. Explain how you worked with others, incorporated feedback from a code review, or contributed to a larger team effort. Highlight communication and shared ownership.
+
+### 5. **The Simplifier**
+**Compatible with**: K7-7, S17, B8
+**Best for**: Code quality improvements
+**Description**: Focus on taking a complex problem or piece of code and making it simpler. Explain how you reduced complexity, improved clarity, and made the system easier for others to understand and use.
+
+### 6. **The Pioneer**
+**Compatible with**: K5-3, K12-7, B8, B9
+**Incompatible with**: S13 (which requires following existing frameworks)
+**Description**: Talk about introducing a new technology, library, or programming paradigm to the project. Explain why you chose it, the challenges of integrating it, and the benefits it brought.
+
+### 7. **The Guardian**
+**Compatible with**: K8-3, S17, B5
+**Best for**: Security and stability work
+**Description**: Frame the work around improving the stability, security, or reliability of the application. Describe how you identified a potential risk and implemented a solution to protect the system.
+
+### 8. **The Optimizer**
+**Compatible with**: K10-2, S3-5, S5-8, B8
+**Best for**: Performance improvements
+**Description**: Focus on performance. Describe how you identified a bottleneck and implemented changes to make the code faster, more memory-efficient, or more scalable.
+
+### 9. **The Educator**
+**Compatible with**: K4-3, S8, S15, B4, B7
+**Best for**: Documentation and knowledge sharing
+**Description**: Tell the story of how you improved documentation, added helpful comments, or created a guide that helped other developers. Frame the work as an act of teaching and knowledge sharing.
+
+### 10. **The User Advocate**
+**Compatible with**: K1-1, S2-5, B8
+**Best for**: User-facing features
+**Description**: Describe a change you made that was directly driven by user feedback or aimed at improving the user experience. Center the narrative on the end-user's perspective and how your work made their life better.
+
+### 11. **The Archaeologist**
+**Compatible with**: K1-1, S17, B1, B6
+**Best for**: Legacy code work
+**Description**: Unearthing a piece of legacy code to understand its secrets and safely modify it without breaking critical functionality.
+
+### 12. **The Firefighter**
+**Compatible with**: K1-1, S5-8, B1, B6
+**Best for**: Incident response
+**Description**: Recounting the response to a critical production incident. Detail the high-pressure situation, the diagnosis, the fix, and the follow-up to prevent recurrence.
+
+### 13. **The Diplomat**
+**Compatible with**: K3-2, K4-3, B4, B7
+**Best for**: Stakeholder management
+**Description**: Navigating conflicting requirements or technical opinions from different stakeholders to arrive at a successful compromise.
+
+### 14. **The Scientist**
+**Compatible with**: K5-3, K12-7, S5-8, B8
+**Best for**: Research and testing
+**Description**: Forming a hypothesis about a complex issue, designing and running experiments to test it, and using the data to inform the final solution.
+
+### 15. **The Gardener**
+**Compatible with**: K7-7, S17, B6
+**Best for**: Technical debt reduction
+**Description**: Tell the story of pruning dead code, weeding out technical debt, and tidying up a neglected corner of the codebase to improve its overall health.
+
+### 16. **The Cartographer**
+**Compatible with**: K1-1, K3-2, S8, S9
+**Best for**: System documentation
+**Description**: Mapping out a complex, poorly understood part of the system to create clarity for the rest of the team.
+
+### 17. **The Translator**
+**Compatible with**: K4-3, S2-5, S3-5, S15
+**Best for**: API/interface work
+**Description**: Bridging the gap between a low-level technical API and a high-level, user-friendly interface.
+
+### 18. **The Gatekeeper**
+**Compatible with**: K12-7, S5-8, S13, S14, B5
+**Best for**: CI/CD and quality gates
+**Description**: Improving the CI/CD pipeline, enhancing automated testing, or adding linting rules to protect code quality and prevent bad merges.
+
+### 19. **The Scout**
+**Compatible with**: K5-3, K10-2, B8, B9
+**Best for**: Research and evaluation
+**Description**: Tasked with researching multiple potential solutions for a problem, prototyping them, and presenting a well-reasoned recommendation to the team.
+
+### 20. **The Automator**
+**Compatible with**: S3-5, S14, B6, B8
+**Best for**: Workflow automation
+**Description**: Identifying a repetitive, manual, and error-prone process and building a tool or script to automate it, saving the team time and effort.
+
+### 21. **The Librarian**
+**Compatible with**: K7-7, S17, B4
+**Best for**: Reusable components
+**Description**: Creating a reusable component, module, or library that can be leveraged by other developers across multiple projects.
+
+### 22. **The Juggler**
+**Compatible with**: K1-1, K3-2, B1, B6
+**Best for**: Multi-tasking
+**Description**: Balancing a technical migration with the ongoing development of new features, ensuring neither effort was compromised.
+
+### 23. **The Student**
+**Compatible with**: All behaviours (B1-B9)
+**Best for**: Learning experiences
+**Description**: Describe a time you had to learn a completely new domain or technology on the fly to complete a task.
+
+### 24. **The Visionary**
+**Compatible with**: K7-7, B6, B8
+**Incompatible with**: S13, S14 (these need adherence, not innovation)
+**Description**: Proposing and implementing a change that wasn't a direct requirement but that you knew would unlock future capabilities for the project.
+
+### 25. **The Mechanic**
+**Compatible with**: S5-8, S13, B1, B6
+**Best for**: Debugging
+**Description**: Diagnosing and fixing a subtle, intermittent bug that had been plaguing the team for a long time.
+
+---
 
 ## Opening Hooks
 
-1.  The project began with a deceptively simple goal.
-2.  A critical need for a more robust solution emerged when we discovered...
-3.  The initial implementation, while functional, had a significant flaw.
-4.  In response to direct user feedback about a recurring issue, I set out to...
-5.  To improve the developer experience and streamline our workflow, I focused on...
-6.  The challenge wasn't just technical; it was about balancing competing priorities.
-7.  This task started with a deep dive into the internals of a third-party library.
-8.  A performance bottleneck in the data processing module was impacting the entire application.
-9.  The path to a more scalable architecture began with a single observation.
+Use these as inspiration ONLY. Adapt to fit the actual work and context. Never use them verbatim.
+
+1. The project began with a deceptively simple goal.
+2. A critical need for a more robust solution emerged when we discovered...
+3. The initial implementation, while functional, had a significant flaw.
+4. In response to direct user feedback about a recurring issue, I set out to...
+5. To improve the developer experience and streamline our workflow, I focused on...
+6. The challenge wasn't just technical; it was about balancing competing priorities.
+7. This task started with a deep dive into the internals of a third-party library.
+8. A performance bottleneck in the data processing module was impacting the entire application.
+9. The path to a more scalable architecture began with a single observation.
 10. A seemingly minor bug report led me down a rabbit hole to uncover a deeper issue.
 11. The core objective was to refactor a critical piece of legacy code.
 12. To enhance the application's security posture, I undertook the task of...
@@ -83,55 +186,134 @@ This file contains a collection of narrative angles, opening hooks, and reflecti
 49. The final piece of the puzzle was to...
 50. This work laid the foundation for a more interactive and dynamic user experience.
 
-## Reflection Phrases
+---
 
-1.  This project was a powerful lesson in the importance of clear requirements.
-2.  A key takeaway was the delicate balance between perfection and shipping.
-3.  This experience solidified my understanding of core asynchronous programming concepts.
-4.  It challenged my assumptions about the performance characteristics of our database.
-5.  This work reinforced the value of writing idempotent scripts.
-6.  What I found most rewarding was seeing the direct, positive impact on our users' workflow.
-7.  This effort highlighted the critical, yet often overlooked, link between code readability and maintainability.
-8.  I came to appreciate the foresight required to build extensible software.
-9.  The most difficult challenge was navigating the ambiguity in the original specification.
-10. This experience gave me a deeper empathy for junior developers and the importance of good mentorship.
-11. It was a stark reminder that the cleanest code is often the code that was never written.
-12. This project honed my skills in debugging complex, multi-threaded race conditions.
-13. I learned the importance of writing clear and concise documentation alongside any non-obvious code.
-14. This task underscored the necessity of a comprehensive and fast test suite.
-15. The feedback I received during code review was instrumental in shaping the final, elegant solution.
-16. This was a case study in the trade-offs between a quick fix and a sustainable, long-term design.
-17. I gained a newfound respect for the maintainers of the open-source libraries we depend on.
-18. This work demonstrated that a small, well-placed change can have a massive, positive ripple effect.
-19. It was a valuable experience in communicating complex technical decisions to non-technical stakeholders.
-20. This project taught me to be more deliberate in my approach to error handling.
-21. I realized the power of a well-defined data contract in a microservices architecture.
-22. This experience helped me grow more confident in my ability to navigate large, unfamiliar codebases.
-23. It was a fascinating deep dive into a part of the web platform I hadn't explored before.
-24. This task highlighted the importance of considering internationalization and localization from the start.
-25. Ultimately, this work was about more than just code; it was about improving the way our team collaborates.
-26. This reinforced my belief in the "You Ain't Gonna Need It" (YAGNI) principle.
-27. I learned to appreciate the power of a well-defined interface to hide implementation complexity.
-28. The exercise was a practical lesson in the principles of defensive programming.
-29. It underscored the importance of idempotent operations in building reliable distributed systems.
-30. I became much more adept at using the browser's performance profiling tools to hunt down bottlenecks.
-31. This experience was a masterclass in advanced Git usage, especially interactive rebasing.
-32. It highlighted the subtle but critical difference between concurrency and parallelism.
-33. I developed a deeper intuition for when to choose a relational vs. a non-relational data store.
-34. The project demystified the inner workings of the framework's dependency injection system for me.
-35. This was a humbling reminder that even a one-line change can have profound and unexpected consequences.
-36. I learned that sometimes the best solution is to take a step back and simplify the problem itself.
-37. This task drove home the importance of structured logging for observability.
-38. It was a lesson in the art of making incremental, backward-compatible changes to a live system.
-39. I gained a practical understanding of how cryptographic signing works.
-40. This experience taught me to value progress over perfection, especially in the early stages of a project.
-41. It highlighted the power of static analysis tools to catch entire classes of bugs before runtime.
-42. I learned to write code that was not just correct, but also easy to delete.
-43. This project gave me a better appreciation for the challenges of API design.
-44. It was a reminder that user-facing performance is a feature, not an afterthought.
-45. I became more comfortable with the ambiguity that comes with solving open-ended problems.
-46. This task taught me the value of building a minimal, reproducible example when reporting a bug.
-47. It was a great experience in feature flagging and rolling out changes gradually to users.
-48. I learned that a well-placed comment explaining the "why" of a piece of code is invaluable.
-49. This project helped me understand the true cost of technical debt.
-50. It was a powerful demonstration of how a shared code ownership model can improve quality.
+## KSB-Specific Reflection Prompts
+
+Instead of generic reflection phrases, use these targeted questions based on the KSB type:
+
+### For Knowledge KSBs (K-prefix)
+
+**K1-1 (SDLC):**
+- How did this work fit into the broader software development lifecycle?
+- What did you learn about the importance of this stage?
+- How would you approach this stage differently in future projects?
+
+**K3-2 (Project roles):**
+- How did working with [specific role] change your approach?
+- What did you learn about your own role and responsibilities?
+- How did understanding team structure improve your contribution?
+
+**K4-3 (Communication methods):**
+- Why did you choose this communication method for this situation?
+- What did you learn about adapting your message to different audiences?
+- How would you communicate this differently to a non-technical stakeholder?
+
+**K5-3 (Agile vs Waterfall):**
+- How did the methodology choice affect your approach to this work?
+- What did you learn about the benefits and limitations of this approach?
+- When would you choose a different methodology and why?
+
+**K7-7 (Design patterns):**
+- Why was this pattern the right solution for this problem?
+- What did you learn about when to apply (or not apply) this pattern?
+- How did using an established pattern improve your solution?
+
+**K8-3 (Policies/GDPR):**
+- How did organizational policies influence your technical decisions?
+- What did you learn about the importance of compliance?
+- How would you ensure future work meets these requirements?
+
+**K10-2 (Databases):**
+- Why did you choose this type of database for this use case?
+- What did you learn about the trade-offs between relational and non-relational approaches?
+- When would you make a different choice?
+
+**K12-7 (Testing frameworks/methodologies):**
+- What did you learn about different types of testing?
+- How did understanding testing methodologies improve your approach?
+- What testing strategy would you use for a similar problem?
+
+### For Skill KSBs (S-prefix)
+
+**S2-5 (UI development):**
+- What did you learn about creating effective user interfaces?
+- How did you ensure your UI was intuitive and accessible?
+- What would you do differently to improve the user experience?
+
+**S3-5 (Link code to data):**
+- What challenges did you face in managing data flow?
+- How did you ensure data integrity and error handling?
+- What did you learn about working with this data source?
+
+**S5-8 (Range of test types):**
+- What did you learn from implementing different test types?
+- How did comprehensive testing improve the quality of your solution?
+- Which test types provided the most value and why?
+
+**S8 (Create designs):**
+- How did creating a design diagram clarify your implementation?
+- What did you learn about communicating technical concepts visually?
+- How would you improve your design artifacts in future?
+
+**S9 (User stories/use cases):**
+- How did writing structured requirements guide your development?
+- What did you learn about translating user needs into technical specs?
+- How would you improve your requirements analysis process?
+
+**S13 (Follow testing frameworks):**
+- What did you learn about using this testing framework effectively?
+- How did following established patterns improve your test quality?
+- What testing best practices would you apply in future?
+
+**S14 (CI/CD, version control):**
+- How did your version control workflow support team collaboration?
+- What did you learn about managing code changes effectively?
+- How would you improve your Git/CI workflow in future?
+
+**S15 (Communicate to stakeholders):**
+- How did you adapt your communication for different audiences?
+- What did you learn about explaining technical concepts clearly?
+- How would you improve your communication approach next time?
+
+**S17 (Implement with security/maintainability):**
+- What security or maintainability considerations guided your implementation?
+- What did you learn about writing secure, maintainable code?
+- How would you improve the quality of your implementation?
+
+### For Behaviour KSBs (B-prefix)
+
+**B1 (Independence and responsibility):**
+- How did you demonstrate ownership of this work?
+- What challenges did you overcome independently?
+- How has this experience developed your self-management skills?
+
+**B4 (Collaborative working):**
+- How did you contribute to team success in this work?
+- What did you learn about working with diverse colleagues?
+- How did collaboration improve the final outcome?
+
+**B5 (Integrity/ethics):**
+- How did ethical or legal considerations influence your decisions?
+- What did you learn about responsible software development?
+- How will you ensure integrity in future work?
+
+**B6 (Initiative and resourcefulness):**
+- What motivated you to be proactive in this situation?
+- How did you demonstrate resourcefulness in solving problems?
+- How has this developed your problem-solving approach?
+
+**B7 (Effective communication):**
+- How did you adapt your communication to this situation?
+- What did you learn about communicating effectively?
+- How will you improve your communication skills going forward?
+
+**B8 (Curiosity about business context):**
+- How did understanding the business context improve your solution?
+- What did you learn about the impact of your technical work?
+- How will you maintain curiosity about the "why" in future projects?
+
+**B9 (Professional development):**
+- What new skills or knowledge did you develop through this work?
+- How did you approach learning this new area?
+- What will you continue learning to build on this experience?
