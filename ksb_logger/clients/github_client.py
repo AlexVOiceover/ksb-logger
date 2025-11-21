@@ -1,7 +1,8 @@
-import requests
 import logging
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+
+import requests
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
@@ -47,7 +48,7 @@ class GitHubClient:
         files_url = pr_api_url + "/files"
         try:
             files_data = self._make_request(files_url)
-            
+
             file_changes = []
             for file_info in files_data:
                 # Extract key information about each changed file
@@ -61,7 +62,7 @@ class GitHubClient:
                     'language': self._detect_language_from_filename(file_info.get('filename', ''))
                 }
                 file_changes.append(file_change)
-            
+
             return file_changes
         except GitHubAPIError as e:
             logging.warning(f"Could not fetch file changes for PR {pr_api_url}: {e}")
@@ -74,14 +75,14 @@ class GitHubClient:
         """Detect programming language from file extension."""
         if not filename:
             return 'text'
-        
+
         extension = filename.split('.')[-1].lower() if '.' in filename else ''
-        
+
         language_map = {
             'js': 'javascript',
             'jsx': 'javascript',
             'ts': 'typescript',
-            'tsx': 'typescript', 
+            'tsx': 'typescript',
             'py': 'python',
             'java': 'java',
             'cpp': 'cpp',
@@ -104,7 +105,7 @@ class GitHubClient:
             'md': 'markdown',
             'dockerfile': 'dockerfile'
         }
-        
+
         return language_map.get(extension, 'text')
 
     def get_commit_file_changes(self, repo_owner: str, repo_name: str, commit_sha: str) -> List[Dict[str, Any]]:
@@ -113,7 +114,7 @@ class GitHubClient:
         try:
             commit_data = self._make_request(commit_url)
             files = commit_data.get('files', [])
-            
+
             file_changes = []
             for file_info in files:
                 file_change = {
@@ -126,7 +127,7 @@ class GitHubClient:
                     'language': self._detect_language_from_filename(file_info.get('filename', ''))
                 }
                 file_changes.append(file_change)
-            
+
             return file_changes
         except GitHubAPIError as e:
             logging.warning(f"Could not fetch file changes for commit {commit_sha}: {e}")
@@ -166,36 +167,36 @@ class GitHubClient:
 
     def search_pull_requests_by_author(self, username: str) -> List[PullRequest]:
         """Search for pull requests authored by a user across all of GitHub."""
-        
+
         # GitHub search API for PRs authored by user
         url = f"https://api.github.com/search/issues?q=type:pr+author:{username}&per_page=100"
-        
+
         all_pull_requests = []
         page_num = 1
-        
+
         logging.info(f"Starting search for PRs authored by {username}")
-        
+
         while url:
             try:
                 logging.info(f"Fetching page {page_num} of search results...")
                 search_data = self._make_request(url)
                 items = search_data.get('items', [])
                 total_count = search_data.get('total_count', 0)
-                
+
                 logging.info(f"Found {len(items)} PRs on page {page_num} (total available: {total_count})")
-                
+
                 for i, pr_item in enumerate(items, 1):
                     # Extract PR details from search result
                     pr_number = pr_item["number"]
                     pr_url = pr_item["pull_request"]["url"]  # API URL
                     html_url = pr_item["pull_request"]["html_url"]  # Web URL
                     repo_name = pr_item.get("repository_url", "").split("/")[-1] if pr_item.get("repository_url") else "unknown"
-                    
+
                     logging.info(f"Processing PR {i}/{len(items)}: #{pr_number} in {repo_name}")
-                    
+
                     # Get full PR details
                     pr_details = self._make_request(pr_url)
-                    
+
                     # Fetch commit messages
                     commits_url = pr_url + "/commits"
                     commit_messages = []
@@ -205,10 +206,10 @@ class GitHubClient:
                             commit_messages.append(commit["commit"]["message"])
                     except GitHubAPIError as e:
                         logging.warning(f"Could not fetch commits for PR {pr_number}: {e}")
-                    
+
                     # Fetch file changes
                     file_changes = self.get_pr_file_changes(pr_url)
-                    
+
                     all_pull_requests.append(PullRequest(
                         id=pr_number,
                         title=pr_details["title"],
@@ -219,66 +220,66 @@ class GitHubClient:
                         comments=[],
                         file_changes=file_changes
                     ))
-                
+
                 # Check for next page in search results
                 response = requests.get(url, headers=self.headers)
                 url = response.links.get('next', {}).get('url')
                 page_num += 1
-                
+
             except GitHubAPIError as e:
                 logging.error(f"Failed to search for pull requests: {e}")
                 break
             except Exception as e:
                 logging.error(f"An unexpected error occurred while searching PRs: {e}")
                 break
-        
+
         return all_pull_requests
 
 
     def search_pull_requests_by_author_filtered(self, username: str, selected_repos: List[Dict[str, Any]]) -> List[PullRequest]:
         """Search for pull requests authored by a user, filtered to specific repositories."""
-        
+
         # Create a set of selected repository names for efficient lookup
         selected_repo_names = {f"{repo['owner']['login']}/{repo['name']}" for repo in selected_repos}
-        
+
         # Build search query with repository filter - GitHub search supports multiple repo: filters
         repo_filters = " ".join([f"repo:{repo['owner']['login']}/{repo['name']}" for repo in selected_repos])
         query = f"type:pr author:{username} {repo_filters}"
         url = f"https://api.github.com/search/issues?q={query}&per_page=100"
-        
+
         all_pull_requests = []
         page_num = 1
-        
+
         logging.info(f"Searching for PRs authored by {username} in {len(selected_repos)} selected repositories")
         logging.info(f"Search query: {query}")
-        
+
         while url:
             try:
                 logging.info(f"Fetching page {page_num} of filtered search results...")
                 search_data = self._make_request(url)
                 items = search_data.get('items', [])
                 total_count = search_data.get('total_count', 0)
-                
+
                 logging.info(f"Found {len(items)} PRs on page {page_num} (total available: {total_count})")
-                
+
                 for i, pr_item in enumerate(items, 1):
                     # Extract PR details from search result
                     pr_number = pr_item["number"]
                     pr_url = pr_item["pull_request"]["url"]  # API URL
                     html_url = pr_item["pull_request"]["html_url"]  # Web URL
-                    repo_name = pr_item.get("repository_url", "").split("/")[-2:] 
+                    repo_name = pr_item.get("repository_url", "").split("/")[-2:]
                     repo_full_name = "/".join(repo_name[-2:]) if len(repo_name) >= 2 else "unknown"
-                    
+
                     # Double-check that this PR is from a selected repository
                     if repo_full_name not in selected_repo_names:
                         logging.debug(f"Skipping PR #{pr_number} from unselected repo {repo_full_name}")
                         continue
-                    
+
                     logging.info(f"Processing PR {i}/{len(items)}: #{pr_number} in {repo_full_name}")
-                    
+
                     # Get full PR details
                     pr_details = self._make_request(pr_url)
-                    
+
                     # Fetch commit messages
                     commits_url = pr_url + "/commits"
                     commit_messages = []
@@ -288,10 +289,10 @@ class GitHubClient:
                             commit_messages.append(commit["commit"]["message"])
                     except GitHubAPIError as e:
                         logging.warning(f"Could not fetch commits for PR {pr_number}: {e}")
-                    
+
                     # Fetch file changes
                     file_changes = self.get_pr_file_changes(pr_url)
-                    
+
                     all_pull_requests.append(PullRequest(
                         id=pr_number,
                         title=pr_details["title"],
@@ -302,28 +303,28 @@ class GitHubClient:
                         comments=[],
                         file_changes=file_changes
                     ))
-                
+
                 # Check for next page in search results
                 response = requests.get(url, headers=self.headers)
                 url = response.links.get('next', {}).get('url')
                 page_num += 1
-                
+
             except GitHubAPIError as e:
                 logging.error(f"Failed to search for filtered pull requests: {e}")
                 break
             except Exception as e:
                 logging.error(f"An unexpected error occurred while searching filtered PRs: {e}")
                 break
-        
+
         logging.info(f"Completed filtered search. Found {len(all_pull_requests)} PRs from selected repositories.")
         return all_pull_requests
 
     def get_all_user_repositories(self, username: str) -> List[Dict[str, Any]]:
         """Get ALL repositories where the user has activity (personal + organization), sorted newest to oldest."""
         all_repos = {}  # Use dict to deduplicate by repo ID
-        
+
         logging.info(f"Fetching all repositories where {username} has activity...")
-        
+
         # 1. Get all personal repositories (public + private)
         try:
             personal_repos = self.get_user_public_repos(username)
@@ -333,46 +334,84 @@ class GitHubClient:
             logging.info(f"Found {len(personal_repos)} personal repositories")
         except GitHubAPIError as e:
             logging.warning(f"Could not fetch personal repositories: {e}")
-        
+
         # 2. Find organization repositories by searching for user's activity
         try:
             # Search for repositories where user has activity (commits, PRs, issues)
             search_queries = [
                 f"author:{username}",  # Repositories where user has commits
                 f"committer:{username}",  # Repositories where user committed
+                f"involves:{username}",  # Repositories where user is involved (broader search)
             ]
-            
+
             for query in search_queries:
-                url = f"https://api.github.com/search/repositories?q={query}&per_page=100&sort=updated&order=desc"
-                
-                try:
-                    search_data = self._make_request(url)
-                    items = search_data.get('items', [])
-                    
-                    for repo in items:
-                        # Skip if it's owned by the user (already got personal repos)
-                        if repo['owner']['login'] != username:
-                            repo['repo_type'] = 'organization'
-                            all_repos[repo['id']] = repo
-                    
-                    logging.info(f"Search query '{query}' found {len(items)} additional repositories")
-                    
-                except GitHubAPIError as e:
-                    logging.warning(f"Search query '{query}' failed: {e}")
-            
+                page = 1
+                query_total = 0
+
+                while page <= 10:  # Limit to 10 pages (1000 results) per query to avoid rate limits
+                    url = f"https://api.github.com/search/repositories?q={query}&per_page=100&page={page}&sort=updated&order=desc"
+
+                    try:
+                        search_data = self._make_request(url)
+                        items = search_data.get('items', [])
+
+                        if not items:
+                            break  # No more results
+
+                        for repo in items:
+                            # Skip if it's owned by the user (already got personal repos)
+                            if repo['owner']['login'] != username:
+                                repo['repo_type'] = 'organization'
+                                all_repos[repo['id']] = repo
+
+                        query_total += len(items)
+                        page += 1
+
+                        # If we got fewer than 100 results, we've reached the end
+                        if len(items) < 100:
+                            break
+
+                    except GitHubAPIError as e:
+                        logging.warning(f"Search query '{query}' page {page} failed: {e}")
+                        break
+
+                if query_total > 0:
+                    logging.info(f"Search query '{query}' found {query_total} additional repositories")
+
             # Also search for repositories via PR search to find repos where user only has PRs
+            # This includes both open and merged PRs
             try:
-                pr_search_url = f"https://api.github.com/search/issues?q=type:pr+author:{username}&per_page=100"
-                pr_search_data = self._make_request(pr_search_url)
-                pr_items = pr_search_data.get('items', [])
-                
-                # Extract unique repositories from PR search
                 pr_repo_urls = set()
-                for pr_item in pr_items:
-                    repo_url = pr_item.get('repository_url', '')
-                    if repo_url:
-                        pr_repo_urls.add(repo_url)
-                
+
+                # Search for merged PRs (most important for finding repos with accepted contributions)
+                for pr_state in ['is:merged', 'is:open', 'is:closed']:
+                    page = 1
+                    while page <= 10:  # Limit to 10 pages per state (1000 results)
+                        pr_search_url = f"https://api.github.com/search/issues?q=type:pr+{pr_state}+author:{username}&per_page=100&page={page}"
+
+                        try:
+                            pr_search_data = self._make_request(pr_search_url)
+                            pr_items = pr_search_data.get('items', [])
+
+                            if not pr_items:
+                                break  # No more results
+
+                            # Extract unique repositories from PR search
+                            for pr_item in pr_items:
+                                repo_url = pr_item.get('repository_url', '')
+                                if repo_url:
+                                    pr_repo_urls.add(repo_url)
+
+                            page += 1
+
+                            # If we got fewer than 100 results, we've reached the end
+                            if len(pr_items) < 100:
+                                break
+
+                        except GitHubAPIError as e:
+                            logging.warning(f"PR search for '{pr_state}' page {page} failed: {e}")
+                            break
+
                 # Fetch repository details for repos found via PR search
                 for repo_url in pr_repo_urls:
                     try:
@@ -382,35 +421,35 @@ class GitHubClient:
                             all_repos[repo_data['id']] = repo_data
                     except GitHubAPIError as e:
                         logging.warning(f"Could not fetch repository details for {repo_url}: {e}")
-                
-                logging.info(f"PR search found {len(pr_repo_urls)} additional repositories")
-                
-            except GitHubAPIError as e:
+
+                logging.info(f"PR search found {len(pr_repo_urls)} repositories with user PRs")
+
+            except Exception as e:
                 logging.warning(f"PR search failed: {e}")
-        
+
         except Exception as e:
             logging.warning(f"Could not search for organization repositories: {e}")
-        
-        # 3. Convert to list and sort by created_at (newest first)  
+
+        # 3. Convert to list and sort by created_at (newest first)
         repo_list = list(all_repos.values())
         repo_list.sort(key=lambda r: r.get('created_at', ''), reverse=True)
-        
+
         # 4. Separate and interleave personal vs organization repos
         personal_repos = [r for r in repo_list if r.get('repo_type') == 'personal']
         org_repos = [r for r in repo_list if r.get('repo_type') == 'organization']
-        
+
         # Interleave: personal, org, personal, org, etc.
         interleaved_repos = []
         max_len = max(len(personal_repos), len(org_repos))
-        
+
         for i in range(max_len):
             if i < len(personal_repos):
                 interleaved_repos.append(personal_repos[i])
             if i < len(org_repos):
                 interleaved_repos.append(org_repos[i])
-        
+
         logging.info(f"Total repositories found: {len(interleaved_repos)} ({len(personal_repos)} personal, {len(org_repos)} organization)")
-        
+
         return interleaved_repos
 
     def get_pull_requests(self, username: str) -> List[PullRequest]:
@@ -430,7 +469,7 @@ class GitHubClient:
             # GitHub API for listing pull requests in a repository
             # state=all includes open, closed, and merged PRs
             url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/pulls?state=all&per_page=100"
-            
+
             while url:
                 try:
                     prs_data = self._make_request(url)
@@ -474,32 +513,32 @@ class GitHubClient:
     def get_commits_by_author(self, username: str, selected_repos: List[Dict[str, Any]]) -> List[PullRequest]:
         """Fetch commits authored by a user from selected repositories, grouped as pseudo-PRs."""
         all_commits = []
-        
+
         logging.info(f"Fetching commits authored by {username} from {len(selected_repos)} selected repositories...")
-        
+
         for repo in selected_repos:
             repo_owner = repo['owner']['login']
             repo_name = repo['name']
             repo_full_name = f"{repo_owner}/{repo_name}"
-            
+
             logging.info(f"Fetching commits from {repo_full_name}...")
-            
+
             # GitHub API for listing commits in a repository
             url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/commits?author={username}&per_page=100"
-            
+
             repo_commits = []
             page_num = 1
-            
+
             while url:
                 try:
                     logging.info(f"Fetching page {page_num} of commits from {repo_full_name}...")
                     commits_data = self._make_request(url)
-                    
+
                     if not commits_data:
                         break
-                        
+
                     logging.info(f"Found {len(commits_data)} commits on page {page_num}")
-                    
+
                     for commit in commits_data:
                         # Only include commits where the user is the author
                         if commit.get('author') and commit['author'].get('login') == username:
@@ -509,30 +548,30 @@ class GitHubClient:
                                 'date': commit['commit']['author']['date'],
                                 'url': commit['html_url']
                             })
-                    
+
                     # Check for next page
                     response = requests.get(url, headers=self.headers)
                     url = response.links.get('next', {}).get('url')
                     page_num += 1
-                    
+
                 except GitHubAPIError as e:
                     logging.error(f"Failed to fetch commits from {repo_full_name}: {e}")
                     break
                 except Exception as e:
                     logging.error(f"An unexpected error occurred while fetching commits from {repo_full_name}: {e}")
                     break
-            
+
             if repo_commits:
                 # Group commits into a single "pseudo-PR" for each repository
                 commit_messages = [commit['message'] for commit in repo_commits]
                 latest_commit = repo_commits[0] if repo_commits else None
-                
+
                 # Collect file changes from all commits (limited to avoid too much data)
                 all_file_changes = []
                 for commit in repo_commits[:5]:  # Limit to first 5 commits to avoid huge data
                     commit_file_changes = self.get_commit_file_changes(repo_owner, repo_name, commit['sha'])
                     all_file_changes.extend(commit_file_changes)
-                
+
                 # Create a pseudo-PR object representing all commits from this repo
                 # Use repo ID + large offset to avoid conflicts with actual PR IDs
                 pseudo_pr = PullRequest(
@@ -545,9 +584,9 @@ class GitHubClient:
                     comments=[],
                     file_changes=all_file_changes
                 )
-                
+
                 all_commits.append(pseudo_pr)
                 logging.info(f"Created pseudo-PR for {repo_full_name} with {len(repo_commits)} commits")
-        
+
         logging.info(f"Completed commit fetching. Created {len(all_commits)} pseudo-PRs from commit analysis.")
         return all_commits
